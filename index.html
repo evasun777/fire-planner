@@ -231,17 +231,17 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
  </div>
 
  <div class="card">
-  <h2>5. 如果想按时退休</h2>
-  <div class="note">如果选择“买房”，上面的总财富目标包含房产预算；如果选择“租房”，房产预算为 $0，但租金会持续进入退休后的年度支出，所以会提高所需可投资资产。</div>
+  <h2 id="retireOnTimeTitle">5. 如果想按时退休</h2>
+  <div class="note" id="retireOnTimeNote">如果选择“买房”，上面的总财富目标包含房产预算；如果选择“租房”，房产预算为 $0，但租金会持续进入退休后的年度支出，所以会提高所需可投资资产。</div>
   <div class="solution" style="margin-top:9px">
-   <div class="solvebox"><div class="slabel">所需家庭税前年收入</div><div class="snum" id="requiredIncome">—</div><div class="stext" id="incomeDelta">—</div><div class="stext" id="incomeDeltaPct"></div></div>
-   <div class="solvebox"><div class="slabel">或者每年少花</div><div class="snum" id="spendCut">—</div><div class="stext">如果收入不变，从现在到退休平均需要减少的年度支出。</div></div>
+   <div class="solvebox"><div class="slabel" id="requiredIncomeLabel">所需家庭税前年收入</div><div class="snum" id="requiredIncome">—</div><div class="stext" id="incomeDelta">—</div><div class="stext" id="incomeDeltaPct"></div></div>
+   <div class="solvebox"><div class="slabel" id="spendCutLabel">或者每年少花</div><div class="snum" id="spendCut">—</div><div class="stext" id="spendCutDesc">如果收入不变，从现在到退休平均需要减少的年度支出。</div></div>
   </div>
  </div>
 
  <div class="card">
  <div class="chart-head">
-   <h2 style="margin:0">6. 年度收入、支出、总资产（至80岁）</h2>
+   <h2 id="projectionSectionTitle" style="margin:0">6. 年度收入、支出、总资产（至80岁）</h2>
    <div class="chart-toggle">
     <button id="projectionCurrentBtn" type="button" class="active">当前路径</button>
     <button id="projectionTargetBtn" type="button">达标路径</button>
@@ -619,6 +619,36 @@ States with no personal income tax (TX / WA / FL) are treated as 0 state income 
   if(bayBaseDesc) bayBaseDesc.textContent=L('bayBaseSpendDesc');
   const lifestyleInfo=$('lifestyleInfo');
   if(lifestyleInfo) lifestyleInfo.innerHTML=L('lifestyleAssumption');
+  const retireOnTimeTitle=$('retireOnTimeTitle');
+  if(retireOnTimeTitle) retireOnTimeTitle.textContent=S.lang==='en'
+    ? '5. If You Want to Retire on Time'
+    : (S.lang==='bilingual'
+      ? '5. 如果想按时退休 / If You Want to Retire on Time'
+      : '5. 如果想按时退休');
+  const retireOnTimeNote=$('retireOnTimeNote');
+  if(retireOnTimeNote) retireOnTimeNote.textContent=S.lang==='en'
+    ? 'If you choose buy, the top wealth target includes a housing budget; if you choose rent, housing budget is $0, but rent continues into retirement spending, which increases required investable assets.'
+    : (S.lang==='bilingual'
+      ? '如果选择“买房”，上面的总财富目标包含房产预算；如果选择“租房”，房产预算为 $0，但租金会持续进入退休后的年度支出，所以会提高所需可投资资产。 / If you choose buy, the top wealth target includes a housing budget; if you choose rent, housing budget is $0, but rent continues into retirement spending, which increases required investable assets.'
+      : '如果选择“买房”，上面的总财富目标包含房产预算；如果选择“租房”，房产预算为 $0，但租金会持续进入退休后的年度支出，所以会提高所需可投资资产。');
+  const requiredIncomeLabel=$('requiredIncomeLabel');
+  if(requiredIncomeLabel) requiredIncomeLabel.textContent=S.lang==='en'
+    ? 'Required gross household income'
+    : (S.lang==='bilingual'
+      ? '所需家庭税前年收入 / Required gross household income'
+      : '所需家庭税前年收入');
+  const spendCutLabel=$('spendCutLabel');
+  if(spendCutLabel) spendCutLabel.textContent=S.lang==='en'
+    ? 'Or spend less each year'
+    : (S.lang==='bilingual'
+      ? '或者每年少花 / Or spend less each year'
+      : '或者每年少花');
+  const spendCutDesc=$('spendCutDesc');
+  if(spendCutDesc) spendCutDesc.textContent=S.lang==='en'
+    ? 'If income stays unchanged, this is the average annual spending reduction needed from now until retirement.'
+    : (S.lang==='bilingual'
+      ? '如果收入不变，从现在到退休平均需要减少的年度支出。 / If income stays unchanged, this is the average annual spending reduction needed from now until retirement.'
+      : '如果收入不变，从现在到退休平均需要减少的年度支出。');
   const livingEditorSummary=$('livingEditorSummary');
   if(livingEditorSummary) livingEditorSummary.textContent=S.lang==='en'
     ? 'ⓘ Adjust spending detail / Edit living breakdown'
@@ -685,6 +715,12 @@ States with no personal income tax (TX / WA / FL) are treated as 0 state income 
       : `年度总支出 = 住房 + 生活 + 旅行 + 父母 / 家人支持 + 孩子。医疗现在已经并入生活费，不再在顶层重复计算。家庭模式下按 2 个成人计算；选择租房时，住房用租金，不用房贷 + 持有成本。`
     }</div>`;
   }
+  const projectionSectionTitle=$('projectionSectionTitle');
+  if(projectionSectionTitle) projectionSectionTitle.textContent=S.lang==='en'
+    ? '6. Annual income, spending, and total assets (to age 80)'
+    : (S.lang==='bilingual'
+      ? '6. 年度收入、支出、总资产（至80岁） / Annual income, spending, and total assets (to age 80)'
+      : '6. 年度收入、支出、总资产（至80岁）');
   const livingTotal=bayBaseSpend();
   if($('bayBaseSpend')) $('bayBaseSpend').value=livingTotal;
   $('bayBaseSpendV').textContent=money(livingTotal)+'/yr';

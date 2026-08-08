@@ -10,7 +10,8 @@
   - `双成人家庭`：2 个成人 + 同样的孩子数量。
 - 双成人家庭不是把全部支出简单乘 2：
   - 住房会按家庭规模升级。
-  - 第二位成人只增加边际成本，如餐饮、衣物、交通、医疗等。
+  - 第二位成人只增加边际成本，如餐饮、衣物、交通和日常生活等。
+  - 医疗现在并入生活费，不再在顶层支出里单独重复计算。
 - 卧室数按以下规则估算：
   - `卧室数 = 成人数 + 孩子数`
   - 1-2 居价格目前按同城 3 居基准做规划型比例估算
@@ -23,7 +24,8 @@
 - 退休 / 工作可选年龄不能早于当前年龄。
 - 年度模拟从当前年龄开始，并至少延伸到 80 岁。
 - 若选择 `回国`：
-  - 在设定的 `全家回国年龄` 开始切换到中国退休/半退休城市成本。
+  - 模型会直接使用 `预期退休 / 工作可选年龄` 作为切换点。
+  - 也就是说，回国年龄与退休年龄合并为同一个时间点。
 - 若选择 `留在美国`：
   - 不使用回国年龄。
   - 不切换到中国城市成本。
@@ -140,6 +142,7 @@
 
 - 退休时所需可投资资产 = 永久性年度支出 / 4% + 孩子剩余支出现值 + 退休后剩余房贷付款现值
 - 退休时所需总财富 = 所需可投资资产 + 房产预算 / 房屋净值口径
+- 如果选择 `回国`，退休年龄也是回国切换年龄，因此孩子学校、生活费和住房都会从该年龄开始切到退休地点口径。
 - 如果选择买房：
   - 总财富目标包含房屋净值
   - 不会把整套房价重复加一遍
@@ -162,19 +165,32 @@
   - 右轴显示总财富
 - 图表细分模式：
   - 0 线上方 = 本人税后收入 / 伴侣税后收入 / 退休后资产提取 / 投资收益
-  - 0 线下方 = 住房 / 基础生活 / 医疗 / 旅行 / 父母支持 / 托育或教育
+  - 0 线下方 = 住房 / 基础生活 / 旅行 / 父母支持 / 托育或教育
 - 退休后可支配收入与资产增长是分开口径展示的，不重复计算资产提取。
 
 ## 12. 城市规划型假设
 
 - 固定生活费的计算口径：
   - 以湾区年度基础生活费作为基准
-  - 默认基准值来自你的输入：`$70,000/年`，且不含房贷
+  - 默认基准值来自你的去年 spending snapshot 校准结果：当前家庭默认约 `"$20,800/年"`，且不含房贷和旅行
   - 其他城市的固定生活费按 `湾区基准 × 城市系数` 推导
   - 城市系数是本 dashboard 的规划型假设，不是官方统计口径
+  - 生活费会进一步拆成 food / goods / insurance / medical / misc，医疗已并入生活费，不再作为顶层单独重复
+- 当前默认拆分大致为：
+  - food：`$5.2k/年`（family default；单人模式约 `$3.6k/年`）
+  - goods：`$5.8k/年`
+  - insurance / postage：`$1.8k/年`
+  - medical：`$2.5k/年`
+  - misc：`$5.5k/年`
+  - 这些数是按你去年的 grocery / restaurants / shopping / insurance / medical / utilities / transport 等 spending 轮廓做的规划型近似，不是精确逐项报销口径
 - 资源说明：
   - 城市说明里的 `Resource` 链接会指向 [`ASSUMPTIONS.md`](/Users/yiwei/Documents/vibe%20coding%20work/fire%20planner/ASSUMPTIONS.md)
   - 城市说明里也会显示该城市的系数和推导公式
+  - 参考数据主要来自：
+    - [BLS Consumer Expenditures 2024](https://www.bls.gov/news.release/cesan.nr0.htm)
+    - [BLS The Economics Daily: Housing and transportation accounted for 50 percent of household spending in 2024](https://www.bls.gov/opub/ted/2026/housing-and-transportation-accounted-for-50-percent-of-household-spending-in-2024.htm)
+    - [KFF Employer-Sponsored Health Insurance 2025](https://www.kff.org/health-costs/health-policy-101-employer-sponsored-health-insurance/)
+    - [KFF How Much do People with Employer Plans Spend Out-of-Pocket on Cost-Sharing?](https://www.kff.org/health-costs/how-much-do-people-with-employer-plans-spend-out-of-pocket-on-cost-sharing/)
 
 ### 湾区
 
@@ -182,11 +198,13 @@
 - 4 居租金：`$8,000/月`
 - 3 居买房预算：`$1.9M`
 - 4 居买房预算：`$2.3M`
-- 1 成人基础生活：`$36,000/年`
-- 第二成人增量：`$22,000/年`
-- 1 成人医疗：`$12,000/年`
-- 第二成人医疗：`$8,500/年`
-- 旅行：`$18,000/年`
+- 当前家庭基础生活：`$20,800/年`（不含房贷和旅行）
+- food：`$5.2k/年`
+- goods：`$5.8k/年`
+- insurance / postage：`$1.8k/年`
+- medical：`$2.5k/年`
+- misc：`$5.5k/年`
+- 说明：这套拆分是按你去年 spending snapshot 做的规划型近似，医疗现在只作为生活费内部的 medical slice 使用，不再额外叠加到顶层支出。
 
 ### 纽约
 

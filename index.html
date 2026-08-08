@@ -11,9 +11,9 @@
 .sticky{position:sticky;top:0;z-index:30;background:rgba(245,242,237,.95);backdrop-filter:blur(12px);padding:7px 0 9px}.kpis{display:grid;grid-template-columns:1fr 1fr;gap:7px}.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:11px}.kpi.primary{background:var(--dark);color:#fff}
 .lab{font-size:9.5px;color:var(--muted);line-height:1.3}.primary .lab{color:#d5cec7}.num{font-size:22px;font-weight:850;letter-spacing:-.03em;margin-top:4px}.sub{font-size:9px;color:#999087;margin-top:4px;line-height:1.35}.primary .sub{color:#ccc5be}
 .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:9px}.card h2{font-size:14px;margin:0 0 10px}.desc{font-size:10px;color:var(--muted);line-height:1.5;margin:-4px 0 10px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.choice-label{font-size:11px;font-weight:750;margin-bottom:7px}.seg{display:flex;gap:6px;flex-wrap:wrap}.seg button{border:1px solid #d8d0c6;background:#fff;color:#5a534d;padding:7px 10px;border-radius:999px;font-size:11px;cursor:pointer}.seg button.active{border-color:var(--accent);background:var(--soft);color:#8e422f;font-weight:800}
-.control{margin-top:12px}.head{display:flex;justify-content:space-between;gap:8px}.head label{font-size:11.5px;font-weight:700}.pill{font-size:10px;background:#f0ebe5;color:#625b55;padding:4px 7px;border-radius:999px}input[type=range]{width:100%;accent-color:var(--accent);margin-top:7px}
-details.info{margin-top:7px}details.info summary{display:inline-flex;cursor:pointer;list-style:none;align-items:center;gap:4px;border:1px solid #e3dbd2;background:#f2eee8;border-radius:999px;padding:4px 7px;font-size:9px;font-weight:750;color:#70675f}details.info summary::-webkit-details-marker{display:none}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid > *{min-width:0}.choice-label{font-size:11px;font-weight:750;margin-bottom:7px;line-height:1.25}.seg{display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start}.seg button{border:1px solid #d8d0c6;background:#fff;color:#5a534d;padding:8px 11px;min-height:34px;border-radius:999px;font-size:11px;line-height:1.15;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}.seg button.active{border-color:var(--accent);background:var(--soft);color:#8e422f;font-weight:800}
+.control{margin-top:12px;min-width:0}.head{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;min-width:0}.head label{font-size:11.5px;font-weight:700;line-height:1.25;min-width:0}.pill{font-size:10px;background:#f0ebe5;color:#625b55;padding:5px 8px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;min-height:28px;line-height:1;white-space:nowrap}input[type=range]{width:100%;accent-color:var(--accent);margin-top:7px}
+details.info{margin-top:7px}details.info summary{display:inline-flex;cursor:pointer;list-style:none;align-items:center;justify-content:center;gap:4px;border:1px solid #e3dbd2;background:#f2eee8;border-radius:999px;padding:6px 10px;font-size:10px;line-height:1.15;min-height:30px;font-weight:750;color:#70675f;white-space:nowrap}details.info summary::-webkit-details-marker{display:none}
 .info-body{margin-top:6px;border:1px solid #ebe3da;background:#faf8f5;border-radius:10px;padding:9px;font-size:9.5px;line-height:1.55;color:#5d5650}.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:6px 0}.icell{background:#fff;border:1px solid #eee7df;border-radius:8px;padding:6px}.ik{font-size:8px;color:#8b827a}.iv{font-size:10.5px;font-weight:800;margin-top:2px}
 .breakdown{display:grid;grid-template-columns:1fr 1fr;gap:7px}.box{border:1px solid var(--line);border-radius:12px;padding:10px;background:#faf8f5}.box .a{font-size:9px;color:var(--muted)}.box .b{font-size:16px;font-weight:850;margin-top:4px}
 .solution{display:grid;grid-template-columns:1fr 1fr;gap:7px}.solvebox{border:1px solid var(--line);border-radius:13px;padding:11px;background:#faf8f5}.solvebox .slabel{font-size:9px;color:var(--muted)}.solvebox .snum{font-size:20px;font-weight:900;margin-top:4px}.solvebox .stext{font-size:9px;color:var(--muted);line-height:1.4;margin-top:4px}
@@ -36,7 +36,7 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
 
 .chart-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
 .chart-toggle{display:flex;gap:6px}
-.chart-toggle button{border:1px solid #d8d0c6;background:#fff;color:#5a534d;padding:6px 9px;border-radius:999px;font-size:10px;cursor:pointer}
+.chart-toggle button{border:1px solid #d8d0c6;background:#fff;color:#5a534d;padding:6px 10px;min-height:30px;border-radius:999px;font-size:10px;line-height:1.15;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
 .chart-toggle button.active{border-color:var(--accent);background:var(--soft);color:#8e422f;font-weight:800}
 .breakdown-legend{display:none;gap:10px;flex-wrap:wrap;font-size:9px;color:var(--muted);margin-top:8px}
 .breakdown-legend.show{display:flex}
@@ -107,7 +107,7 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
    <div class="head"><label>预期退休 / 工作可选年龄</label><span class="pill" id="fiAgeV"></span></div>
    <input id="fiAge" type="range" min="35" max="80" step="1" value="45">
   </div>
-  <div class="grid" style="margin-top:12px;align-items:end;grid-template-columns:1fr 1fr;gap:12px">
+  <div class="grid" style="margin-top:12px;align-items:start;grid-template-columns:1fr 1fr;gap:12px">
    <div>
     <div class="choice-label" id="relocationPathLabel">长期居住路径</div>
     <div class="seg" id="relocationPath">
@@ -134,7 +134,7 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
   <div class="seg" id="city">
    <button data-v="bay" class="active">湾区</button><button data-v="nyc">纽约</button><button data-v="seattle">西雅图</button><button data-v="losangeles">洛杉矶</button><button data-v="dallas">达拉斯</button><button data-v="shanghai">上海</button><button data-v="hangzhou">杭州</button><button data-v="suzhou">苏州</button><button data-v="chengdu">成都</button><button data-v="kunming">昆明</button><button data-v="dali">大理</button><button data-v="haikou">海口</button><button data-v="taiyuan">太原</button>
   </div>
-  <details class="info"><summary>ⓘ 当前城市 assumption</summary><div class="info-body" id="cityInfo"></div></details>
+  <details class="info"><summary id="cityAssumptionSummary">ⓘ 当前城市 assumption</summary><div class="info-body" id="cityInfo"></div></details>
   <div class="grid" style="margin-top:12px">
    <div><div class="choice-label" id="housingLabel">退休住房</div><div class="seg" id="housing"><button data-v="rent">租房</button><button data-v="buy" class="active">买房</button></div></div>
    <div id="mortgageWrap" style="grid-column:1/-1">
@@ -153,8 +153,8 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
    </div>
    <div><div class="choice-label" id="lifestyleLabel">生活方式</div><div class="seg" id="lifestyle"><button data-v="lean">节制</button><button data-v="base" class="active">舒适</button><button data-v="comfort">宽裕</button></div></div>
   </div>
-  <details class="info"><summary>ⓘ 生活方式 Assumption</summary><div class="info-body" id="lifestyleInfo"></div></details>
-  <details class="info"><summary>ⓘ Assumption</summary><div class="info-body" id="relocationInfo"></div></details>
+  <details class="info"><summary id="lifestyleAssumptionSummary">ⓘ 生活方式 Assumption</summary><div class="info-body" id="lifestyleInfo"></div></details>
+  <details class="info"><summary id="relocationAssumptionSummary">ⓘ Assumption</summary><div class="info-body" id="relocationInfo"></div></details>
  </div>
 
  <div class="card">
@@ -186,7 +186,7 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
    </div></details>
   </div>
   <div class="control"><div class="head"><label>长期实际投资回报</label><span class="pill" id="retV"></span></div><input id="ret" type="range" min="0" max=".07" step=".005" value=".035"></div>
-  <details class="info"><summary>ⓘ 长期实际投资回报 Assumption</summary><div class="info-body" id="retInfo"></div></details>
+  <details class="info"><summary id="retReturnSummary">ⓘ 长期实际投资回报 Assumption</summary><div class="info-body" id="retInfo"></div></details>
    <div class="control">
    <div class="head"><label id="bayBaseSpendLabel">湾区基础生活费（不含房贷 / housing）</label><span class="pill" id="bayBaseSpendV">$21k</span></div>
     <input id="bayBaseSpend" type="range" min="15000" max="40000" step="500" value="20800">
@@ -410,9 +410,9 @@ const S={scope:'family',kids:2,childcare:'mixed',usSchool:'public',cnSchool:'int
  const SCHOOL={usPublic:12000,usPrivate:35000,cnIntl:32500,cnPublic:8000,college:20000};
  const LANG={
   zh:{
-   hero:'FIRE 财富自由规划器',section1:'1. 计算口径',section2:'2. 时间和退休地点',section3:'3. 当前资产与收入（0-10M scale）',section4:'4. 孩子与教育',section5:'5. 如果想按时退休',section6:'6. 年度收入、支出、总资产（至80岁）',section7:'7. 年度明细（至80岁）',section8:'8. 达标路径：按财富自由所需税前年收入',faq:'FAQ',overview:'总览',detail:'细分',buyNow:'买房模式默认：<b>现在就买</b>。首付从当前可投资资产中扣除，之后逐年支付房贷并累积房屋净值。',scopeIndividual:'当前：1个成人（只算1份收入）+ 你选择的孩子数量。',scopeFamily:'当前：2个成人（算2份收入）+ 同样的孩子数量；孩子成本不翻倍。',returnChina:'当前选择“回国”：模型在 {age} 岁开始切换到你选择的中国退休/半退休城市生活成本。',stayUS:'当前选择“留在美国”：模型不会使用回国年龄，也不会切换到中国城市成本；退休生活继续按美国住房和生活成本计算。',cityRule:'住房计算规则：卧室数 = 成人数 + 孩子数。1–2居价格目前按同城3居基准做规划型比例估算；3–4居使用城市设定值。',cityBuy:'当前选择买房。模型假设现在按 {down}% 首付购买 {home} 的 {beds} 居住房；首付立即从可投资资产扣除，剩余部分按 {yrs} 年、{rate}% 房贷逐年偿还。退休目标只计当时房屋净值 + 剩余房贷现值，不会再次加入整套房价。',cityRent:'当前选择租房。房产预算为 $0；模型按 {beds} 居长期租金 {rent}/月计入退休后的长期年度支出。',taxMode:'自动估算',manualTax:'手动有效税率',overviewLegend:'劳动收入 / 被动收入 / 年度支出 / 总财富（右轴）',detailLegend1:'0线上方 = 收入：劳动收入（本人 / 伴侣） + 被动收入（资产提取 / 投资收益）',detailLegend2:'0线下方 = 支出：住房 / 生活 / 旅行 / 父母 / 家人支持 / 孩子',cityLabel:'当前城市 assumption',allYear:'7. 年度明细（至80岁）',retPath:'长期居住路径',retAge:'回国 / 退休切换年龄',currentAge:'当前年龄',fiAge:'预期退休 / 工作可选年龄',postRetire:'退休后劳动收入保留比例',withdraw:'退休后资产提取率',kids:'孩子数量',childcare:'0–5岁育儿方式',usSchool:'美国阶段学校',cnSchool:'回国后学校',retHousing:'退休住房',lifestyle:'生活方式',assets:'你当前可投资资产',income:'你当前税前年收入',partnerIncome:'第二位成人税前年收入（0-1.5M）',state:'报税所在州',taxCalc:'税率计算方式',taxHint:'如果你大概知道自己的 effective tax rate，可以直接覆盖自动估算。',taxRate:'估算有效税率',retReturn:'长期实际投资回报',lifestyleAssumption:'<b>生活方式是一个乘数</b>：节制 = 0.82×，舒适 = 1.00×，宽裕 = 1.28×。它目前只乘在“生活费”上（医疗已并入生活费），不会自动放大房贷、旅行、父母或孩子支出。',bayBaseSpend:'湾区基础生活费（不含房贷）',bayBaseSpendDesc:'所有城市的固定生活费按湾区基准乘以城市系数换算；这个基准会再拆成 food / goods / insurance / medical / misc，医疗不再单独重复计入顶层支出。',required:'如果想按时退休',requiredDesc:'如果选择“买房”，上面的总财富目标包含房产预算；如果选择“租房”，房产预算为 $0，但租金会持续进入退休后的年度支出，所以会提高所需可投资资产。',wealthSectionTitle:'资产 vs 负债',wealthNote:'这一张图只看资产结构，不看 cash flow：可投资资产、房屋净值、房贷余额，以及总财富。'},
+   hero:'FIRE 财富自由规划器',section1:'1. 计算口径',section2:'2. 时间和退休地点',section3:'3. 当前资产与收入（0-10M scale）',section4:'4. 孩子与教育',section5:'5. 如果想按时退休',section6:'6. 年度收入、支出、总资产（至80岁）',section7:'7. 年度明细（至80岁）',section8:'8. 达标路径：按财富自由所需税前年收入',faq:'FAQ',overview:'总览',detail:'细分',buyNow:'买房模式默认：<b>现在就买</b>。首付从当前可投资资产中扣除，之后逐年支付房贷并累积房屋净值。',scopeIndividual:'当前：1个成人（只算1份收入）+ 你选择的孩子数量。',scopeFamily:'当前：2个成人（算2份收入）+ 同样的孩子数量；孩子成本不翻倍。',returnChina:'当前选择“回国”：模型在 {age} 岁开始切换到你选择的中国退休/半退休城市生活成本。',stayUS:'当前选择“留在美国”：模型不会使用回国年龄，也不会切换到中国城市成本；退休生活继续按美国住房和生活成本计算。',cityRule:'住房计算规则：卧室数 = 成人数 + 孩子数。1–2居价格目前按同城3居基准做规划型比例估算；3–4居使用城市设定值。',cityBuy:'当前选择买房。模型假设现在按 {down}% 首付购买 {home} 的 {beds} 居住房；首付立即从可投资资产扣除，剩余部分按 {yrs} 年、{rate}% 房贷逐年偿还。退休目标只计当时房屋净值 + 剩余房贷现值，不会再次加入整套房价。',cityRent:'当前选择租房。房产预算为 $0；模型按 {beds} 居长期租金 {rent}/月计入退休后的长期年度支出。',taxMode:'自动估算',manualTax:'手动有效税率',overviewLegend:'劳动收入 / 被动收入 / 年度支出 / 总财富（右轴）',detailLegend1:'0线上方 = 收入：劳动收入（本人 / 伴侣） + 被动收入（资产提取 / 投资收益）',detailLegend2:'Below zero = spending: housing / living / travel / parents / family support / kids',cityLabel:'当前城市 assumption',allYear:'7. 年度明细（至80岁）',retPath:'长期居住路径',retAge:'回国 / 退休切换年龄',currentAge:'当前年龄',fiAge:'预期退休 / 工作可选年龄',postRetire:'退休后劳动收入保留比例',withdraw:'退休后资产提取率',kids:'孩子数量',childcare:'0–5岁育儿方式',usSchool:'美国阶段学校',cnSchool:'回国后学校',retHousing:'退休住房',lifestyle:'生活方式',assets:'你当前可投资资产',income:'你当前税前年收入',partnerIncome:'第二位成人税前年收入（0-1.5M）',state:'报税所在州',taxCalc:'税率计算方式',taxHint:'如果你大概知道自己的 effective tax rate，可以直接覆盖自动估算。',taxRate:'估算有效税率',retReturn:'长期实际投资回报',lifestyleAssumption:'<b>生活方式是一个乘数</b>：节制 = 0.82×，舒适 = 1.00×，宽裕 = 1.28×。它目前只乘在“生活费”上（医疗已并入生活费），不会自动放大房贷、旅行、父母或孩子支出。',bayBaseSpend:'湾区基础生活费（不含房贷）',bayBaseSpendDesc:'Bay Area baseline living cost is multiplied by the city factor for each location; this baseline is then split into food / goods / insurance / medical / misc, and medical is no longer double-counted at the top level.',required:'如果想按时退休',requiredDesc:'If you choose buy, the target includes a housing budget; if you choose rent, housing budget is $0 but rent continues into retirement spending, which increases required investable assets.',wealthSectionTitle:'资产 vs 负债',wealthNote:'This chart focuses on asset structure, not cash flow: investable assets, home equity, mortgage balance, and total wealth.'},
   en:{
-   hero:'FIRE Financial Freedom Planner',section1:'1. Household',section2:'2. Time and Retirement Location',section3:'3. Current Assets & Income (0-3M scale)',section4:'4. Kids & Education',section5:'5. If You Want to Retire on Time',section6:'6. Current path: annual income, spending, and total assets (to age 80)',section7:'7. Annual detail (to age 80)',section8:'8. Target path: required gross income for FIRE',faq:'FAQ',overview:'Overview',detail:'Detail',buyNow:'Buy mode defaults to <b>buying now</b>. The down payment is deducted from current investable assets, then mortgage principal and interest are paid over time while home equity accumulates.',scopeIndividual:'Current: 1 adult (1 income) + selected children count.',scopeFamily:'Current: 2 adults (2 incomes) + the same children count; children costs do not double.',returnChina:'Current setting "Return to China": the model switches to the selected China retirement / semi-retirement city cost at age {age}.',stayUS:'Current setting "Stay in the US": the model does not use the return age or switch to China city costs; retirement continues on US housing and living costs.',cityRule:'Housing rule: bedrooms = adults + children. 1-2BR prices are proportional estimates based on the local 3BR baseline; 3-4BR use city-specific assumptions.',cityBuy:'Buying mode assumes you purchase now with a {down}% down payment for a {beds}-bedroom home priced at {home}. The down payment is deducted immediately, and the mortgage is amortized over {yrs} years at {rate}% APR. The retirement target only counts home equity plus remaining mortgage PV, not the full house price again.',cityRent:'Rent mode sets home budget to $0; the model uses the long-term rent for a {beds}-bedroom home, {rent}/month, in retirement spending.',taxMode:'Auto estimate',manualTax:'Manual effective tax rate',overviewLegend:'Labor income / passive income / annual spending / total wealth (right axis)',detailLegend1:'Above zero = income: labor income (self / partner) + passive income (withdrawals / investment returns)',detailLegend2:'Below zero = spending: housing / living / travel / parents / family support / kids',cityLabel:'Current city assumption',allYear:'7. Annual detail (to age 80)',retPath:'Long-term location',retAge:'Return / retirement switch age',currentAge:'Current age',fiAge:'Expected retirement / work-optional age',postRetire:'Post-retirement labor income kept',withdraw:'Post-retirement withdrawal rate',kids:'Kids',childcare:'Ages 0-5 childcare',usSchool:'US school type',cnSchool:'School type in China',retHousing:'Retirement housing',lifestyle:'Lifestyle',assets:'Current investable assets',income:'Current gross income',partnerIncome:'Second adult gross income (0-1.5M scale)',state:'Tax filing state',taxCalc:'Tax calculation mode',taxHint:'If you already know your effective tax rate, you can override the auto estimate.',taxRate:'Estimated effective tax rate',retReturn:'Long-term real return',lifestyleAssumption:'<b>Lifestyle is a multiplier</b>: Lean = 0.82x, Base = 1.00x, Comfort = 1.28x. It currently multiplies living spending only (medical is embedded inside living), and does not automatically scale housing, travel, parents, or kids costs.',bayBaseSpend:'Bay Area baseline living cost (excluding housing)',bayBaseSpendDesc:'所有城市的固定生活费按湾区基准乘以城市系数换算；这个基准会再拆成 food / goods / insurance / medical / misc，医疗不再单独重复计入顶层支出。',required:'If you want to retire on time',requiredDesc:'If you choose buy, the target includes a housing budget; if you choose rent, housing budget is $0 but rent continues into retirement spending, which increases required investable assets.',wealthSectionTitle:'Asset vs liability',wealthNote:'This chart focuses on asset structure, not cash flow: investable assets, home equity, mortgage balance, and total wealth.'}
+   hero:'FIRE Financial Freedom Planner',section1:'1. Household',section2:'2. Time and Retirement Location',section3:'3. Current Assets & Income (0-3M scale)',section4:'4. Kids & Education',section5:'5. If You Want to Retire on Time',section6:'6. Current path: annual income, spending, and total assets (to age 80)',section7:'7. Annual detail (to age 80)',section8:'8. Target path: required gross income for FIRE',faq:'FAQ',overview:'Overview',detail:'Detail',buyNow:'Buy mode defaults to <b>buying now</b>. The down payment is deducted from current investable assets, then mortgage principal and interest are paid over time while home equity accumulates.',scopeIndividual:'Current: 1 adult (1 income) + selected children count.',scopeFamily:'Current: 2 adults (2 incomes) + the same children count; children costs do not double.',returnChina:'Current setting "Return to China": the model switches to the selected China retirement / semi-retirement city cost at age {age}.',stayUS:'Current setting "Stay in the US": the model does not use the return age or switch to China city costs; retirement continues on US housing and living costs.',cityRule:'Housing rule: bedrooms = adults + children. 1-2BR prices are proportional estimates based on the local 3BR baseline; 3-4BR use city-specific assumptions.',cityBuy:'Buying mode assumes you purchase now with a {down}% down payment for a {beds}-bedroom home priced at {home}. The down payment is deducted immediately, and the mortgage is amortized over {yrs} years at {rate}% APR. The retirement target only counts home equity plus remaining mortgage PV, not the full house price again.',cityRent:'Rent mode sets home budget to $0; the model uses the long-term rent for a {beds}-bedroom home, {rent}/month, in retirement spending.',taxMode:'Auto estimate',manualTax:'Manual effective tax rate',overviewLegend:'Labor income / passive income / annual spending / total wealth (right axis)',detailLegend1:'Above zero = income: labor income (self / partner) + passive income (withdrawals / investment returns)',detailLegend2:'Below zero = spending: housing / living / travel / parents / family support / kids',cityLabel:'Current city assumption',allYear:'7. Annual detail (to age 80)',retPath:'Long-term location',retAge:'Return / retirement switch age',currentAge:'Current age',fiAge:'Expected retirement / work-optional age',postRetire:'Post-retirement labor income kept',withdraw:'Post-retirement withdrawal rate',kids:'Kids',childcare:'Ages 0-5 childcare',usSchool:'US school type',cnSchool:'School type in China',retHousing:'Retirement housing',lifestyle:'Lifestyle',assets:'Current investable assets',income:'Current gross income',partnerIncome:'Second adult gross income (0-1.5M scale)',state:'Tax filing state',taxCalc:'Tax calculation mode',taxHint:'If you already know your effective tax rate, you can override the auto estimate.',taxRate:'Estimated effective tax rate',retReturn:'Long-term real return',lifestyleAssumption:'<b>Lifestyle is a multiplier</b>: Lean = 0.82x, Base = 1.00x, Comfort = 1.28x. It currently multiplies living spending only (medical is embedded inside living), and does not automatically scale housing, travel, parents, or kids costs.',bayBaseSpend:'Bay Area baseline living cost (excluding housing)',bayBaseSpendDesc:'Bay Area baseline living cost is multiplied by the city factor for each location; this baseline is then split into food / goods / insurance / medical / misc, and medical is no longer double-counted at the top level.',required:'If you choose buy, the target includes a housing budget; if you choose rent, housing budget is $0 but rent continues into retirement spending, which increases required investable assets.',wealthSectionTitle:'Asset vs liability',wealthNote:'This chart focuses on asset structure, not cash flow: investable assets, home equity, mortgage balance, and total wealth.'}
  };
  LANG.bilingual = Object.fromEntries(Object.keys({...LANG.zh, ...LANG.en}).map(k=>{
   const zh = LANG.zh[k] ?? '';
@@ -591,6 +591,22 @@ function stateText(v){
     : (S.lang==='bilingual'
       ? '这是用来增长当前资产和未来投资收益的 <b>长期实际回报率</b> 假设。默认是 <b>3.5%</b>，你可以直接拖滑条改成 3%、4% 或中间任意值。 / This is the <b>long-term real return</b> assumption used to grow current assets and future investment gains. Default is <b>3.5%</b>, but you can drag the slider to use 3%, 4%, or any value in between.'
       : '这是用来增长当前资产和未来投资收益的 <b>长期实际回报率</b> 假设。默认是 <b>3.5%</b>，你可以直接拖滑条改成 3%、4% 或中间任意值。');
+  const cityAssumptionSummary=$('cityAssumptionSummary');
+  if(cityAssumptionSummary) cityAssumptionSummary.textContent=S.lang==='en'
+    ? 'ⓘ Current city assumption'
+    : (S.lang==='bilingual' ? 'ⓘ 当前城市 assumption / Current city assumption' : 'ⓘ 当前城市 assumption');
+  const lifestyleAssumptionSummary=$('lifestyleAssumptionSummary');
+  if(lifestyleAssumptionSummary) lifestyleAssumptionSummary.textContent=S.lang==='en'
+    ? 'ⓘ Lifestyle assumption'
+    : (S.lang==='bilingual' ? 'ⓘ 生活方式 Assumption / Lifestyle assumption' : 'ⓘ 生活方式 Assumption');
+  const relocationAssumptionSummary=$('relocationAssumptionSummary');
+  if(relocationAssumptionSummary) relocationAssumptionSummary.textContent=S.lang==='en'
+    ? 'ⓘ Location assumption'
+    : (S.lang==='bilingual' ? 'ⓘ Assumption / Location assumption' : 'ⓘ Assumption');
+  const retReturnSummary=$('retReturnSummary');
+  if(retReturnSummary) retReturnSummary.textContent=S.lang==='en'
+    ? 'ⓘ Long-term real return assumption'
+    : (S.lang==='bilingual' ? 'ⓘ 长期实际投资回报 Assumption / Long-term real return assumption' : 'ⓘ 长期实际投资回报 Assumption');
   const taxAssumptionSummary=$('taxAssumptionSummary');
   if(taxAssumptionSummary) taxAssumptionSummary.textContent=S.lang==='en'?'ⓘ Tax assumption':'ⓘ 税率 Assumption';
   const taxAssumptionInfo=$('taxAssumptionInfo');
@@ -719,6 +735,62 @@ States with no personal income tax (TX / WA / FL) are treated as 0 state income 
   CITY_ORDER.forEach((key,i)=>{if(currentCityBtns[i]) currentCityBtns[i].textContent=cityName(CITY[key]);});
   const faqTitle=document.querySelector('.faq h2');
   if(faqTitle) faqTitle.textContent=L('faq');
+  const faqCards=$$('.faq details');
+  if(S.lang==='en' && faqCards.length>=5){
+    faqCards[0].querySelector('summary').textContent='Why is dual-adult spending not 2x the individual version?';
+    faqCards[0].querySelector('.answer').innerHTML='Because childcare, school, and college costs do not double just because there is one more adult. Housing is adjusted by household size using the rule “bedrooms = adults + children”; for example, 1 adult + 2 kids = 3BR and 2 adults + 2 kids = 4BR. We also only add the second adult’s marginal costs for food, clothing, transportation, and daily living, while medical is already embedded inside living costs.';
+    faqCards[1].querySelector('summary').textContent='How is "projected investable assets on the current path" calculated?';
+    faqCards[1].querySelector('.answer').innerHTML='Each year we estimate federal + state + payroll taxes from gross income, subtract annual household spending to get the year’s surplus, and then grow beginning-of-year investable assets by the long-term real return. End-of-year assets = beginning assets + investment return + after-tax income − spending.';
+    faqCards[2].querySelector('summary').textContent='All formulas';
+    faqCards[2].querySelector('.answer').innerHTML=`<b>1. After-tax income</b><br>
+    After-tax income = gross income − federal income tax − state income tax − Social Security − Medicare − Additional Medicare; you can also use the manual effective tax rate directly.<br><br>
+    <b>2. Annual household spending</b><br>
+    Annual spending = housing + adult living + travel + parents / family support + kids childcare / education.<br><br>
+    <b>3. Annual surplus</b><br>
+    Annual surplus = after-tax income − annual household spending.<br><br>
+    <b>4. Annual investment return</b><br>
+    Investment return = beginning-of-year investable assets × long-term real return.<br><br>
+    <b>5. End-of-year investable assets</b><br>
+    End-of-year investable assets = beginning assets + investment return + annual surplus.<br><br>
+    <b>6. Present value of kids’ remaining future spending</b><br>
+    Kids spending PV = Σ［future year t kids spending ÷ (1 + real return)^t］<br><br>
+    <b>7. Long-term retirement spending</b><br>
+    Long-term retirement spending = retirement-location housing (if renting) + adult living + travel + parents / family support.<br>
+    If you buy, rent is no longer included in long-term retirement spending.<br><br>
+    <b>8. Required investable assets at retirement</b><br>
+    Required investable assets = perpetual annual spending ÷ 4% + kids remaining spending PV + remaining mortgage payment PV.<br><br>
+    <b>9. Buying and mortgage</b><br>
+    In buy mode, you buy immediately at the current age: down payment = home price × down payment ratio; initial mortgage = home price × (1 − down payment ratio). The down payment is deducted from current investable assets; then principal and interest are amortized each year, together with property tax, insurance, and maintenance. Home equity = home price − remaining mortgage balance.<br>
+    The FIRE target does not double-count the house: perpetual spending only keeps property tax / insurance / maintenance; any remaining mortgage is counted once via the present value of future payments; and total wealth only includes the home equity already built by the retirement age.<br><br>
+    <b>10. Total wealth needed at retirement</b><br>
+    Total wealth needed = required investable assets + housing budget<br><br>
+    <b>11. Wealth Gap</b><br>
+    Gap = projected investable assets at retirement age − total wealth needed at retirement<br>
+    If you buy, the housing budget is already included in total wealth, so it is also part of the Gap; Gap > 0 means you are projected to exceed the target, Gap < 0 means there is still a shortfall.<br><br>
+    <b>12. Required gross income</b><br>
+    The model uses binary search to back-solve the average gross income needed so projected assets at retirement age reach the target.<br><br>
+    <b>13. Required income vs current income</b><br>
+    Percentage Difference = (required gross income − current gross income) ÷ current gross income<br><br>
+    <b>14. Required annual spending cut if income stays unchanged</b><br>
+    The model uses binary search to back-solve the average annual spending reduction needed so projected assets at retirement age reach the target.<br><br>
+    <b>15. Retirement withdrawals</b><br>
+    Retirement withdrawals are derived automatically and are no longer manually set. The system treats “that year’s spending − passive income − any retained labor income” as the cash flow that needs to be filled from the investment account; if passive income already covers it, the withdrawal is 0. Assets still evolve as “beginning assets + investment return + after-tax labor income − spending”, so withdrawals are not double-counted.<br><br>
+    <b>16. Detailed cash-flow chart</b><br>
+    Above zero = self after-tax income + partner after-tax income (family mode) + investment return<br>
+    Below zero = housing + base living + travel + parents / family support + childcare / education<br><br>
+    <b>17. Bedroom count</b><br>
+    Bedrooms = adults + children<br><br>
+    <b>18. Amount units</b><br>
+    The dashboard uses 2026 purchasing-power dollars, so long-term investment return is shown as real return, defaulting to 3%.<br><br>
+    <b>19. Age ranges</b><br>
+    Current age is 18–70; retirement / work-optional age cannot be earlier than current age. The annual simulation starts at current age and extends through at least age 80.<br><br>
+    <b>20. Asset path after retirement</b><br>
+    The chart starts at your selected current age and extends through at least age 80. Before retirement age it uses your current gross income assumption; from retirement age onward, labor income = pre-retirement gross income × “post-retirement labor income kept”. Investment return and household spending continue year by year, so you can see whether assets keep growing, flatten, or decline.`;
+    faqCards[3].querySelector('summary').textContent='How does the automatic tax estimate work?';
+    faqCards[3].querySelector('.answer').innerHTML='Federal uses the current planning brackets and the standard deduction; payroll tax includes Social Security, Medicare, and Additional Medicare; California uses a bracketed estimate. Other states use a planning-level state income tax approximation, not a full state filing engine. If you already know your real effective tax rate, switch to manual effective tax rate.<br><br>States with no personal income tax (TX / WA / FL) are treated as 0 state income tax. This does not include 401(k), HSA, itemized deductions, AMT, NIIT, capital-gains timing, RSUs, or other personalized items.';
+    faqCards[4].querySelector('summary').textContent='Where does the medical assumption come from?';
+    faqCards[4].querySelector('.answer').innerHTML='For adults who are working and covered by employer insurance, we now use a more realistic cash-spending estimate: <a href="https://www.kff.org/health-costs/health-policy-101-employer-sponsored-health-insurance/" target="_blank" rel="noopener">KFF 2025 employer-sponsored insurance benchmark</a> shows average employee premium contributions of about $1,440/year; <a href="https://www.kff.org/health-costs/how-much-do-people-with-employer-plans-spend-out-of-pocket-on-cost-sharing/" target="_blank" rel="noopener">KFF 2025 cost-sharing analysis</a> shows average out-of-pocket cost sharing of about $869/year. Together, a working-age adult with normal employer insurance can be planned at roughly <b>$2.3k/year</b>.<br><br>So we now model U.S. working-age medical spending more conservatively but not wildly high: about $2.3k/year for one adult and $4.6k/year for two adults. If there is no employer coverage and you switch to ACA / self-pay, the number can be much higher.';
+  }
   const pathAssumptionSummary=$('pathAssumptionSummary');
   if(pathAssumptionSummary) pathAssumptionSummary.textContent=S.lang==='en'
     ? 'ⓘ How is "projected assets on current path" calculated?'

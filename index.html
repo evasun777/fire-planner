@@ -821,7 +821,7 @@ States with no personal income tax (TX / WA / FL) are treated as 0 state income 
     <b>19. Age ranges</b><br>
     Current age is 18–70; retirement / work-optional age cannot be earlier than current age. The annual simulation starts at current age and extends through at least age 80.<br><br>
     <b>20. Asset path after retirement</b><br>
-    The chart starts at your selected current age and extends through at least age 80. Before retirement age it uses your current gross income assumption; from retirement age onward, labor income = pre-retirement gross income × “post-retirement labor income kept”. Investment return and household spending continue year by year, so you can see whether assets keep growing, flatten, or decline.`;
+    The chart starts at your selected current age and extends through at least age 80. Before retirement age it uses your current gross income assumption; starting the year after the retirement age, labor income = pre-retirement gross income × “post-retirement labor income kept”. Investment return and household spending continue year by year, so you can see whether assets keep growing, flatten, or decline.`;
     faqCards[3].querySelector('summary').textContent='How does the automatic tax estimate work?';
     faqCards[3].querySelector('.answer').innerHTML='Federal uses the current planning brackets and the standard deduction; payroll tax includes Social Security, Medicare, and Additional Medicare; California uses a bracketed estimate. Other states use a planning-level state income tax approximation, not a full state filing engine. If you already know your real effective tax rate, switch to manual effective tax rate.<br><br>States with no personal income tax (TX / WA / FL) are treated as 0 state income tax. This does not include 401(k), HSA, itemized deductions, AMT, NIIT, capital-gains timing, RSUs, or other personalized items.';
     faqCards[4].querySelector('summary').textContent='Where does the medical assumption come from?';
@@ -939,7 +939,7 @@ Below zero = housing + base living + travel + parents / family support + childca
 <b>17. Room count</b><br>Bedrooms = adults + children.<br><br>
 <b>18. Currency / real-return basis</b><br>The model uses 2026-dollar purchasing power, so long-term investment return is expressed as a real return, default 3%.<br><br>
 <b>19. Age range</b><br>Current age can be 18-70; retirement / work-optional age cannot be earlier than current age. The annual simulation starts at current age and extends to at least age 80.<br><br>
-<b>20. Retirement path after FI</b><br>The chart starts at your selected current age and runs to at least age 80. Before retirement age, labor income uses the current gross income assumption; from retirement age onward, labor income = pre-retirement gross income × post-retirement labor income kept. Investment return and household spending continue year by year so you can see whether assets grow, flatten, or decline after retirement.`
+<b>20. Retirement path after FI</b><br>The chart starts at your selected current age and runs to at least age 80. Before retirement age, labor income uses the current gross income assumption; starting the year after retirement age, labor income = pre-retirement gross income × post-retirement labor income kept. Investment return and household spending continue year by year so you can see whether assets grow, flatten, or decline after retirement.`
       : `<b>1. 税后收入</b><br>
 税后收入 = 税前年收入 − Federal income tax − 州所得税 − Social Security − Medicare − Additional Medicare；也可以用手动有效总税率直接估算<br><br>
 
@@ -1002,7 +1002,7 @@ Percentage Difference = (所需税前年收入 − 当前税前年收入) ÷ 当
 当前年龄可选 18–70 岁；退休 / 工作可选年龄不能早于当前年龄。年度模拟从当前年龄开始，并至少延伸到80岁。<br><br>
 
 <b>20. 退休后的资产路径</b><br>
-图表从你选择的“当前年龄”开始，并至少延伸到80岁。退休年龄之前使用当前税前年收入假设；从退休年龄开始，劳动收入 = 退休前税前年收入 × “退休后劳动收入保留比例”。投资收益与家庭支出继续逐年计算，因此可以观察退休后资产是增长、趋平还是下降。`;
+图表从你选择的“当前年龄”开始，并至少延伸到80岁。退休年龄之前使用当前税前年收入假设；从退休年龄后的下一年开始，劳动收入 = 退休前税前年收入 × “退休后劳动收入保留比例”。投资收益与家庭支出继续逐年计算，因此可以观察退休后资产是增长、趋平还是下降。`;
   }
   if(faqDetails[3]){
     faqDetails[3].querySelector('summary').textContent=S.lang==='en'
@@ -1345,7 +1345,7 @@ function totalTargetAtAge(startAge){return liquidTargetAtAge(startAge)+houseRese
   const startAge=n('currentAge');
 
   for(let age=startAge;age<=finalAge;age++){
-   const incomeFactor=age<fi?1:n('postRetireIncome');
+   const incomeFactor=age<=fi?1:n('postRetireIncome');
    const yearGross=baseGross*incomeFactor;
    const laborNet=estimateTaxes(yearGross).net;
 
@@ -1355,7 +1355,7 @@ function totalTargetAtAge(startAge){return liquidTargetAtAge(startAge)+houseRese
 
    // Retirement withdrawals are computed automatically from the gap between spending
    // and what passive income plus any retained labor income already covers.
-   const portfolioDraw=age>=fi?Math.min(Math.max(0,a),Math.max(0,sp-inv-laborNet)):0;
+   const portfolioDraw=age>fi?Math.min(Math.max(0,a),Math.max(0,sp-inv-laborNet)):0;
    const laborIncome=laborNet;
    const passiveIncome=portfolioDraw+inv;
    const disposableIncome=laborIncome+passiveIncome;

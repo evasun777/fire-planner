@@ -165,26 +165,29 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
   </div>
   <div class="card" id="housingSampleCard" style="margin-top:12px;padding:12px">
    <div class="head" style="margin-bottom:8px">
-    <h2 style="margin:0;font-size:14px">城市住房样本 / City housing sample</h2>
+   <h2 style="margin:0;font-size:14px">城市住房样本 / City housing sample</h2>
     <span class="pill" id="housingSampleStatus">Loading housing CSV…</span>
    </div>
    <div class="desc" style="margin-top:0">
-    这张表也直接从 <code>city_housing_model.csv</code> 读取，里面同时放了租房、买房和 source。
+    这张表也直接从 <code>city_housing_model.csv</code> 读取，里面同时放了人数、月租、年租、买房预算和 source。
    </div>
    <div class="scroll">
     <table>
      <thead>
      <tr>
       <th>City</th>
+      <th>People</th>
       <th>3BR rent/mo</th>
+      <th>3BR rent/yr</th>
       <th>4BR rent/mo</th>
+      <th>4BR rent/yr</th>
       <th>3BR buy</th>
       <th>4BR buy</th>
       <th>Source</th>
      </tr>
      </thead>
      <tbody id="housingSampleRows">
-      <tr><td colspan="5">Loading…</td></tr>
+      <tr><td colspan="8">Loading…</td></tr>
      </tbody>
     </table>
    </div>
@@ -601,8 +604,11 @@ function sourceLink(url){
       return {
         ...obj,
         city_key:String(obj.city_key||'').trim(),
+        household_size_assumed:numOrBlank(obj.household_size_assumed),
         rent_3br_monthly_usd:numOrBlank(obj.rent_3br_monthly_usd),
+        rent_3br_annual_usd:numOrBlank(obj.rent_3br_annual_usd),
         rent_4br_monthly_usd:numOrBlank(obj.rent_4br_monthly_usd),
+        rent_4br_annual_usd:numOrBlank(obj.rent_4br_annual_usd),
         buy_3br_usd:numOrBlank(obj.buy_3br_usd),
         buy_4br_usd:numOrBlank(obj.buy_4br_usd),
         living_factor:numOrBlank(obj.living_factor)
@@ -625,13 +631,16 @@ function sourceLink(url){
     rowsEl.innerHTML=HOUSING_SAMPLE_ROWS.length
       ? HOUSING_SAMPLE_ROWS.map(row=>`<tr>
           <td>${row.city}</td>
+          <td>${row.household_size_assumed===''?'—':row.household_size_assumed}</td>
           <td>${moneyMaybe(row.rent_3br_monthly_usd)}</td>
+          <td>${moneyMaybe(row.rent_3br_annual_usd)}</td>
           <td>${moneyMaybe(row.rent_4br_monthly_usd)}</td>
+          <td>${moneyMaybe(row.rent_4br_annual_usd)}</td>
           <td>${moneyMaybe(row.buy_3br_usd)}</td>
           <td>${moneyMaybe(row.buy_4br_usd)}</td>
           <td>${sourceLink(row.source_url)}</td>
         </tr>`).join('')
-      : `<tr><td colspan="6">${HOUSING_SAMPLE_STATUS}</td></tr>`;
+      : `<tr><td colspan="9">${HOUSING_SAMPLE_STATUS}</td></tr>`;
   }
  }
  function L(key,vars={}){
@@ -2016,7 +2025,10 @@ function update(){
       <div class="icell"><div class="ik">${S.lang==='en'?'Sample food total':'吃饭样本总额'}</div><div class="iv">${sample?moneyOrDash(sample.official_total_food_usd):'—'}</div></div>
       <div class="icell"><div class="ik">${S.lang==='en'?'Sample model food':'样本模型值'}</div><div class="iv">${sample?moneyOrDash(sample.model_total_food_usd):'—'}</div></div>
       <div class="icell"><div class="ik">${S.lang==='en'?'Sample model / month':'样本月额'}</div><div class="iv">${sample?money(sample.model_monthly_food_usd):'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Housing sample people':'住房样本人数'}</div><div class="iv">${housingSample?(housingSample.household_size_assumed||'—'):'—'}</div></div>
       <div class="icell"><div class="ik">${S.lang==='en'?'Sample rent 3BR':'样本3居租金'}</div><div class="iv">${housingSample?money(housingSample.rent_3br_monthly_usd)+'/mo':'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Sample rent 3BR / yr':'样本3居年租'}</div><div class="iv">${housingSample?money(housingSample.rent_3br_annual_usd)+'/yr':'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Sample rent 4BR / yr':'样本4居年租'}</div><div class="iv">${housingSample?money(housingSample.rent_4br_annual_usd)+'/yr':'—'}</div></div>
       <div class="icell"><div class="ik">${S.lang==='en'?'Sample buy 3BR':'样本3居买房'}</div><div class="iv">${housingSample?compact(housingSample.buy_3br_usd):'—'}</div></div>
     </div>
     ${sample?`<div class="note" style="margin-top:10px">${S.lang==='en'
@@ -2024,8 +2036,8 @@ function update(){
       : `CSV 样本已匹配：<b>${sample.city}</b>。家庭人数 ${sample.household_size_assumed || '—'}；官方吃饭支出 ${moneyOrDash(sample.official_total_food_usd)}/年；模型值 ${moneyOrDash(sample.model_total_food_usd)}/年（${moneyOrDash(sample.model_monthly_food_usd)}/月）；模型相对官方 ${sample.model_vs_official_pct===''?'—':sample.model_vs_official_pct.toFixed(1)+'%'}. 原始来源：${sourceLink(sample.source_url)}。`
     }</div>`:''}
     ${housingSample?`<div class="note" style="margin-top:8px">${S.lang==='en'
-      ? `CSV housing sample matched: <b>${housingSample.city}</b>. 3BR rent ${money(housingSample.rent_3br_monthly_usd)}/mo; 4BR rent ${money(housingSample.rent_4br_monthly_usd)}/mo; 3BR buy ${compact(housingSample.buy_3br_usd)}; 4BR buy ${compact(housingSample.buy_4br_usd)}. Original source: ${sourceLink(housingSample.source_url)}.`
-      : `CSV 住房样本已匹配：<b>${housingSample.city}</b>。3居租金 ${money(housingSample.rent_3br_monthly_usd)}/月；4居租金 ${money(housingSample.rent_4br_monthly_usd)}/月；3居买房 ${compact(housingSample.buy_3br_usd)}；4居买房 ${compact(housingSample.buy_4br_usd)}。原始来源：${sourceLink(housingSample.source_url)}。`
+      ? `CSV housing sample matched: <b>${housingSample.city}</b>. Household size ${housingSample.household_size_assumed || '—'}; 3BR rent ${money(housingSample.rent_3br_monthly_usd)}/mo (${money(housingSample.rent_3br_annual_usd)}/yr); 4BR rent ${money(housingSample.rent_4br_monthly_usd)}/mo (${money(housingSample.rent_4br_annual_usd)}/yr); 3BR buy ${compact(housingSample.buy_3br_usd)}; 4BR buy ${compact(housingSample.buy_4br_usd)}. Original source: ${sourceLink(housingSample.source_url)}.`
+      : `CSV 住房样本已匹配：<b>${housingSample.city}</b>。家庭人数 ${housingSample.household_size_assumed || '—'}；3居租金 ${money(housingSample.rent_3br_monthly_usd)}/月（${money(housingSample.rent_3br_annual_usd)}/年）；4居租金 ${money(housingSample.rent_4br_monthly_usd)}/月（${money(housingSample.rent_4br_annual_usd)}/年）；3居买房 ${compact(housingSample.buy_3br_usd)}；4居买房 ${compact(housingSample.buy_4br_usd)}。原始来源：${sourceLink(housingSample.source_url)}。`
     }</div>`:''}
     ${citySource(c)}<br><br>
     ${cityResource(c)}<br><br>

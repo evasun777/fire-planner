@@ -2,6 +2,10 @@
 
 一个可以本地运行、也可以直接放到 GitHub Pages 上的 FIRE 规划 dashboard。
 
+## 在线版本
+
+- [https://evasun777.github.io/fire-planner/](https://evasun777.github.io/fire-planner/)
+
 ## 这是什么
 
 - 单页 HTML dashboard
@@ -40,6 +44,10 @@ python3 -m http.server 8000
 ## 相关文件
 
 - [`index.html`](./index.html): 主页面
+- [`questionnaire.html`](./questionnaire.html): 手机问答版入口
+- [`fire-model.js`](./fire-model.js): 问答页共享的模型和计算层
+- [`questionnaire.js`](./questionnaire.js): 问答页交互逻辑
+- [`questionnaire.css`](./questionnaire.css): 问答页样式
 - [`ASSUMPTIONS.md`](./ASSUMPTIONS.md): 当前模型假设和城市资源说明
 
 ## 备注

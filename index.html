@@ -140,8 +140,8 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
     <h2 style="margin:0;font-size:14px">城市吃饭样本 / City food sample</h2>
     <span class="pill" id="foodSampleStatus">Loading sample CSV…</span>
    </div>
- <div class="desc" style="margin-top:0">
-    这个表直接从 <code>city_food_spend_model.csv</code> 读取。每行都预先写好了人数、年额和月额，页面会优先把这里的 sample 写进城市说明卡片，方便以后继续扩城市。
+   <div class="desc" style="margin-top:0">
+    这个表直接从 <code>city_food_spend_model.csv</code> 读取。官方值可以留空，proxy / estimated 列会直接给出可用的年额和月额，页面会优先把这里的 sample 写进城市说明卡片，方便以后继续扩城市。
    </div>
    <div class="scroll">
     <table>
@@ -150,8 +150,8 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
       <th>City</th>
       <th>People</th>
       <th>Official food/yr</th>
-      <th>Model food/yr</th>
-      <th>Model food/mo</th>
+      <th>Proxy food/yr</th>
+      <th>Proxy food/mo</th>
       <th>Home</th>
       <th>Away</th>
       <th>Source</th>
@@ -555,6 +555,8 @@ function sourceLink(url){
         official_food_at_home_usd:numOrBlank(obj.official_food_at_home_usd),
         official_food_away_from_home_usd:numOrBlank(obj.official_food_away_from_home_usd),
         official_total_food_usd:numOrBlank(obj.official_total_food_usd),
+        proxy_food_total_usd:numOrBlank(obj.proxy_food_total_usd) || numOrBlank(obj.model_total_food_usd),
+        proxy_food_monthly_usd:numOrBlank(obj.proxy_food_monthly_usd) || numOrBlank(obj.model_monthly_food_usd),
         model_total_food_usd:numOrBlank(obj.model_total_food_usd),
         model_monthly_food_usd:numOrBlank(obj.model_monthly_food_usd),
         groceries_index_vs_base:numOrBlank(obj.groceries_index_vs_base),
@@ -582,8 +584,8 @@ function sourceLink(url){
           <td>${row.city}</td>
           <td>${row.household_size_assumed===''?'—':row.household_size_assumed}</td>
           <td>${moneyMaybe(row.official_total_food_usd)}</td>
-          <td>${moneyMaybe(row.model_total_food_usd)}</td>
-          <td>${moneyMaybe(row.model_monthly_food_usd)}</td>
+          <td>${moneyMaybe(row.proxy_food_total_usd)}</td>
+          <td>${moneyMaybe(row.proxy_food_monthly_usd)}</td>
           <td>${moneyMaybe(row.official_food_at_home_usd)}</td>
           <td>${moneyMaybe(row.official_food_away_from_home_usd)}</td>
           <td>${sourceLink(row.source_url)}</td>
@@ -2022,9 +2024,9 @@ function update(){
       <div class="icell"><div class="ik">${S.lang==='en'?'Derived living cost':'推导后的生活费'}</div><div class="iv">${money(livingSpendForCity(c))}${S.lang==='en'?'/yr':'/年'}</div></div>
       <div class="icell"><div class="ik">${S.lang==='en'?'Second-adult increment':'第二成人增量'}</div><div class="iv">${money(c.secondAdult)}${S.lang==='en'?'/yr':'/年'}</div></div>
       <div class="icell"><div class="ik">${S.lang==='en'?'Sample household size':'样本人数'}</div><div class="iv">${sample?(sample.household_size_assumed||'—'):'—'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Sample food total':'吃饭样本总额'}</div><div class="iv">${sample?moneyOrDash(sample.official_total_food_usd):'—'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Sample model food':'样本模型值'}</div><div class="iv">${sample?moneyOrDash(sample.model_total_food_usd):'—'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Sample model / month':'样本月额'}</div><div class="iv">${sample?money(sample.model_monthly_food_usd):'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Sample official food':'样本官方吃饭值'}</div><div class="iv">${sample?moneyOrDash(sample.official_total_food_usd):'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Sample proxy food':'样本 proxy 值'}</div><div class="iv">${sample?moneyOrDash(sample.proxy_food_total_usd):'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Sample proxy / month':'样本 proxy 月额'}</div><div class="iv">${sample?moneyOrDash(sample.proxy_food_monthly_usd):'—'}</div></div>
       <div class="icell"><div class="ik">${S.lang==='en'?'Housing sample people':'住房样本人数'}</div><div class="iv">${housingSample?(housingSample.household_size_assumed||'—'):'—'}</div></div>
       <div class="icell"><div class="ik">${S.lang==='en'?'Sample rent 3BR':'样本3居租金'}</div><div class="iv">${housingSample?money(housingSample.rent_3br_monthly_usd)+'/mo':'—'}</div></div>
       <div class="icell"><div class="ik">${S.lang==='en'?'Sample rent 3BR / yr':'样本3居年租'}</div><div class="iv">${housingSample?money(housingSample.rent_3br_annual_usd)+'/yr':'—'}</div></div>
@@ -2032,8 +2034,8 @@ function update(){
       <div class="icell"><div class="ik">${S.lang==='en'?'Sample buy 3BR':'样本3居买房'}</div><div class="iv">${housingSample?compact(housingSample.buy_3br_usd):'—'}</div></div>
     </div>
     ${sample?`<div class="note" style="margin-top:10px">${S.lang==='en'
-      ? `CSV sample matched: <b>${sample.city}</b>. Household size ${sample.household_size_assumed || '—'}; official food spend ${moneyOrDash(sample.official_total_food_usd)}/yr; model food spend ${moneyOrDash(sample.model_total_food_usd)}/yr (${moneyOrDash(sample.model_monthly_food_usd)}/mo); model vs official ${sample.model_vs_official_pct===''?'—':sample.model_vs_official_pct.toFixed(1)+'%'}. Original source: ${sourceLink(sample.source_url)}.`
-      : `CSV 样本已匹配：<b>${sample.city}</b>。家庭人数 ${sample.household_size_assumed || '—'}；官方吃饭支出 ${moneyOrDash(sample.official_total_food_usd)}/年；模型值 ${moneyOrDash(sample.model_total_food_usd)}/年（${moneyOrDash(sample.model_monthly_food_usd)}/月）；模型相对官方 ${sample.model_vs_official_pct===''?'—':sample.model_vs_official_pct.toFixed(1)+'%'}. 原始来源：${sourceLink(sample.source_url)}。`
+      ? `CSV sample matched: <b>${sample.city}</b>. Household size ${sample.household_size_assumed || '—'}; official food spend ${moneyOrDash(sample.official_total_food_usd)}/yr; proxy food spend ${moneyOrDash(sample.proxy_food_total_usd)}/yr (${moneyOrDash(sample.proxy_food_monthly_usd)}/mo); proxy vs official ${sample.model_vs_official_pct===''?'—':sample.model_vs_official_pct.toFixed(1)+'%'}. Original source: ${sourceLink(sample.source_url)}.`
+      : `CSV 样本已匹配：<b>${sample.city}</b>。家庭人数 ${sample.household_size_assumed || '—'}；官方吃饭支出 ${moneyOrDash(sample.official_total_food_usd)}/年；proxy 吃饭支出 ${moneyOrDash(sample.proxy_food_total_usd)}/年（${moneyOrDash(sample.proxy_food_monthly_usd)}/月）；proxy 相对官方 ${sample.model_vs_official_pct===''?'—':sample.model_vs_official_pct.toFixed(1)+'%'}. 原始来源：${sourceLink(sample.source_url)}。`
     }</div>`:''}
     ${housingSample?`<div class="note" style="margin-top:8px">${S.lang==='en'
       ? `CSV housing sample matched: <b>${housingSample.city}</b>. Household size ${housingSample.household_size_assumed || '—'}; 3BR rent ${money(housingSample.rent_3br_monthly_usd)}/mo (${money(housingSample.rent_3br_annual_usd)}/yr); 4BR rent ${money(housingSample.rent_4br_monthly_usd)}/mo (${money(housingSample.rent_4br_annual_usd)}/yr); 3BR buy ${compact(housingSample.buy_3br_usd)}; 4BR buy ${compact(housingSample.buy_4br_usd)}. Original source: ${sourceLink(housingSample.source_url)}.`

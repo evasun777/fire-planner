@@ -135,6 +135,56 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
    <button data-v="bay" class="active">湾区</button><button data-v="nyc">纽约</button><button data-v="seattle">西雅图</button><button data-v="losangeles">洛杉矶</button><button data-v="dallas">达拉斯</button><button data-v="shanghai">上海</button><button data-v="hangzhou">杭州</button><button data-v="suzhou">苏州</button><button data-v="chengdu">成都</button><button data-v="kunming">昆明</button><button data-v="dali">大理</button><button data-v="haikou">海口</button><button data-v="taiyuan">太原</button>
   </div>
   <details class="info"><summary id="cityAssumptionSummary">ⓘ 当前城市 assumption</summary><div class="info-body" id="cityInfo"></div></details>
+  <div class="card" id="foodSampleCard" style="margin-top:12px;padding:12px">
+   <div class="head" style="margin-bottom:8px">
+    <h2 style="margin:0;font-size:14px">城市吃饭样本 / City food sample</h2>
+    <span class="pill" id="foodSampleStatus">Loading sample CSV…</span>
+   </div>
+   <div class="desc" style="margin-top:0">
+    这个表直接从 <code>city_food_spend_model.csv</code> 读取。页面会优先把这里的 sample 写进城市说明卡片，方便以后继续扩城市。
+   </div>
+   <div class="scroll">
+    <table>
+     <thead>
+      <tr>
+       <th>City</th>
+       <th>Official food/yr</th>
+       <th>Model food/yr</th>
+       <th>Home</th>
+       <th>Away</th>
+      </tr>
+     </thead>
+     <tbody id="foodSampleRows">
+      <tr><td colspan="5">Loading…</td></tr>
+     </tbody>
+    </table>
+   </div>
+  </div>
+  <div class="card" id="housingSampleCard" style="margin-top:12px;padding:12px">
+   <div class="head" style="margin-bottom:8px">
+    <h2 style="margin:0;font-size:14px">城市住房样本 / City housing sample</h2>
+    <span class="pill" id="housingSampleStatus">Loading housing CSV…</span>
+   </div>
+   <div class="desc" style="margin-top:0">
+    这张表也直接从 <code>city_housing_model.csv</code> 读取，里面同时放了租房、买房和 source。
+   </div>
+   <div class="scroll">
+    <table>
+     <thead>
+      <tr>
+       <th>City</th>
+       <th>3BR rent/mo</th>
+       <th>4BR rent/mo</th>
+       <th>3BR buy</th>
+       <th>4BR buy</th>
+      </tr>
+     </thead>
+     <tbody id="housingSampleRows">
+      <tr><td colspan="5">Loading…</td></tr>
+     </tbody>
+    </table>
+   </div>
+  </div>
   <div class="grid" style="margin-top:12px">
    <div><div class="choice-label" id="housingLabel">退休住房</div><div class="seg" id="housing"><button data-v="rent">租房</button><button data-v="buy" class="active">买房</button></div></div>
    <div id="mortgageWrap" style="grid-column:1/-1">
@@ -188,9 +238,9 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
   <div class="control"><div class="head"><label>长期实际投资回报</label><span class="pill" id="retV"></span></div><input id="ret" type="range" min="0" max=".07" step=".005" value=".035"></div>
   <details class="info"><summary id="retReturnSummary">ⓘ 长期实际投资回报 Assumption</summary><div class="info-body" id="retInfo"></div></details>
    <div class="control">
-   <div class="head"><label id="bayBaseSpendLabel">湾区基础生活费（不含房贷 / housing）</label><span class="pill" id="bayBaseSpendV">$21k</span></div>
-    <input id="bayBaseSpend" type="range" min="15000" max="40000" step="500" value="20800">
-    <div class="desc" id="bayBaseSpendDesc" style="margin-top:6px">所有城市的固定生活费按湾区基准乘以城市系数换算；这个基准会再拆成 food / goods / insurance / medical / misc，travel 仍然单独作为顶层支出。</div>
+   <div class="head"><label id="bayBaseSpendLabel">湾区基础生活费（不含房贷 / housing）</label><span class="pill" id="bayBaseSpendV">$30k</span></div>
+    <input id="bayBaseSpend" type="range" min="15000" max="40000" step="500" value="30000">
+    <div class="desc" id="bayBaseSpendDesc" style="margin-top:6px">所有城市的固定生活费按湾区基准乘以城市系数换算；这个基准会再拆成 food / goods / insurance / medical / misc，travel 仍然单独作为顶层支出。这里的 insurance 主要指房屋、车、寿险和 umbrella 这类保费，不再单独写“邮费”。</div>
    </div>
   <details class="info" id="livingEditorWrap">
    <summary id="livingEditorSummary">ⓘ 调整支出明细 / Adjust spending detail</summary>
@@ -424,6 +474,148 @@ const S={scope:'family',kids:2,childcare:'mixed',usSchool:'public',cnSchool:'int
  const $=id=>document.getElementById(id),$$=sel=>document.querySelectorAll(sel),n=id=>Number($(id).value)||0;
  const money=x=>(x<0?'−':'')+'$'+Math.round(Math.abs(x)).toLocaleString('en-US'),compact=x=>(x<0?'−':'')+'$'+(Math.abs(x)/1e6).toFixed(2)+'M';
  const CITY_ORDER=['bay','nyc','seattle','losangeles','dallas','shanghai','hangzhou','suzhou','chengdu','kunming','dali','haikou','taiyuan'];
+ const FOOD_SAMPLE_URL='city_food_spend_model.csv';
+ const HOUSING_SAMPLE_URL='city_housing_model.csv';
+ let FOOD_SAMPLE_ROWS=[];
+ let FOOD_SAMPLE_BY_KEY={};
+ let FOOD_SAMPLE_STATUS='Loading sample CSV…';
+ let HOUSING_SAMPLE_ROWS=[];
+ let HOUSING_SAMPLE_BY_KEY={};
+ let HOUSING_SAMPLE_STATUS='Loading housing CSV…';
+ function parseCSV(text){
+  const rows=[];
+  let row=[];
+  let cell='';
+  let inQuotes=false;
+  const pushCell=()=>{row.push(cell);cell='';};
+  const pushRow=()=>{if(row.length) rows.push(row);row=[];};
+  const normalized=String(text||'').replace(/^\uFEFF/,'');
+  for(let i=0;i<normalized.length;i++){
+    const ch=normalized[i];
+    const next=normalized[i+1];
+    if(inQuotes){
+      if(ch==='"'&&next==='"'){cell+='"';i++;continue;}
+      if(ch==='"'){inQuotes=false;continue;}
+      cell+=ch;
+      continue;
+    }
+    if(ch==='"'){inQuotes=true;continue;}
+    if(ch===','){pushCell();continue;}
+    if(ch==='\n'){pushCell();pushRow();continue;}
+    if(ch==='\r') continue;
+    cell+=ch;
+  }
+  if(cell.length||row.length){pushCell();pushRow();}
+  return rows;
+ }
+ function normalizeFoodCityKey(value){
+  const text=String(value||'').toLowerCase();
+  if(text.includes('san francisco')) return 'bay';
+  if(text.includes('new york')) return 'nyc';
+  if(text.includes('shanghai')) return 'shanghai';
+  if(text.includes('chengdu')) return 'chengdu';
+  return '';
+ }
+ function numOrBlank(value){
+  const n=Number(String(value).replace(/[$,]/g,''));
+  return Number.isFinite(n) ? n : '';
+ }
+ function moneyMaybe(value){
+  return value==='' ? '—' : '$' + Math.round(Number(value)).toLocaleString('en-US');
+ }
+ async function loadFoodSampleCSV(){
+  try{
+    const res=await fetch(FOOD_SAMPLE_URL,{cache:'no-store'});
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    const text=await res.text();
+    const rows=parseCSV(text);
+    const header=rows.shift()||[];
+    FOOD_SAMPLE_ROWS=rows.map(cols=>{
+      const obj={};
+      header.forEach((h,i)=>{obj[h]=cols[i]??'';});
+      const row={
+        ...obj,
+        key:normalizeFoodCityKey(obj.city),
+        official_food_at_home_usd:numOrBlank(obj.official_food_at_home_usd),
+        official_food_away_from_home_usd:numOrBlank(obj.official_food_away_from_home_usd),
+        official_total_food_usd:numOrBlank(obj.official_total_food_usd),
+        model_total_food_usd:numOrBlank(obj.model_total_food_usd),
+        groceries_index_vs_base:numOrBlank(obj.groceries_index_vs_base),
+        restaurant_index_vs_base:numOrBlank(obj.restaurant_index_vs_base),
+        model_vs_official_pct:numOrBlank(obj.model_vs_official_pct)
+      };
+      return row;
+    }).filter(row=>row.city);
+    FOOD_SAMPLE_BY_KEY=FOOD_SAMPLE_ROWS.reduce((acc,row)=>{
+      if(row.key) acc[row.key]=row;
+      return acc;
+    },{});
+    FOOD_SAMPLE_STATUS=`Loaded ${FOOD_SAMPLE_ROWS.length} sample rows from CSV`;
+  }catch(err){
+    FOOD_SAMPLE_ROWS=[];
+    FOOD_SAMPLE_BY_KEY={};
+    FOOD_SAMPLE_STATUS='CSV load failed';
+  }
+  const statusEl=$('foodSampleStatus');
+  if(statusEl) statusEl.textContent=FOOD_SAMPLE_STATUS;
+  const rowsEl=$('foodSampleRows');
+  if(rowsEl){
+    rowsEl.innerHTML=FOOD_SAMPLE_ROWS.length
+      ? FOOD_SAMPLE_ROWS.map(row=>`<tr>
+          <td>${row.city}</td>
+          <td>${moneyMaybe(row.official_total_food_usd)}</td>
+          <td>${moneyMaybe(row.model_total_food_usd)}</td>
+          <td>${moneyMaybe(row.official_food_at_home_usd)}</td>
+          <td>${moneyMaybe(row.official_food_away_from_home_usd)}</td>
+        </tr>`).join('')
+      : `<tr><td colspan="5">${FOOD_SAMPLE_STATUS}</td></tr>`;
+  }
+ }
+ async function loadHousingSampleCSV(){
+  try{
+    const res=await fetch(HOUSING_SAMPLE_URL,{cache:'no-store'});
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    const text=await res.text();
+    const rows=parseCSV(text);
+    const header=rows.shift()||[];
+    HOUSING_SAMPLE_ROWS=rows.map(cols=>{
+      const obj={};
+      header.forEach((h,i)=>{obj[h]=cols[i]??'';});
+      return {
+        ...obj,
+        city_key:String(obj.city_key||'').trim(),
+        rent_3br_monthly_usd:numOrBlank(obj.rent_3br_monthly_usd),
+        rent_4br_monthly_usd:numOrBlank(obj.rent_4br_monthly_usd),
+        buy_3br_usd:numOrBlank(obj.buy_3br_usd),
+        buy_4br_usd:numOrBlank(obj.buy_4br_usd),
+        living_factor:numOrBlank(obj.living_factor)
+      };
+    }).filter(row=>row.city_key);
+    HOUSING_SAMPLE_BY_KEY=HOUSING_SAMPLE_ROWS.reduce((acc,row)=>{
+      acc[row.city_key]=row;
+      return acc;
+    },{});
+    HOUSING_SAMPLE_STATUS=`Loaded ${HOUSING_SAMPLE_ROWS.length} housing rows from CSV`;
+  }catch(err){
+    HOUSING_SAMPLE_ROWS=[];
+    HOUSING_SAMPLE_BY_KEY={};
+    HOUSING_SAMPLE_STATUS='Housing CSV load failed';
+  }
+  const statusEl=$('housingSampleStatus');
+  if(statusEl) statusEl.textContent=HOUSING_SAMPLE_STATUS;
+  const rowsEl=$('housingSampleRows');
+  if(rowsEl){
+    rowsEl.innerHTML=HOUSING_SAMPLE_ROWS.length
+      ? HOUSING_SAMPLE_ROWS.map(row=>`<tr>
+          <td>${row.city}</td>
+          <td>${moneyMaybe(row.rent_3br_monthly_usd)}</td>
+          <td>${moneyMaybe(row.rent_4br_monthly_usd)}</td>
+          <td>${moneyMaybe(row.buy_3br_usd)}</td>
+          <td>${moneyMaybe(row.buy_4br_usd)}</td>
+        </tr>`).join('')
+      : `<tr><td colspan="5">${HOUSING_SAMPLE_STATUS}</td></tr>`;
+  }
+ }
  function L(key,vars={}){
    const mode=LANG[S.lang]||LANG.zh;
    let s=mode[key]||LANG.zh[key]||key;
@@ -435,6 +627,14 @@ const S={scope:'family',kids:2,childcare:'mixed',usSchool:'public',cnSchool:'int
    if(S.lang==='en') return c.nameEn;
    return `${c.nameZh} / ${c.nameEn}`;
  }
+function cityFoodSample(c){
+  const key=Object.keys(CITY).find(k=>CITY[k]===c) || '';
+  return FOOD_SAMPLE_BY_KEY[key] || null;
+}
+function cityHousingSample(c){
+  const key=Object.keys(CITY).find(k=>CITY[k]===c) || '';
+  return HOUSING_SAMPLE_BY_KEY[key] || null;
+}
 function citySource(c){
   if(S.lang==='zh') return c.srcZh;
   if(S.lang==='en') return c.srcEn;
@@ -670,9 +870,9 @@ States with no personal income tax (TX / WA / FL) are treated as 0 state income 
       }</div>
       <div class="desc" style="margin-bottom:10px">${foodAssumptionNote()}</div>
       <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">${rows}</div>
-      <div class="desc" style="margin-top:8px">${S.lang==='en'
-        ? `Current baseline total: ${money(total)}/yr`
-        : `当前基准总额：${money(total)}/年`
+    <div class="desc" style="margin-top:8px">${S.lang==='en'
+        ? `Current baseline total: <span id="livingBaseTotalV">${money(total)}/yr</span>`
+        : `当前基准总额：<span id="livingBaseTotalV">${money(total)}/年</span>`
       }</div>`;
   }
   const spendDetailSummary=$('spendDetailSummary');
@@ -689,8 +889,8 @@ States with no personal income tax (TX / WA / FL) are treated as 0 state income 
       ? `Base living mix ${money(ld.coreLiving)} · Second adult add-on ${money(ld.secondAdult)} · Medical ${money(ld.medical)}`
       : `基础生活 mix ${money(ld.coreLiving)} · 第二成人增量 ${money(ld.secondAdult)} · 医疗 ${money(ld.medical)}`;
     const livingSubLine=ld=>S.lang==='en'
-      ? `Food ${money(ld.food)} · Consumer goods ${money(ld.goods)} · Insurance / postage ${money(ld.insurance)} · Misc ${money(ld.misc)}`
-      : `吃饭 ${money(ld.food)} · 消费品 ${money(ld.goods)} · 保险 / 邮费 ${money(ld.insurance)} · 其他 ${money(ld.misc)}`;
+      ? `Food ${money(ld.food)} · Consumer goods ${money(ld.goods)} · Insurance ${money(ld.insurance)} · Misc ${money(ld.misc)}`
+      : `吃饭 ${money(ld.food)} · 消费品 ${money(ld.goods)} · 保险 ${money(ld.insurance)} · 其他 ${money(ld.misc)}`;
     const box=(title,sp,age,city)=>`
       <div class="box">
         <div class="a">${title}</div>
@@ -721,9 +921,7 @@ States with no personal income tax (TX / WA / FL) are treated as 0 state income 
     : (S.lang==='bilingual'
       ? '6. 年度收入、支出、总资产（至80岁） / Annual income, spending, and total assets (to age 80)'
       : '6. 年度收入、支出、总资产（至80岁）');
-  const livingTotal=bayBaseSpend();
-  if($('bayBaseSpend')) $('bayBaseSpend').value=livingTotal;
-  $('bayBaseSpendV').textContent=money(livingTotal)+'/yr';
+  updateLivingTotalsView();
   const projectionCurrentBtn=$('projectionCurrentBtn');
   const projectionTargetBtn=$('projectionTargetBtn');
   if(projectionCurrentBtn) projectionCurrentBtn.textContent=S.lang==='en'?'Current path':(S.lang==='bilingual'?'当前路径 / Current path':'当前路径');
@@ -1782,6 +1980,8 @@ function update(){
   {
     const selectedBuy = housingByBedrooms(c,'buy');
     const selectedRent = housingByBedrooms(c,'rent');
+    const sample = cityFoodSample(c);
+    const housingSample = cityHousingSample(c);
     $('cityInfo').innerHTML=`<div class="info-grid">
       <div class="icell"><div class="ik">${S.lang==='en'?'3BR rent':'3居租金'}</div><div class="iv">${money(c.rent3/12)}${S.lang==='en'?'/mo':'/月'}</div></div>
       <div class="icell"><div class="ik">${S.lang==='en'?'4BR rent':'4居租金'}</div><div class="iv">${money(c.rent4/12)}${S.lang==='en'?'/mo':'/月'}</div></div>
@@ -1792,7 +1992,19 @@ function update(){
       <div class="icell"><div class="ik">${S.lang==='en'?'Rent used':'当前模型采用租金'}</div><div class="iv">${S.housing==='rent'?money(selectedRent/12)+(S.lang==='en'?'/mo':'/月'):'$0'}</div></div>
       <div class="icell"><div class="ik">${S.lang==='en'?'Derived living cost':'推导后的生活费'}</div><div class="iv">${money(livingSpendForCity(c))}${S.lang==='en'?'/yr':'/年'}</div></div>
       <div class="icell"><div class="ik">${S.lang==='en'?'Second-adult increment':'第二成人增量'}</div><div class="iv">${money(c.secondAdult)}${S.lang==='en'?'/yr':'/年'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Sample food total':'吃饭样本总额'}</div><div class="iv">${sample?money(sample.official_total_food_usd):'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Sample model food':'样本模型值'}</div><div class="iv">${sample?money(sample.model_total_food_usd):'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Sample rent 3BR':'样本3居租金'}</div><div class="iv">${housingSample?money(housingSample.rent_3br_monthly_usd)+'/mo':'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Sample buy 3BR':'样本3居买房'}</div><div class="iv">${housingSample?compact(housingSample.buy_3br_usd):'—'}</div></div>
     </div>
+    ${sample?`<div class="note" style="margin-top:10px">${S.lang==='en'
+      ? `CSV sample matched: <b>${sample.city}</b>. Official food spend ${money(sample.official_total_food_usd)}/yr; model food spend ${money(sample.model_total_food_usd)}/yr; model vs official ${sample.model_vs_official_pct.toFixed(1)}%.`
+      : `CSV 样本已匹配：<b>${sample.city}</b>。官方吃饭支出 ${money(sample.official_total_food_usd)}/年；模型值 ${money(sample.model_total_food_usd)}/年；模型相对官方 ${sample.model_vs_official_pct.toFixed(1)}%。`
+    }</div>`:''}
+    ${housingSample?`<div class="note" style="margin-top:8px">${S.lang==='en'
+      ? `CSV housing sample matched: <b>${housingSample.city}</b>. 3BR rent ${money(housingSample.rent_3br_monthly_usd)}/mo; 4BR rent ${money(housingSample.rent_4br_monthly_usd)}/mo; 3BR buy ${compact(housingSample.buy_3br_usd)}; 4BR buy ${compact(housingSample.buy_4br_usd)}.`
+      : `CSV 住房样本已匹配：<b>${housingSample.city}</b>。3居租金 ${money(housingSample.rent_3br_monthly_usd)}/月；4居租金 ${money(housingSample.rent_4br_monthly_usd)}/月；3居买房 ${compact(housingSample.buy_3br_usd)}；4居买房 ${compact(housingSample.buy_4br_usd)}。`
+    }</div>`:''}
     ${citySource(c)}<br><br>
     ${cityResource(c)}<br><br>
     <b>${S.lang==='en'?'Housing rule':'住房计算规则'}</b>: ${L('cityRule')}<br><br><b>${S.lang==='en'?'Current housing':'当前住房'}：</b>${S.housing==='buy'
@@ -1963,7 +2175,7 @@ bind('langMode','lang');bind('scope','scope');bind('relocationPath','relocationP
 ['currentAge','fiAge','postRetireIncome','assets','income','partnerIncome','ret','downPay','mortgageRate','mortgageYears','homeCarry','manualTax'].forEach(id=>$(id).addEventListener('input',scheduleUpdate));
 const homePurchaseAgeEl=$('homePurchaseAge');
   if(homePurchaseAgeEl) homePurchaseAgeEl.addEventListener('input',()=>{S.homePurchaseAgeManual=true;scheduleUpdate()});
- $('bayBaseSpend').addEventListener('input',e=>{syncLivingPartsFromTotal(Number(e.target.value)||0);scheduleUpdate()});
+ $('bayBaseSpend').addEventListener('input',e=>{syncLivingPartsFromTotal(Number(e.target.value)||0);updateLivingTotalsView();scheduleUpdate()});
  document.addEventListener('input',e=>{
    const t=e.target;
    if(!t || !t.matches) return;
@@ -1972,6 +2184,7 @@ const homePurchaseAgeEl=$('homePurchaseAge');
      if(key){
        if(key==='food') S.autoFood=false;
        setLivingPart(key,Number(t.value)||0);
+       updateLivingTotalsView();
        scheduleUpdate();
      }
    }
@@ -1997,13 +2210,13 @@ const homePurchaseAgeEl=$('homePurchaseAge');
  const LIVING_PARTS=[
   ['food', {zh:'吃饭', en:'Food'}],
   ['goods', {zh:'消费品', en:'Consumer goods'}],
-  ['insurance', {zh:'保险 / 邮费', en:'Insurance / postage'}],
+  ['insurance', {zh:'保险', en:'Insurance'}],
   ['medical', {zh:'医疗', en:'Medical'}],
   ['misc', {zh:'其他', en:'Misc'}]
  ];
  function livingParts(){
   if(!S.livingParts){
-    S.livingParts={food:5200,goods:5800,insurance:1800,medical:2500,misc:5500};
+    S.livingParts={food:7500,goods:9000,insurance:2500,medical:3500,misc:7500};
   }
   return S.livingParts;
  }
@@ -2013,10 +2226,10 @@ const homePurchaseAgeEl=$('homePurchaseAge');
  function foodAssumptionAnnual(){
   const adultsCount=adults();
   const total={
-   lean:adultsCount===1?2600:3800,
-   base:adultsCount===1?3600:5200,
-   comfort:adultsCount===1?5000:7200
-  }[S.lifestyle] ?? (adultsCount===1?3600:5200);
+   lean:adultsCount===1?3800:5500,
+   base:adultsCount===1?5200:7500,
+   comfort:adultsCount===1?7000:10000
+  }[S.lifestyle] ?? (adultsCount===1?5200:7500);
   return Math.round(total);
  }
  function foodAssumptionNote(){
@@ -2042,6 +2255,15 @@ const homePurchaseAgeEl=$('homePurchaseAge');
   syncFoodIfAuto();
   return livingPartsTotal();
  }
+ function updateLivingTotalsView(){
+  const livingTotal=bayBaseSpend();
+  const bayBaseSpendEl=$('bayBaseSpend');
+  const bayBaseSpendV=$('bayBaseSpendV');
+  const livingBaseTotalV=$('livingBaseTotalV');
+  if(bayBaseSpendEl) bayBaseSpendEl.value=livingTotal;
+  if(bayBaseSpendV) bayBaseSpendV.textContent=money(livingTotal)+'/yr';
+  if(livingBaseTotalV) livingBaseTotalV.textContent=money(livingTotal)+'/yr';
+ }
  function syncLivingPartsFromTotal(total){
   const p=livingParts();
   const current=livingPartsTotal();
@@ -2061,6 +2283,7 @@ const homePurchaseAgeEl=$('homePurchaseAge');
  }
 
  update();
+ Promise.all([loadFoodSampleCSV(),loadHousingSampleCSV()]).finally(()=>scheduleUpdate());
 })();
 </script>
 </body>

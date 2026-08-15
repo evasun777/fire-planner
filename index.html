@@ -146,13 +146,14 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
    <div class="scroll">
     <table>
      <thead>
-      <tr>
-       <th>City</th>
-       <th>Official food/yr</th>
-       <th>Model food/yr</th>
-       <th>Home</th>
-       <th>Away</th>
-      </tr>
+     <tr>
+      <th>City</th>
+      <th>Official food/yr</th>
+      <th>Model food/yr</th>
+      <th>Home</th>
+      <th>Away</th>
+      <th>Source</th>
+     </tr>
      </thead>
      <tbody id="foodSampleRows">
       <tr><td colspan="5">Loading…</td></tr>
@@ -171,13 +172,14 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
    <div class="scroll">
     <table>
      <thead>
-      <tr>
-       <th>City</th>
-       <th>3BR rent/mo</th>
-       <th>4BR rent/mo</th>
-       <th>3BR buy</th>
-       <th>4BR buy</th>
-      </tr>
+     <tr>
+      <th>City</th>
+      <th>3BR rent/mo</th>
+      <th>4BR rent/mo</th>
+      <th>3BR buy</th>
+      <th>4BR buy</th>
+      <th>Source</th>
+     </tr>
      </thead>
      <tbody id="housingSampleRows">
       <tr><td colspan="5">Loading…</td></tr>
@@ -523,6 +525,10 @@ const S={scope:'family',kids:2,childcare:'mixed',usSchool:'public',cnSchool:'int
  function moneyMaybe(value){
   return value==='' ? '—' : '$' + Math.round(Number(value)).toLocaleString('en-US');
  }
+ function sourceLink(url){
+  if(!url) return '—';
+  return `<a href="${url}" target="_blank" rel="noopener">source</a>`;
+ }
  async function loadFoodSampleCSV(){
   try{
     const res=await fetch(FOOD_SAMPLE_URL,{cache:'no-store'});
@@ -567,8 +573,9 @@ const S={scope:'family',kids:2,childcare:'mixed',usSchool:'public',cnSchool:'int
           <td>${moneyMaybe(row.model_total_food_usd)}</td>
           <td>${moneyMaybe(row.official_food_at_home_usd)}</td>
           <td>${moneyMaybe(row.official_food_away_from_home_usd)}</td>
+          <td>${sourceLink(row.source_url)}</td>
         </tr>`).join('')
-      : `<tr><td colspan="5">${FOOD_SAMPLE_STATUS}</td></tr>`;
+      : `<tr><td colspan="6">${FOOD_SAMPLE_STATUS}</td></tr>`;
   }
  }
  async function loadHousingSampleCSV(){
@@ -612,8 +619,9 @@ const S={scope:'family',kids:2,childcare:'mixed',usSchool:'public',cnSchool:'int
           <td>${moneyMaybe(row.rent_4br_monthly_usd)}</td>
           <td>${moneyMaybe(row.buy_3br_usd)}</td>
           <td>${moneyMaybe(row.buy_4br_usd)}</td>
+          <td>${sourceLink(row.source_url)}</td>
         </tr>`).join('')
-      : `<tr><td colspan="5">${HOUSING_SAMPLE_STATUS}</td></tr>`;
+      : `<tr><td colspan="6">${HOUSING_SAMPLE_STATUS}</td></tr>`;
   }
  }
  function L(key,vars={}){
@@ -1998,12 +2006,12 @@ function update(){
       <div class="icell"><div class="ik">${S.lang==='en'?'Sample buy 3BR':'样本3居买房'}</div><div class="iv">${housingSample?compact(housingSample.buy_3br_usd):'—'}</div></div>
     </div>
     ${sample?`<div class="note" style="margin-top:10px">${S.lang==='en'
-      ? `CSV sample matched: <b>${sample.city}</b>. Official food spend ${money(sample.official_total_food_usd)}/yr; model food spend ${money(sample.model_total_food_usd)}/yr; model vs official ${sample.model_vs_official_pct.toFixed(1)}%.`
-      : `CSV 样本已匹配：<b>${sample.city}</b>。官方吃饭支出 ${money(sample.official_total_food_usd)}/年；模型值 ${money(sample.model_total_food_usd)}/年；模型相对官方 ${sample.model_vs_official_pct.toFixed(1)}%。`
+      ? `CSV sample matched: <b>${sample.city}</b>. Official food spend ${money(sample.official_total_food_usd)}/yr; model food spend ${money(sample.model_total_food_usd)}/yr; model vs official ${sample.model_vs_official_pct.toFixed(1)}%. Original source: ${sourceLink(sample.source_url)}.`
+      : `CSV 样本已匹配：<b>${sample.city}</b>。官方吃饭支出 ${money(sample.official_total_food_usd)}/年；模型值 ${money(sample.model_total_food_usd)}/年；模型相对官方 ${sample.model_vs_official_pct.toFixed(1)}%。原始来源：${sourceLink(sample.source_url)}。`
     }</div>`:''}
     ${housingSample?`<div class="note" style="margin-top:8px">${S.lang==='en'
-      ? `CSV housing sample matched: <b>${housingSample.city}</b>. 3BR rent ${money(housingSample.rent_3br_monthly_usd)}/mo; 4BR rent ${money(housingSample.rent_4br_monthly_usd)}/mo; 3BR buy ${compact(housingSample.buy_3br_usd)}; 4BR buy ${compact(housingSample.buy_4br_usd)}.`
-      : `CSV 住房样本已匹配：<b>${housingSample.city}</b>。3居租金 ${money(housingSample.rent_3br_monthly_usd)}/月；4居租金 ${money(housingSample.rent_4br_monthly_usd)}/月；3居买房 ${compact(housingSample.buy_3br_usd)}；4居买房 ${compact(housingSample.buy_4br_usd)}。`
+      ? `CSV housing sample matched: <b>${housingSample.city}</b>. 3BR rent ${money(housingSample.rent_3br_monthly_usd)}/mo; 4BR rent ${money(housingSample.rent_4br_monthly_usd)}/mo; 3BR buy ${compact(housingSample.buy_3br_usd)}; 4BR buy ${compact(housingSample.buy_4br_usd)}. Original source: ${sourceLink(housingSample.source_url)}.`
+      : `CSV 住房样本已匹配：<b>${housingSample.city}</b>。3居租金 ${money(housingSample.rent_3br_monthly_usd)}/月；4居租金 ${money(housingSample.rent_4br_monthly_usd)}/月；3居买房 ${compact(housingSample.buy_3br_usd)}；4居买房 ${compact(housingSample.buy_4br_usd)}。原始来源：${sourceLink(housingSample.source_url)}。`
     }</div>`:''}
     ${citySource(c)}<br><br>
     ${cityResource(c)}<br><br>

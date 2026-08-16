@@ -49,6 +49,7 @@ python3 -m http.server 8000
 - [`questionnaire.js`](./questionnaire.js): 问答页交互逻辑
 - [`questionnaire.css`](./questionnaire.css): 问答页样式
 - [`ASSUMPTIONS.md`](./ASSUMPTIONS.md): 当前模型假设和城市资源说明
+- [`tax_assumptions.json`](./tax_assumptions.json): 税率估算的结构化参考数据，方便后续可视化
 
 ## 备注
 

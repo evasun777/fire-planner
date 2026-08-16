@@ -84,6 +84,10 @@
 - 这个乘数目前只作用在生活费上。
   - 医疗已经并入生活费。
   - 住房、旅行、父母 / 家人支持、孩子支出不会被这个乘数自动放大。
+- 当前生活费基准是按你去年的 spending snapshot 做过一轮上调后的版本，默认总额约 `30k/年`。
+  - 这个总额是湾区固定生活底盘，不含房租 / 房贷。
+  - 如果选择 `租房`，住房部分会切换成对应城市的年度租金，而不是房贷现金流。
+  - 如果选择 `买房`，住房部分才会按房贷、首付和持有成本去算。
 
 ## 6. 孩子与教育
 
@@ -116,9 +120,13 @@
   - 如果当前地点和退休地点不同，默认从搬到退休地点那一年开始买房
 - 买房参数可调：
   - 首付比例
+  - 购房价格
   - 房贷利率
   - 房贷年限
   - 房产税 + 保险 + 维护
+- 购房价格默认值：
+  - 先按当前城市、当前家庭口径对应的住房成本假设自动填入
+  - 你可以手动拖动购房价格滑条，改成自己的预算
 - 买房计算口径：
   - 首付 = 房价 × 首付比例
   - 初始房贷 = 房价 × (1 - 首付比例)
@@ -177,20 +185,32 @@
 - 固定生活费的口径：
   - 先用湾区年度基础生活费作为基准
   - 再乘以城市系数
-  - 之后再拆成 food / goods / insurance / medical / misc
+  - 之后按家庭人数拆成 food / goods / insurance / medical / misc
+  - food 和 goods 主要按人头算
+  - insurance 和 medical 主要按成人数算
   - medical 已并入生活费，不再在顶层单独重复
 - 当前湾区基础生活费默认约：
-  - `"$20,800/年"`
-  - 这套默认拆分来自你去年 spending snapshot 的规划型校准
+  - `"$30,000/年"`
+  - 这套默认拆分来自你去年 spending snapshot 的规划型校准，并向更接近真实全年支出的方向做了上调
 - 当前默认拆分：
-  - food：`$5.2k/年`
-  - goods：`$5.8k/年`
-  - insurance / postage：`$1.8k/年`
-  - medical：`$2.5k/年`
-  - misc：`$5.5k/年`
+  - food：按人头自动校准
+  - goods：按人头自动校准
+  - insurance：主要按成人数自动校准
+    - 主要包括房屋、车、寿险和 umbrella 这类保费
+  - medical：按家庭人数自动校准，成人医疗开销高于孩子
+  - misc：按家庭人数自动校准
 - `food` 这一项会根据 household 口径和生活方式自动校准：
   - 单人家庭和双成人家庭不同
+  - 现在按大约每人每天 `$30` 的底线来算，所以 4 口之家 food 会接近 `4 × 30 × 365`
   - `节制 / 舒适 / 宽裕` 会影响吃饭口径
+  - 孩子数量会继续放大 food / goods / medical / misc 的底盘
+- `city_food_spend_model.csv` 现在只作为按人头展示的样本表：
+  - 保留 `city_zh / city_en / food_per_person_usd / food_per_person_monthly_usd / food_factor_vs_bay / source`
+  - 口径是单人 food model，和页面里的 `$30/day/person` floor 对齐
+  - 不再保留 household size、official food 或 home/away 拆分
+- `city_housing_model.csv` 现在也保留中英城市名：
+  - `city_zh / city_en / rent_3br_* / rent_4br_* / buy_3br_usd / buy_4br_usd / living_factor / source_note`
+  - 页面里的住房样本表和 tooltip 会同时显示中文名和英文名
 - 城市说明里的 `Resource` 链接会指向本文件。
 - 城市说明会展示：
   - 城市系数
@@ -228,3 +248,15 @@
 
 - 页面里的很多 assumption 是为了让 dashboard 更可调、可解释，而不是为了追求税务逐项精确。
 - 如果你改动了页面逻辑，建议同步更新本文件和对应 tooltip。
+
+## 14. 税率结构化数据
+
+- 税率自动估算相关的结构化参考文件是 [`tax_assumptions.json`](/Users/yiwei/Documents/vibe%20coding%20work/fire%20planner/tax_assumptions.json)。
+- 这个文件把税率估算拆成了更适合可视化的结构：
+  - federal brackets
+  - payroll tax
+  - California 税档
+  - 其他州的规划级税率
+  - 排除项
+  - 可用于图表展示的示例行
+- 这个 JSON 现在主要用于文档、tooltip 和后续可视化，不替代 `index.html` 里当前的运行时税务计算。

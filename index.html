@@ -14,6 +14,12 @@
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid > *{min-width:0}.choice-label{font-size:11px;font-weight:750;margin-bottom:7px;line-height:1.25}.seg{display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start}.seg button{border:1px solid #d8d0c6;background:#fff;color:#5a534d;padding:8px 11px;min-height:34px;border-radius:999px;font-size:11px;line-height:1.15;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}.seg button.active{border-color:var(--accent);background:var(--soft);color:#8e422f;font-weight:800}
 .control{margin-top:12px;min-width:0}.head{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;min-width:0}.head label{font-size:11.5px;font-weight:700;line-height:1.25;min-width:0}.pill{font-size:10px;background:#f0ebe5;color:#625b55;padding:5px 8px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;min-height:28px;line-height:1;white-space:nowrap}input[type=range]{width:100%;accent-color:var(--accent);margin-top:7px}
 details.info{margin-top:7px}details.info summary{display:inline-flex;cursor:pointer;list-style:none;align-items:center;justify-content:center;gap:4px;border:1px solid #e3dbd2;background:#f2eee8;border-radius:999px;padding:6px 10px;font-size:10px;line-height:1.15;min-height:30px;font-weight:750;color:#70675f;white-space:nowrap}details.info summary::-webkit-details-marker{display:none}
+.sample-panel{margin-top:12px;padding:12px}
+.sample-panel summary{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;list-style:none;cursor:pointer;border:1px solid #e3dbd2;background:#f2eee8;border-radius:12px;padding:8px 10px;font-size:11px;line-height:1.2;font-weight:800;color:#70675f;white-space:nowrap}
+.sample-panel summary::-webkit-details-marker{display:none}
+.sample-panel summary .sample-title{display:inline-flex;align-items:center;gap:4px;min-width:0}
+.sample-panel summary .sample-title span{white-space:nowrap}
+.sample-panel .info-body{margin-top:8px}
 .info-body{margin-top:6px;border:1px solid #ebe3da;background:#faf8f5;border-radius:10px;padding:9px;font-size:9.5px;line-height:1.55;color:#5d5650}.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:6px 0}.icell{background:#fff;border:1px solid #eee7df;border-radius:8px;padding:6px}.ik{font-size:8px;color:#8b827a}.iv{font-size:10.5px;font-weight:800;margin-top:2px}
 .breakdown{display:grid;grid-template-columns:1fr 1fr;gap:7px}.box{border:1px solid var(--line);border-radius:12px;padding:10px;background:#faf8f5}.box .a{font-size:9px;color:var(--muted)}.box .b{font-size:16px;font-weight:850;margin-top:4px}
 .solution{display:grid;grid-template-columns:1fr 1fr;gap:7px}.solvebox{border:1px solid var(--line);border-radius:13px;padding:11px;background:#faf8f5}.solvebox .slabel{font-size:9px;color:var(--muted)}.solvebox .snum{font-size:20px;font-weight:900;margin-top:4px}.solvebox .stext{font-size:9px;color:var(--muted);line-height:1.4;margin-top:4px}
@@ -135,71 +141,69 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
    <button data-v="bay" class="active">湾区</button><button data-v="nyc">纽约</button><button data-v="seattle">西雅图</button><button data-v="losangeles">洛杉矶</button><button data-v="dallas">达拉斯</button><button data-v="shanghai">上海</button><button data-v="hangzhou">杭州</button><button data-v="suzhou">苏州</button><button data-v="chengdu">成都</button><button data-v="kunming">昆明</button><button data-v="dali">大理</button><button data-v="haikou">海口</button><button data-v="taiyuan">太原</button>
   </div>
   <details class="info"><summary id="cityAssumptionSummary">ⓘ 当前城市 assumption</summary><div class="info-body" id="cityInfo"></div></details>
-  <div class="card" id="foodSampleCard" style="margin-top:12px;padding:12px">
-   <div class="head" style="margin-bottom:8px">
-    <h2 style="margin:0;font-size:14px">城市吃饭样本 / City food sample</h2>
-    <span class="pill" id="foodSampleStatus">Loading sample CSV…</span>
-   </div>
+  <details class="info sample-panel" id="foodSampleCard">
+   <summary><span class="sample-title">ⓘ 城市饮食成本 / City food cost</span><span class="pill" id="foodSampleStatus">Loading sample CSV…</span></summary>
    <div class="desc" style="margin-top:0">
-    这个表直接从 <code>city_food_spend_model.csv</code> 读取。官方值可以留空，proxy / estimated 列会直接给出可用的年额和月额，页面会优先把这里的 sample 写进城市说明卡片，方便以后继续扩城市。
+    这个表直接从 <code>city_food_spend_model.csv</code> 读取。<code>source</code> 是外部参考链接，<code>factor</code> 是相对湾区基准的城市系数。这里是单人 food model，方便和页面里的 <code>30/day/person</code> 假设保持一致。
    </div>
    <div class="scroll">
     <table>
      <thead>
      <tr>
-      <th>City</th>
-      <th>People</th>
-      <th>Official food/yr</th>
-      <th>Proxy food/yr</th>
-      <th>Proxy food/mo</th>
-      <th>Home</th>
-      <th>Away</th>
+      <th>City (zh)</th>
+      <th>City (en)</th>
+      <th>Food/yr per person</th>
+      <th>Food/mo per person</th>
+      <th>Factor vs Bay Area</th>
       <th>Source</th>
      </tr>
      </thead>
      <tbody id="foodSampleRows">
-      <tr><td colspan="8">Loading…</td></tr>
+      <tr><td colspan="6">Loading…</td></tr>
      </tbody>
     </table>
    </div>
-  </div>
-  <div class="card" id="housingSampleCard" style="margin-top:12px;padding:12px">
-   <div class="head" style="margin-bottom:8px">
-   <h2 style="margin:0;font-size:14px">城市住房样本 / City housing sample</h2>
-    <span class="pill" id="housingSampleStatus">Loading housing CSV…</span>
-   </div>
+  </details>
+  <details class="info sample-panel" id="housingSampleCard">
+   <summary><span class="sample-title">ⓘ 城市住房成本假设 / Housing expense per city assumption</span><span class="pill" id="housingSampleStatus">Loading housing CSV…</span></summary>
    <div class="desc" style="margin-top:0">
-    这张表也直接从 <code>city_housing_model.csv</code> 读取，里面同时放了人数、月租、年租、买房预算和 source。
+    这张表也直接从 <code>city_housing_model.csv</code> 读取，里面放的是各城市的住房成本假设、租金、买房预算、相对湾区系数和 source note。
    </div>
    <div class="scroll">
     <table>
      <thead>
      <tr>
-      <th>City</th>
-      <th>People</th>
+      <th>City (zh)</th>
+      <th>City (en)</th>
       <th>3BR rent/mo</th>
       <th>3BR rent/yr</th>
       <th>4BR rent/mo</th>
       <th>4BR rent/yr</th>
       <th>3BR buy</th>
       <th>4BR buy</th>
-      <th>Source</th>
+      <th>Factor</th>
+      <th>Source note</th>
      </tr>
      </thead>
      <tbody id="housingSampleRows">
-      <tr><td colspan="8">Loading…</td></tr>
+      <tr><td colspan="10">Loading…</td></tr>
      </tbody>
     </table>
    </div>
-  </div>
+  </details>
   <div class="grid" style="margin-top:12px">
    <div><div class="choice-label" id="housingLabel">退休住房</div><div class="seg" id="housing"><button data-v="rent">租房</button><button data-v="buy" class="active">买房</button></div></div>
    <div id="mortgageWrap" style="grid-column:1/-1">
     <div class="note" style="margin-top:10px">买房模式默认：<b>现在就买</b>。首付从当前可投资资产中扣除，之后逐年支付房贷并累积房屋净值。</div>
-    <div class="control" style="margin-top:10px">
+   <div class="control" style="margin-top:10px">
      <div class="head"><label>购房年龄</label><span class="pill" id="homePurchaseAgeV"></span></div>
      <input id="homePurchaseAge" type="range" min="18" max="70" step="1" value="45">
      <div class="desc" style="margin-top:6px">默认规则：如果当前地点和退休地点相同，就从现在开始买房；如果不同，就从搬到退休地点那一年开始买房。你也可以手动改这个年龄。</div>
+    </div>
+    <div class="control" style="margin-top:10px">
+     <div class="head"><label>购房价格 / Home price</label><span class="pill" id="homePriceV"></span></div>
+     <input id="homePrice" type="range" min="0" max="10000000" step="25000" value="1900000">
+     <div class="desc" style="margin-top:6px">默认值来自当前城市的住房成本假设（按你的家庭口径）；你可以拖动改成自己的买房预算。 / Default value comes from the current city housing assumption for your household; drag it to your own target home price.</div>
     </div>
     <div class="grid" style="margin-top:10px">
      <div class="control"><div class="head"><label>首付比例</label><span class="pill" id="downPayV">20%</span></div><input id="downPay" type="range" min=".05" max=".60" step=".05" value=".20"></div>
@@ -444,7 +448,7 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
 
 <script>
 (function(){
-const S={scope:'family',kids:2,childcare:'mixed',usSchool:'public',cnSchool:'intl',currentCity:'bay',city:'bay',housing:'buy',homePurchaseAge:45,homePurchaseAgeManual:false,lifestyle:'base',chartMode:'detail',projectionMode:'current',relocationPath:'returnChina',taxState:'CA',taxMode:'auto',lang:'bilingual',autoFood:true,livingPartsAuto:true,livingParts:{food:0,goods:0,insurance:0,medical:0,misc:0}};
+const S={scope:'family',kids:2,childcare:'mixed',usSchool:'public',cnSchool:'intl',currentCity:'bay',city:'bay',housing:'buy',homePurchaseAge:45,homePurchaseAgeManual:false,homePriceManual:false,lifestyle:'base',chartMode:'detail',projectionMode:'current',relocationPath:'returnChina',taxState:'CA',taxMode:'auto',lang:'bilingual',autoFood:true,livingPartsAuto:true,livingParts:{food:0,goods:0,insurance:0,medical:0,misc:0}};
  let currentPathFireAge=null;
  let currentPathFireIndex=-1;
  const CITY={
@@ -548,23 +552,19 @@ function sourceLink(url){
     FOOD_SAMPLE_ROWS=rows.map(cols=>{
       const obj={};
       header.forEach((h,i)=>{obj[h]=cols[i]??'';});
-      const row={
+    const row={
         ...obj,
-        key:String(obj.city_key||'').trim() || normalizeFoodCityKey(obj.city),
-        household_size_assumed:numOrBlank(obj.household_size_assumed),
-        official_food_at_home_usd:numOrBlank(obj.official_food_at_home_usd),
-        official_food_away_from_home_usd:numOrBlank(obj.official_food_away_from_home_usd),
-        official_total_food_usd:numOrBlank(obj.official_total_food_usd),
-        proxy_food_total_usd:numOrBlank(obj.proxy_food_total_usd) || numOrBlank(obj.model_total_food_usd),
-        proxy_food_monthly_usd:numOrBlank(obj.proxy_food_monthly_usd) || numOrBlank(obj.model_monthly_food_usd),
-        model_total_food_usd:numOrBlank(obj.model_total_food_usd),
-        model_monthly_food_usd:numOrBlank(obj.model_monthly_food_usd),
-        groceries_index_vs_base:numOrBlank(obj.groceries_index_vs_base),
-        restaurant_index_vs_base:numOrBlank(obj.restaurant_index_vs_base),
-        model_vs_official_pct:numOrBlank(obj.model_vs_official_pct)
+        cityZh:String(obj.city_zh||obj.city||'').trim(),
+        cityEn:String(obj.city_en||'').trim(),
+        city:String(obj.city||obj.city_zh||'').trim(),
+        key:String(obj.city_key||'').trim() || normalizeFoodCityKey(obj.city||obj.city_zh),
+        food_per_person_usd:numOrBlank(obj.food_per_person_usd),
+        food_per_person_monthly_usd:numOrBlank(obj.food_per_person_monthly_usd),
+        food_factor_vs_bay:numOrBlank(obj.food_factor_vs_bay),
+        source_notes:String(obj.source_notes||'').trim()
       };
       return row;
-    }).filter(row=>row.city);
+    }).filter(row=>row.cityZh || row.city || row.cityEn);
     FOOD_SAMPLE_BY_KEY=FOOD_SAMPLE_ROWS.reduce((acc,row)=>{
       if(row.key) acc[row.key]=row;
       return acc;
@@ -581,16 +581,14 @@ function sourceLink(url){
   if(rowsEl){
     rowsEl.innerHTML=FOOD_SAMPLE_ROWS.length
       ? FOOD_SAMPLE_ROWS.map(row=>`<tr>
-          <td>${row.city}</td>
-          <td>${row.household_size_assumed===''?'—':row.household_size_assumed}</td>
-          <td>${moneyMaybe(row.official_total_food_usd)}</td>
-          <td>${moneyMaybe(row.proxy_food_total_usd)}</td>
-          <td>${moneyMaybe(row.proxy_food_monthly_usd)}</td>
-          <td>${moneyMaybe(row.official_food_at_home_usd)}</td>
-          <td>${moneyMaybe(row.official_food_away_from_home_usd)}</td>
+          <td>${row.cityZh || row.city || '—'}</td>
+          <td>${row.cityEn || row.cityZh || row.city || '—'}</td>
+          <td>${moneyMaybe(row.food_per_person_usd)}</td>
+          <td>${moneyMaybe(row.food_per_person_monthly_usd)}</td>
+          <td>${row.food_factor_vs_bay===''?'—':Number(row.food_factor_vs_bay).toFixed(2)}x</td>
           <td>${sourceLink(row.source_url)}</td>
         </tr>`).join('')
-      : `<tr><td colspan="8">${FOOD_SAMPLE_STATUS}</td></tr>`;
+      : `<tr><td colspan="6">${FOOD_SAMPLE_STATUS}</td></tr>`;
   }
  }
  async function loadHousingSampleCSV(){
@@ -605,15 +603,18 @@ function sourceLink(url){
       header.forEach((h,i)=>{obj[h]=cols[i]??'';});
       return {
         ...obj,
+        cityZh:String(obj.city_zh||obj.city||'').trim(),
+        cityEn:String(obj.city_en||'').trim(),
+        city:String(obj.city||obj.city_zh||'').trim(),
         city_key:String(obj.city_key||'').trim(),
-        household_size_assumed:numOrBlank(obj.household_size_assumed),
         rent_3br_monthly_usd:numOrBlank(obj.rent_3br_monthly_usd),
         rent_3br_annual_usd:numOrBlank(obj.rent_3br_annual_usd),
         rent_4br_monthly_usd:numOrBlank(obj.rent_4br_monthly_usd),
         rent_4br_annual_usd:numOrBlank(obj.rent_4br_annual_usd),
         buy_3br_usd:numOrBlank(obj.buy_3br_usd),
         buy_4br_usd:numOrBlank(obj.buy_4br_usd),
-        living_factor:numOrBlank(obj.living_factor)
+        living_factor:numOrBlank(obj.living_factor),
+        source_note:String(obj.source_note||'').trim()
       };
     }).filter(row=>row.city_key);
     HOUSING_SAMPLE_BY_KEY=HOUSING_SAMPLE_ROWS.reduce((acc,row)=>{
@@ -632,17 +633,18 @@ function sourceLink(url){
   if(rowsEl){
     rowsEl.innerHTML=HOUSING_SAMPLE_ROWS.length
       ? HOUSING_SAMPLE_ROWS.map(row=>`<tr>
-          <td>${row.city}</td>
-          <td>${row.household_size_assumed===''?'—':row.household_size_assumed}</td>
+          <td>${row.cityZh || row.city || '—'}</td>
+          <td>${row.cityEn || row.cityZh || row.city || '—'}</td>
           <td>${moneyMaybe(row.rent_3br_monthly_usd)}</td>
           <td>${moneyMaybe(row.rent_3br_annual_usd)}</td>
           <td>${moneyMaybe(row.rent_4br_monthly_usd)}</td>
           <td>${moneyMaybe(row.rent_4br_annual_usd)}</td>
           <td>${moneyMaybe(row.buy_3br_usd)}</td>
           <td>${moneyMaybe(row.buy_4br_usd)}</td>
-          <td>${sourceLink(row.source_url)}</td>
+          <td>${row.living_factor===''?'—':Number(row.living_factor).toFixed(2)}x</td>
+          <td>${row.source_note || '—'}</td>
         </tr>`).join('')
-      : `<tr><td colspan="9">${HOUSING_SAMPLE_STATUS}</td></tr>`;
+      : `<tr><td colspan="10">${HOUSING_SAMPLE_STATUS}</td></tr>`;
   }
  }
  function L(key,vars={}){
@@ -663,6 +665,14 @@ function cityFoodSample(c){
 function cityHousingSample(c){
   const key=Object.keys(CITY).find(k=>CITY[k]===c) || '';
   return HOUSING_SAMPLE_BY_KEY[key] || null;
+}
+function sampleCityLabel(row){
+  if(!row) return '—';
+  const zh=row.cityZh || row.city || '';
+  const en=row.cityEn || '';
+  if(S.lang==='en') return en || zh || '—';
+  if(S.lang==='zh') return zh || en || '—';
+  return `${zh || en || '—'} / ${en || zh || '—'}`;
 }
 function citySource(c){
   if(S.lang==='zh') return c.srcZh;
@@ -1275,11 +1285,12 @@ function suggestedHomePurchaseAge(){
   if(S.relocationPath==='returnChina' && S.currentCity!==S.city) return n('fiAge');
   return n('currentAge');
 }
+function defaultHomePriceForCity(c){return housingByBedrooms(c,'buy')}
 function homePurchaseAge(){return Math.max(n('currentAge'),Math.min(n('homePurchaseAge'),n('fiAge')))}
  function residenceCity(age){
    return age<n('fiAge')?currentHomeCity():retirementLocationCity(age);
  }
- function homePriceForCity(c){return housingByBedrooms(c,'buy')}
+ function homePriceForCity(c){return S.housing==='buy'?(S.homePriceManual?n('homePrice'):defaultHomePriceForCity(c)):0}
  function homePrice(){return S.housing==='buy'?homePriceForCity(selectedHomeCity()):0}
  function mortgageInitialPrincipalForCity(c){return homePriceForCity(c)*(1-n('downPay'))}
  function monthlyMortgagePaymentForCity(c){
@@ -1982,6 +1993,19 @@ function update(){
     if(n('homePurchaseAge')>n('fiAge')) purchaseEl.value=n('fiAge');
   }
   if($('homePurchaseAgeV')) $('homePurchaseAgeV').textContent=n('homePurchaseAge')+(S.lang==='en'?' yrs':'岁');
+  const homePriceEl=$('homePrice');
+  if(homePriceEl){
+    homePriceEl.min='0';
+    homePriceEl.max='10000000';
+    homePriceEl.step='25000';
+    const suggestedHomePrice=defaultHomePriceForCity(selectedHomeCity());
+    if(!S.homePriceManual){
+      if(Number(homePriceEl.value)!==suggestedHomePrice) homePriceEl.value=suggestedHomePrice;
+    }else if(Number(homePriceEl.value)!==n('homePrice')){
+      homePriceEl.value=n('homePrice');
+    }
+  }
+  if($('homePriceV')) $('homePriceV').textContent=money(n('homePrice'));
   $('relocationInfo').innerHTML=S.relocationPath==='returnChina'
     ? (S.lang==='en'
       ? `Assumption: from age ${n('currentAge')} to age ${n('fiAge')}, we use ${cityName(CITY[S.currentCity])}; from age ${n('fiAge')} to age 80, we use ${cityName(CITY[S.city])}.`
@@ -2009,7 +2033,8 @@ function update(){
       : `按当前路径 ${n('fiAge')}岁预计可投资资产`);
   let c=selectedHomeCity();
   {
-    const selectedBuy = housingByBedrooms(c,'buy');
+    const selectedBuy = homePrice();
+    const defaultBuy = defaultHomePriceForCity(c);
     const selectedRent = housingByBedrooms(c,'rent');
     const sample = cityFoodSample(c);
     const housingSample = cityHousingSample(c);
@@ -2023,23 +2048,31 @@ function update(){
       <div class="icell"><div class="ik">${S.lang==='en'?'Rent used':'当前模型采用租金'}</div><div class="iv">${S.housing==='rent'?money(selectedRent/12)+(S.lang==='en'?'/mo':'/月'):'$0'}</div></div>
       <div class="icell"><div class="ik">${S.lang==='en'?'Derived living cost':'推导后的生活费'}</div><div class="iv">${money(livingSpendForCity(c))}${S.lang==='en'?'/yr':'/年'}</div></div>
       <div class="icell"><div class="ik">${S.lang==='en'?'Second-adult increment':'第二成人增量'}</div><div class="iv">${money(c.secondAdult)}${S.lang==='en'?'/yr':'/年'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Sample household size':'样本人数'}</div><div class="iv">${sample?(sample.household_size_assumed||'—'):'—'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Sample official food':'样本官方吃饭值'}</div><div class="iv">${sample?moneyOrDash(sample.official_total_food_usd):'—'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Sample proxy food':'样本 proxy 值'}</div><div class="iv">${sample?moneyOrDash(sample.proxy_food_total_usd):'—'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Sample proxy / month':'样本 proxy 月额'}</div><div class="iv">${sample?moneyOrDash(sample.proxy_food_monthly_usd):'—'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Housing sample people':'住房样本人数'}</div><div class="iv">${housingSample?(housingSample.household_size_assumed||'—'):'—'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Sample rent 3BR':'样本3居租金'}</div><div class="iv">${housingSample?money(housingSample.rent_3br_monthly_usd)+'/mo':'—'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Sample rent 3BR / yr':'样本3居年租'}</div><div class="iv">${housingSample?money(housingSample.rent_3br_annual_usd)+'/yr':'—'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Sample rent 4BR / yr':'样本4居年租'}</div><div class="iv">${housingSample?money(housingSample.rent_4br_annual_usd)+'/yr':'—'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Sample buy 3BR':'样本3居买房'}</div><div class="iv">${housingSample?compact(housingSample.buy_3br_usd):'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Sample city (zh)':'样本城市（中文）'}</div><div class="iv">${sample?(sample.cityZh || sample.city || '—'):'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Sample city (en)':'样本城市（英文）'}</div><div class="iv">${sample?(sample.cityEn || sample.cityZh || sample.city || '—'):'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Sample food / person':'样本每人吃饭年额'}</div><div class="iv">${sample?moneyOrDash(sample.food_per_person_usd):'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Sample food / month':'样本每人吃饭月额'}</div><div class="iv">${sample?moneyOrDash(sample.food_per_person_monthly_usd):'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Sample factor vs Bay Area':'样本相对湾区系数'}</div><div class="iv">${sample?(sample.food_factor_vs_bay===''?'—':Number(sample.food_factor_vs_bay).toFixed(2)+'x'):'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Sample source':'样本来源'}</div><div class="iv">${sample?sourceLink(sample.source_url):'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Housing city (zh)':'住房样本城市（中文）'}</div><div class="iv">${housingSample?(housingSample.cityZh || housingSample.city || '—'):'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Housing city (en)':'住房样本城市（英文）'}</div><div class="iv">${housingSample?(housingSample.cityEn || housingSample.cityZh || housingSample.city || '—'):'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Housing assumption 3BR rent':'住房假设 3居租金'}</div><div class="iv">${housingSample?money(housingSample.rent_3br_monthly_usd)+'/mo':'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Housing assumption 3BR rent / yr':'住房假设 3居年租'}</div><div class="iv">${housingSample?money(housingSample.rent_3br_annual_usd)+'/yr':'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Housing assumption 4BR rent / yr':'住房假设 4居年租'}</div><div class="iv">${housingSample?money(housingSample.rent_4br_annual_usd)+'/yr':'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Housing assumption 3BR buy':'住房假设 3居买房'}</div><div class="iv">${housingSample?compact(housingSample.buy_3br_usd):'—'}</div></div>
+      <div class="icell"><div class="ik">${S.lang==='en'?'Housing factor vs Bay Area':'住房相对湾区系数'}</div><div class="iv">${housingSample?(housingSample.living_factor===''?'—':Number(housingSample.living_factor).toFixed(2)+'x'):'—'}</div></div>
     </div>
     ${sample?`<div class="note" style="margin-top:10px">${S.lang==='en'
-      ? `CSV sample matched: <b>${sample.city}</b>. Household size ${sample.household_size_assumed || '—'}; official food spend ${moneyOrDash(sample.official_total_food_usd)}/yr; proxy food spend ${moneyOrDash(sample.proxy_food_total_usd)}/yr (${moneyOrDash(sample.proxy_food_monthly_usd)}/mo); proxy vs official ${sample.model_vs_official_pct===''?'—':sample.model_vs_official_pct.toFixed(1)+'%'}. Original source: ${sourceLink(sample.source_url)}.`
-      : `CSV 样本已匹配：<b>${sample.city}</b>。家庭人数 ${sample.household_size_assumed || '—'}；官方吃饭支出 ${moneyOrDash(sample.official_total_food_usd)}/年；proxy 吃饭支出 ${moneyOrDash(sample.proxy_food_total_usd)}/年（${moneyOrDash(sample.proxy_food_monthly_usd)}/月）；proxy 相对官方 ${sample.model_vs_official_pct===''?'—':sample.model_vs_official_pct.toFixed(1)+'%'}. 原始来源：${sourceLink(sample.source_url)}。`
+      ? `CSV sample matched: <b>${sampleCityLabel(sample)}</b>. Per-person food ${moneyOrDash(sample.food_per_person_usd)}/yr (${moneyOrDash(sample.food_per_person_monthly_usd)}/mo). Source: ${sourceLink(sample.source_url)}.`
+      : `CSV 样本已匹配：<b>${sampleCityLabel(sample)}</b>。每人吃饭 ${moneyOrDash(sample.food_per_person_usd)}/年（${moneyOrDash(sample.food_per_person_monthly_usd)}/月）。来源：${sourceLink(sample.source_url)}。`
     }</div>`:''}
     ${housingSample?`<div class="note" style="margin-top:8px">${S.lang==='en'
-      ? `CSV housing sample matched: <b>${housingSample.city}</b>. Household size ${housingSample.household_size_assumed || '—'}; 3BR rent ${money(housingSample.rent_3br_monthly_usd)}/mo (${money(housingSample.rent_3br_annual_usd)}/yr); 4BR rent ${money(housingSample.rent_4br_monthly_usd)}/mo (${money(housingSample.rent_4br_annual_usd)}/yr); 3BR buy ${compact(housingSample.buy_3br_usd)}; 4BR buy ${compact(housingSample.buy_4br_usd)}. Original source: ${sourceLink(housingSample.source_url)}.`
-      : `CSV 住房样本已匹配：<b>${housingSample.city}</b>。家庭人数 ${housingSample.household_size_assumed || '—'}；3居租金 ${money(housingSample.rent_3br_monthly_usd)}/月（${money(housingSample.rent_3br_annual_usd)}/年）；4居租金 ${money(housingSample.rent_4br_monthly_usd)}/月（${money(housingSample.rent_4br_annual_usd)}/年）；3居买房 ${compact(housingSample.buy_3br_usd)}；4居买房 ${compact(housingSample.buy_4br_usd)}。原始来源：${sourceLink(housingSample.source_url)}。`
+      ? `Housing assumption matched: <b>${sampleCityLabel(housingSample)}</b>. 3BR rent ${money(housingSample.rent_3br_monthly_usd)}/mo (${money(housingSample.rent_3br_annual_usd)}/yr); 4BR rent ${money(housingSample.rent_4br_monthly_usd)}/mo (${money(housingSample.rent_4br_annual_usd)}/yr); 3BR buy ${compact(housingSample.buy_3br_usd)}; 4BR buy ${compact(housingSample.buy_4br_usd)}. Source note: ${housingSample.source_note || '—'}.`
+      : `住房成本假设已匹配：<b>${sampleCityLabel(housingSample)}</b>。3居租金 ${money(housingSample.rent_3br_monthly_usd)}/月（${money(housingSample.rent_3br_annual_usd)}/年）；4居租金 ${money(housingSample.rent_4br_monthly_usd)}/月（${money(housingSample.rent_4br_annual_usd)}/年）；3居买房 ${compact(housingSample.buy_3br_usd)}；4居买房 ${compact(housingSample.buy_4br_usd)}。来源说明：${housingSample.source_note || '—'}。`
+    }</div>`:''}
+    ${S.housing==='buy'?`<div class="note" style="margin-top:8px">${S.lang==='en'
+      ? `Purchase price default: ${compact(defaultBuy)}. Current used price: ${compact(selectedBuy)}. If you move the home price slider, the model uses your manual budget instead.`
+      : `购房价格默认值：${compact(defaultBuy)}。当前模型采用价格：${compact(selectedBuy)}。如果你拖动上面的购房价格滑条，模型就会改用你的自定义预算。`
     }</div>`:''}
     ${citySource(c)}<br><br>
     ${cityResource(c)}<br><br>
@@ -2209,9 +2242,11 @@ function update(){
  }
 bind('langMode','lang');bind('scope','scope');bind('relocationPath','relocationPath');bind('taxMode','taxMode');bind('kids','kids',Number);bind('childcare','childcare');bind('usSchool','usSchool');bind('cnSchool','cnSchool');bind('currentCity','currentCity');bind('city','city');bind('housing','housing');bind('lifestyle','lifestyle');
 document.querySelectorAll('#scope button, #kids button, #lifestyle button').forEach(btn=>btn.addEventListener('click',()=>{S.livingPartsAuto=true;S.autoFood=true;}));
-['currentAge','fiAge','postRetireIncome','assets','income','partnerIncome','ret','downPay','mortgageRate','mortgageYears','homeCarry','manualTax'].forEach(id=>$(id).addEventListener('input',scheduleUpdate));
+['currentAge','fiAge','postRetireIncome','assets','income','partnerIncome','ret','homePrice','downPay','mortgageRate','mortgageYears','homeCarry','manualTax'].forEach(id=>$(id).addEventListener('input',scheduleUpdate));
 const homePurchaseAgeEl=$('homePurchaseAge');
   if(homePurchaseAgeEl) homePurchaseAgeEl.addEventListener('input',()=>{S.homePurchaseAgeManual=true;scheduleUpdate()});
+const homePriceEl=$('homePrice');
+  if(homePriceEl) homePriceEl.addEventListener('input',()=>{S.homePriceManual=true;scheduleUpdate()});
  $('bayBaseSpend').addEventListener('input',e=>{syncLivingPartsFromTotal(Number(e.target.value)||0);updateLivingTotalsView();scheduleUpdate()});
  document.addEventListener('input',e=>{
    const t=e.target;
@@ -2251,15 +2286,16 @@ const homePurchaseAgeEl=$('homePurchaseAge');
   ['medical', {zh:'医疗', en:'Medical'}],
   ['misc', {zh:'其他', en:'Misc'}]
  ];
- function defaultLivingPartsForHousehold(){
+function defaultLivingPartsForHousehold(){
   const a=adults();
   const k=S.kids;
+  const people=a+k;
   return {
-    food: Math.round(a*2600 + k*1200),
-    goods: Math.round(a*3000 + k*900),
-    insurance: Math.round(a*1100 + k*150),
-    medical: Math.round(a*1400 + k*400),
-    misc: Math.round(a*2800 + k*900)
+    food: Math.round(people * 30 * 365),
+    goods: Math.round(people * 11 * 365),
+    insurance: Math.round(a*1300 + k*250),
+    medical: Math.round(a*2400 + k*1000),
+    misc: Math.round(people * 2000)
   };
  }
  function livingParts(){
@@ -2272,26 +2308,27 @@ const homePurchaseAgeEl=$('homePurchaseAge');
  function livingPartsTotal(){
   return Object.values(livingParts()).reduce((a,b)=>a+b,0);
  }
- function foodAssumptionAnnual(){
+function foodAssumptionAnnual(){
   const a=adults();
   const k=S.kids;
-  const style={lean:.92,base:1,comfort:1.15}[S.lifestyle] ?? 1;
-  return Math.round((a*2600 + k*1200) * style);
+  const people=a+k;
+  const style={lean:.90,base:1,comfort:1.18}[S.lifestyle] ?? 1;
+  return Math.round(people * 30 * 365 * style);
  }
  function foodAssumptionNote(){
   if(S.lang==='en'){
-    if(S.lifestyle==='lean') return `Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. Food scales by people count, so more adults/kids increase the base automatically, while lean mode keeps the per-person food budget a bit lower.`;
-    if(S.lifestyle==='comfort') return `Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. Food scales by people count, so more adults/kids increase the base automatically, while comfort mode assumes more dining out and convenience spending.`;
-    return `Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. Food scales by people count, so more adults/kids increase the base automatically.`;
+    if(S.lifestyle==='lean') return `Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. We now use a roughly $30/day-per-person floor, so food scales directly with household size while lean mode trims it a bit.`;
+    if(S.lifestyle==='comfort') return `Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. We now use a roughly $30/day-per-person floor, so food scales directly with household size while comfort mode allows more dining out and convenience spending.`;
+    return `Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. We now use a roughly $30/day-per-person floor, so food scales directly with household size.`;
   }
   if(S.lang==='bilingual'){
-    if(S.lifestyle==='lean') return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。food 会按人头自动放大，所以成人和孩子越多，base 越高；节制模式只是把人均 food 压低一点。 / Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. Food scales by people count, so more adults/kids increase the base automatically, while lean mode keeps the per-person food budget a bit lower.`;
-    if(S.lifestyle==='comfort') return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。food 会按人头自动放大，所以成人和孩子越多，base 越高；舒适模式假设外食和便利性开销更多。 / Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. Food scales by people count, so more adults/kids increase the base automatically, while comfort mode assumes more dining out and convenience spending.`;
-    return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。food 会按人头自动放大，所以成人和孩子越多，base 越高。 / Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. Food scales by people count, so more adults/kids increase the base automatically.`;
+    if(S.lifestyle==='lean') return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。现在按大约每人每天 $30 的底线来算，所以 food 会直接按 household 人头放大；节制模式只是在这个底线上略微下调。 / Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. We now use a roughly $30/day-per-person floor, so food scales directly with household size while lean mode trims it a bit.`;
+    if(S.lifestyle==='comfort') return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。现在按大约每人每天 $30 的底线来算，所以 food 会直接按 household 人头放大；舒适模式会再加一点外食和便利性开销。 / Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. We now use a roughly $30/day-per-person floor, so food scales directly with household size while comfort mode allows more dining out and convenience spending.`;
+    return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。现在按大约每人每天 $30 的底线来算，所以 food 会直接按 household 人头放大。 / Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. We now use a roughly $30/day-per-person floor, so food scales directly with household size.`;
   }
-  if(S.lifestyle==='lean') return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。food 会按人头自动放大，所以成人和孩子越多，base 越高；节制模式只是把人均 food 压低一点。`;
-  if(S.lifestyle==='comfort') return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。food 会按人头自动放大，所以成人和孩子越多，base 越高；舒适模式假设外食和便利性开销更多。`;
-  return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。food 会按人头自动放大，所以成人和孩子越多，base 越高。`;
+  if(S.lifestyle==='lean') return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。现在按大约每人每天 $30 的底线来算，所以 food 会直接按 household 人头放大；节制模式只是在这个底线上略微下调。`;
+  if(S.lifestyle==='comfort') return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。现在按大约每人每天 $30 的底线来算，所以 food 会直接按 household 人头放大；舒适模式会再加一点外食和便利性开销。`;
+  return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。现在按大约每人每天 $30 的底线来算，所以 food 会直接按 household 人头放大。`;
  }
  function livingBaseSpendDescText(){
   if(S.lang==='en'){

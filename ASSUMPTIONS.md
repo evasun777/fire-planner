@@ -108,6 +108,16 @@
   - `继续留美`
 - 如果孩子数量是 0，相关学校与育儿选项会隐藏。
 - 孩子支出只在对应年龄段计入，不会全程按最高档重复计算。
+- `kids_education_model.csv` 现在作为孩子与教育的结构化参考文件：
+  - 保留 `key / category / label_zh / label_en / annual_cost_usd / annual_cost_y0_usd / annual_cost_y15_usd / applies_to / notes`
+  - 页面第四项会直接读取这份表来展示托育和学校的默认假设
+  - `daycare / mixed / nanny` 会驱动 0-5 岁托育成本
+  - `usPublic / usPrivate / cnIntl / cnPublic / stayUS / college` 会驱动学校成本
+- 当前第四项默认口径：
+  - 0-5 岁托育按三档假设估算
+  - 美国阶段学校按公立 / 私立区分
+  - 回国后学校按国际/双语 / 中国公立 / 继续留美区分
+  - 大学按统一年费假设
 
 ## 7. 住房与房贷
 

@@ -1,6 +1,7 @@
 # FIRE 财务自由规划器 Assumptions
 
-本文件汇总 [`index.html`](/Users/yiwei/Documents/vibe%20coding%20work/fire%20planner/index.html) 中当前版本使用的规划假设。
+本文件汇总主 dashboard 当前版本使用的规划假设。
+现在主页面的运行时脚本已经拆到 [`dashboard-app.js`](/Users/yiwei/Documents/vibe%20coding%20work/fire%20planner/dashboard-app.js)；`index.html` 只负责页面骨架。
 这里写的是 dashboard 的模型口径，不是正式税务、法律或投资建议。
 
 ## 1. 计算口径
@@ -258,6 +259,7 @@
 
 - 页面里的很多 assumption 是为了让 dashboard 更可调、可解释，而不是为了追求税务逐项精确。
 - 如果你改动了页面逻辑，建议同步更新本文件和对应 tooltip。
+- 如果你改动了主 dashboard 的数据或计算口径，优先检查 `dashboard-app.js`，再同步 `README.md`、tooltip 和这里的文字说明。
 
 ## 14. 税率结构化数据
 

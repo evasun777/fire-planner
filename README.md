@@ -26,11 +26,34 @@
 ## 这是什么
 
 - 一个单页 HTML dashboard
+- 目前主页面已经拆成 `index.html` + `dashboard-app.js`：
+  - `index.html` 负责页面骨架、样式和资源引用
+  - `dashboard-app.js` 负责主 dashboard 的渲染、交互和计算调用
 - 支持中文 / English / 中英双语
 - 可以切换个人口径和双成人家庭
 - 可以切换当前路径和达标路径
 - 会显示收入、支出、资产、房屋净值、财富 gap、年度明细和长期路径
 - 还提供一个手机友好的问答版：[`questionnaire.html`](./questionnaire.html)
+
+## 代码结构
+
+这份项目现在尽量按下面的思路拆：
+
+- `data`
+  - 城市、教育、住房、税务等结构化假设
+  - CSV / JSON 作为可校准的数据源
+- `calculation engine`
+  - 负责把输入 state 转成支出、资产、财富 gap、FIRE 年龄
+  - 尽量保持纯函数
+- `UI rendering`
+  - 负责把结果渲染成卡片、图表、tooltip 和 FAQ
+  - 不直接承载复杂业务规则
+- `dashboard shell`
+  - `index.html` 只保留骨架
+  - `dashboard-app.js` 承担主 dashboard 行为
+- `mobile questionnaire`
+  - `questionnaire.html` / `questionnaire.js` / `questionnaire.css`
+  - 用同一套核心口径做轻量问答版
 
 ## 核心假设摘要
 
@@ -247,10 +270,12 @@ python3 -m http.server 8000
 ## 相关文件
 
 - [`index.html`](./index.html): 主页面
+- [`dashboard-app.js`](./dashboard-app.js): 主 dashboard 的渲染和交互逻辑
 - [`questionnaire.html`](./questionnaire.html): 手机问答版入口
 - [`fire-model.js`](./fire-model.js): 问答页共享的模型和计算层
 - [`questionnaire.js`](./questionnaire.js): 问答页交互逻辑
 - [`questionnaire.css`](./questionnaire.css): 问答页样式
+- [`thumson.md`](./thumson.md): 架构备忘录和分层说明
 - [`ASSUMPTIONS.md`](./ASSUMPTIONS.md): 当前模型假设和城市资源说明
 - [`city_food_spend_model.csv`](./city_food_spend_model.csv): 城市吃饭成本样本
 - [`city_housing_model.csv`](./city_housing_model.csv): 城市住房成本假设

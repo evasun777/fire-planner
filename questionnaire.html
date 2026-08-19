@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<title>FIRE 问答版</title>
+<link rel="stylesheet" href="./questionnaire.css">
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div>
+      <div class="eyebrow">FIRE QUICK QUESTIONS</div>
+      <h1>手机问答版</h1>
+      <div class="lede">
+        一次只答一题。先把 10 个关键问题点完，最后再给一个粗略 estimate。<br>
+        这页是轻量版，详细税务、房贷和资产路径还是在完整 dashboard 里。
+      </div>
+    </div>
+    <div class="actions">
+      <a class="btn primary" href="./index.html">打开完整 dashboard</a>
+      <a class="btn" href="./ASSUMPTIONS.md" target="_blank" rel="noopener">看 assumptions</a>
+    </div>
+  </div>
+
+  <div class="progress-shell" aria-label="progress">
+    <div class="meta">
+      <span id="stepLabel">第 1 题 / 10</span>
+      <span id="stepHint">家庭口径</span>
+    </div>
+    <div class="progress"><div class="bar" id="progressBar"></div></div>
+  </div>
+
+  <section class="card" id="questionCard">
+    <div class="q-head">
+      <div>
+        <div class="step" id="stepKicker">Step 1</div>
+        <h2 class="q-title" id="qTitle">你的家庭口径</h2>
+      </div>
+      <div class="value-pill" id="stepCount">1 / 10</div>
+    </div>
+    <div class="q-desc" id="qDesc">先选一个最符合你情况的口径，后面的估算会跟着这个选择走。</div>
+    <div class="body" id="body"></div>
+    <div class="nav">
+      <button class="btn" id="prevBtn" type="button">上一题</button>
+      <button class="btn primary" id="nextBtn" type="button">下一题</button>
+    </div>
+  </section>
+
+  <section class="result hidden" id="resultCard">
+    <h2>你的粗略 estimate</h2>
+    <div class="big" id="resultAge">-</div>
+    <div id="resultLine" style="font-size:13px;line-height:1.55;color:#d6cec5">-</div>
+    <div class="row">
+      <div class="stat">
+        <div class="k">当前年度支出估算</div>
+        <div class="v" id="resNowSpend">-</div>
+        <div class="s">按你现在所在城市、家庭口径和住房方式做的粗估。</div>
+      </div>
+      <div class="stat">
+        <div class="k">退休后年度支出估算</div>
+        <div class="v" id="resRetireSpend">-</div>
+        <div class="s">按你退休后想去的城市和同样的生活方式估算。</div>
+      </div>
+      <div class="stat">
+        <div class="k">目标总财富</div>
+        <div class="v" id="resTarget">-</div>
+        <div class="s">这是一个快速目标，不是完整税务模型。</div>
+      </div>
+      <div class="stat">
+        <div class="k">按当前路径到退休年龄</div>
+        <div class="v" id="resAtFi">-</div>
+        <div class="s">如果这个数低于目标，就表示还差一点。</div>
+      </div>
+    </div>
+    <div class="footer-note" id="resultNote"></div>
+    <div class="result-actions">
+      <button class="btn primary" id="restartBtn" type="button">重新答一遍</button>
+      <a class="btn" href="./index.html">打开完整 dashboard</a>
+    </div>
+  </section>
+</div>
+
+<script src="./fire-model.js"></script>
+<script src="./questionnaire.js"></script>
+</body>
+</html>

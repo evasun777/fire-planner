@@ -10,17 +10,37 @@
 .page{max-width:1080px;margin:auto;padding:13px}.hero{padding:7px 2px 12px}.eyebrow{font-size:10px;color:var(--accent);font-weight:800;letter-spacing:.08em}.hero h1{font-size:28px;margin:6px 0 0;letter-spacing:-.025em;max-width:100%}
 .sticky{position:sticky;top:0;z-index:30;background:rgba(245,242,237,.95);backdrop-filter:blur(12px);padding:7px 0 9px}.kpis{display:grid;grid-template-columns:1fr 1fr;gap:7px}.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:11px}.kpi.primary{background:var(--dark);color:#fff}
 .lab{font-size:9.5px;color:var(--muted);line-height:1.3}.primary .lab{color:#d5cec7}.num{font-size:22px;font-weight:850;letter-spacing:-.03em;margin-top:4px}.sub{font-size:9px;color:#999087;margin-top:4px;line-height:1.35}.primary .sub{color:#ccc5be}
-.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:9px}.card h2{font-size:14px;margin:0 0 10px}.desc{font-size:10px;color:var(--muted);line-height:1.5;margin:-4px 0 10px}
+.card{position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:9px}
+.card h2{font-size:14px;margin:0 0 10px}
+.card.cost-card{border-color:#e8d2c7;background:linear-gradient(180deg,#fff 0%,#fff8f4 100%)}
+.card.cost-card::before,.card.wealth-card::before,.card.neutral-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:16px 0 0 16px;pointer-events:none}
+.card.cost-card::before{background:linear-gradient(180deg,#c56c52 0%,#a74f38 100%)}
+.card.cost-card h2{color:#8e422f}
+.card.wealth-card{border-color:#d7e3ef;background:linear-gradient(180deg,#fff 0%,#f5f9fd 100%)}
+.card.wealth-card::before{background:linear-gradient(180deg,#58719f 0%,#4f806b 100%)}
+.card.wealth-card h2{color:#445f85}
+.card.neutral-card{border-color:#e6dfd7}
+.card.neutral-card::before{background:linear-gradient(180deg,#aa8344 0%,#b85e43 100%)}
+.card.neutral-card h2{color:#3b3631}
+.desc{font-size:10px;color:var(--muted);line-height:1.5;margin:-4px 0 10px}.mini-section{font-size:11px;font-weight:800;letter-spacing:.02em;color:#8e422f;margin:12px 0 6px}.mini-section-sub{font-size:9.5px;color:var(--muted);line-height:1.45;margin:0 0 8px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid > *{min-width:0}.choice-label{font-size:11px;font-weight:750;margin-bottom:7px;line-height:1.25}.seg{display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start}.seg button{border:1px solid #d8d0c6;background:#fff;color:#5a534d;padding:8px 11px;min-height:34px;border-radius:999px;font-size:11px;line-height:1.15;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}.seg button.active{border-color:var(--accent);background:var(--soft);color:#8e422f;font-weight:800}
 .control{margin-top:12px;min-width:0}.head{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;min-width:0}.head label{font-size:11.5px;font-weight:700;line-height:1.25;min-width:0}.pill{font-size:10px;background:#f0ebe5;color:#625b55;padding:5px 8px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;min-height:28px;line-height:1;white-space:nowrap}input[type=range]{width:100%;accent-color:var(--accent);margin-top:7px}
 details.info{margin-top:7px}details.info summary{display:inline-flex;cursor:pointer;list-style:none;align-items:center;justify-content:center;gap:4px;border:1px solid #e3dbd2;background:#f2eee8;border-radius:999px;padding:6px 10px;font-size:10px;line-height:1.15;min-height:30px;font-weight:750;color:#70675f;white-space:nowrap}details.info summary::-webkit-details-marker{display:none}
+.sample-panel{margin-top:12px;padding:12px}
+.sample-panel summary{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;list-style:none;cursor:pointer;border:1px solid #e3dbd2;background:#f2eee8;border-radius:12px;padding:8px 10px;font-size:11px;line-height:1.2;font-weight:800;color:#70675f;white-space:nowrap}
+.sample-panel summary::-webkit-details-marker{display:none}
+.sample-panel summary .sample-title{display:inline-flex;align-items:center;gap:4px;min-width:0}
+.sample-panel summary .sample-title span{white-space:nowrap}
+.sample-panel .info-body{margin-top:8px}
 .info-body{margin-top:6px;border:1px solid #ebe3da;background:#faf8f5;border-radius:10px;padding:9px;font-size:9.5px;line-height:1.55;color:#5d5650}.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:6px 0}.icell{background:#fff;border:1px solid #eee7df;border-radius:8px;padding:6px}.ik{font-size:8px;color:#8b827a}.iv{font-size:10.5px;font-weight:800;margin-top:2px}
 .breakdown{display:grid;grid-template-columns:1fr 1fr;gap:7px}.box{border:1px solid var(--line);border-radius:12px;padding:10px;background:#faf8f5}.box .a{font-size:9px;color:var(--muted)}.box .b{font-size:16px;font-weight:850;margin-top:4px}
 .solution{display:grid;grid-template-columns:1fr 1fr;gap:7px}.solvebox{border:1px solid var(--line);border-radius:13px;padding:11px;background:#faf8f5}.solvebox .slabel{font-size:9px;color:var(--muted)}.solvebox .snum{font-size:20px;font-weight:900;margin-top:4px}.solvebox .stext{font-size:9px;color:var(--muted);line-height:1.4;margin-top:4px}
+.section-split{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:12px;align-items:start}.section-main{min-width:0}.side-stack{display:grid;gap:8px;min-width:0}.side-summary,.side-meter{border:1px solid #e3dbd2;background:#faf8f5;border-radius:14px;padding:10px 11px}.side-summary .k,.side-meter .k{font-size:9px;color:var(--muted);font-weight:750;line-height:1.25}.side-summary .v,.side-meter .v{font-size:18px;font-weight:900;line-height:1.1;margin-top:4px;letter-spacing:-.02em}.side-summary .s,.side-meter .s{font-size:9px;color:var(--muted);line-height:1.45;margin-top:4px}.side-summary.compact .v{font-size:15px}.side-meter .bar{height:8px;margin-top:8px;border-radius:999px;background:#e7dfd5;overflow:hidden}.side-meter .fill{height:100%;width:var(--p,0%);border-radius:inherit;background:linear-gradient(90deg,var(--accent) 0%,#d27757 100%)}.side-meter.housing .fill{background:linear-gradient(90deg,#58719f 0%,#6f89b6 100%)}.spend-mini-detail{margin-top:8px;padding-top:8px;border-top:1px dashed #e6ddd3;display:grid;gap:5px;font-size:9px;line-height:1.45;color:var(--muted)}.spend-mini-detail .row{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.spend-mini-detail .row strong{font-size:10px;color:var(--ink);font-weight:800}.spend-mini-detail .subrows{margin-top:3px;padding-left:10px;border-left:2px solid #ece3d8;display:grid;gap:2px}.spend-mini-detail .subrows span{display:flex;justify-content:space-between;gap:8px}.output-card{position:relative;overflow:hidden;box-shadow:0 10px 28px rgba(45,38,34,.04)}.output-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:14px 0 0 14px;background:linear-gradient(180deg,var(--accent) 0%,#d27757 100%)}.output-card .k{font-size:9px;text-transform:uppercase;letter-spacing:.02em}.output-card .v{font-size:20px;letter-spacing:-.03em}.output-card .s{font-size:9px;line-height:1.45}.output-card--housing{background:linear-gradient(180deg,#f8fbff 0%,#eef4fb 100%);border-color:#d7e3ef}.output-card--housing::before{background:linear-gradient(180deg,#58719f 0%,#6f89b6 100%)}.output-card--education{background:linear-gradient(180deg,#f8fbff 0%,#eef4fb 100%);border-color:#d7e3ef}.output-card--education::before{background:linear-gradient(180deg,#58719f 0%,#6f89b6 100%)}.output-card--spend{background:linear-gradient(180deg,#fffaf8 0%,#fbf4f0 100%);border-color:#e8d2c7}.output-card--spend::before{background:linear-gradient(180deg,#c56c52 0%,#a74f38 100%)}
 .note{background:#faf5f1;border-left:3px solid var(--accent);padding:10px 11px;border-radius:6px;font-size:10.5px;color:#5b554f;line-height:1.55;margin-top:9px}
 canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:10px;color:var(--muted);margin-top:8px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
 .scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:10px}th,td{padding:8px 6px;border-bottom:1px solid #f0ebe5;text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}th{color:#7d756d}.pos{color:var(--green)}.neg{color:var(--red)}.hidden{display:none!important}
 @media(min-width:760px){.kpis{grid-template-columns:repeat(4,1fr)}}@media(max-width:700px){.grid,.solution,.breakdown{grid-template-columns:1fr}.num{font-size:20px}}
+@media(max-width:900px){.section-split{grid-template-columns:1fr}.side-stack{position:static}}
 
 .chart-wrap{position:relative}
 .chart-tooltip{
@@ -35,9 +55,34 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
 .faq .answer{font-size:10px;color:var(--muted);line-height:1.6;margin-top:8px}
 
 .chart-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.annual-toggle{flex:1 1 auto;min-width:0}
+.annual-toggle summary{display:flex;align-items:center;gap:6px;width:100%;list-style:none;cursor:pointer;font-size:14px;font-weight:700;line-height:1.2;color:inherit;padding:0;margin:0}
+.annual-toggle summary::-webkit-details-marker{display:none}
 .chart-toggle{display:flex;gap:6px}
-.chart-toggle button{border:1px solid #d8d0c6;background:#fff;color:#5a534d;padding:6px 10px;min-height:30px;border-radius:999px;font-size:10px;line-height:1.15;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
+.chart-toggle button,.export-btn{border:1px solid #d8d0c6;background:#fff;color:#5a534d;padding:6px 10px;min-height:30px;border-radius:999px;font-size:10px;line-height:1.15;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
 .chart-toggle button.active{border-color:var(--accent);background:var(--soft);color:#8e422f;font-weight:800}
+.export-btn{font-weight:800}
+.export-btn:hover{border-color:var(--accent);background:var(--soft);color:#8e422f}
+.uniform-select{
+  width:100%;
+  padding:8px 34px 8px 12px;
+  border:1px solid #d8d0c6;
+  border-radius:12px;
+  background-color:#fff;
+  font-family:inherit;
+  font-size:11px;
+  line-height:1.2;
+  font-weight:750;
+  color:#5a534d;
+  -webkit-appearance:none;
+  appearance:none;
+  -moz-appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,#8e422f 50%),linear-gradient(135deg,#8e422f 50%,transparent 50%);
+  background-position:calc(100% - 18px) calc(50% - 2px),calc(100% - 12px) calc(50% - 2px);
+  background-size:6px 6px,6px 6px;
+  background-repeat:no-repeat;
+}
+.uniform-select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(184,94,67,.12)}
 .breakdown-legend{display:none;gap:10px;flex-wrap:wrap;font-size:9px;color:var(--muted);margin-top:8px}
 .breakdown-legend.show{display:flex}
 .fire-badge{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;border:1px solid #d8d0c6;background:#fbf6f1}
@@ -50,9 +95,41 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
 .hero-row > div:first-child{min-width:0;flex:1 1 auto}
 .lang-toggle{justify-content:flex-end;flex:0 0 auto;margin-left:auto;white-space:nowrap}
 .lang-toggle button{min-width:0}
+.main-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0 18px}
+.main-tabs button{
+  min-width:0;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#f8f3ed;
+  color:var(--text);
+  padding:12px 14px;
+  font-size:15px;
+  font-weight:800;
+  line-height:1.2;
+  text-align:left;
+  box-shadow:0 1px 0 rgba(255,255,255,.8) inset;
+}
+.main-tabs button .sub{
+  display:block;
+  margin-top:4px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.02em;
+  color:var(--muted);
+}
+.main-tabs button.active{
+  background:#2e2926;
+  color:#fff;
+  border-color:#2e2926;
+  box-shadow:none;
+}
+.main-tabs button.active .sub{color:rgba(255,255,255,.72)}
+.tab-panel{scroll-margin-top:16px}
+.tab-panel.is-hidden{display:none !important}
 @media(max-width:700px){
  .hero-row{flex-direction:column;flex-wrap:nowrap}
  .lang-toggle{margin-left:0;justify-content:flex-start;white-space:normal}
+ .main-tabs{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -73,22 +150,49 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
 <div class="sticky">
   <div class="kpis">
    <div class="kpi primary"><div class="lab" id="totalNeedLabel">预期退休时需要的总财富</div><div class="num" id="totalNeed">—</div><div class="sub" id="totalNeedBreakdown">—</div></div>
-   <div class="kpi"><div class="lab" id="projectLabel">按当前路径预计可投资资产</div><div class="num" id="projectWealth">—</div><div class="sub">税后收入 − 支出 + 投资复利</div></div>
-   <div class="kpi"><div class="lab">财富 Gap</div><div class="num" id="wealthGap">—</div><div class="sub">预计可投资资产 vs 退休时所需总财富</div></div>
-   <div class="kpi"><div class="lab">需要的税前年收入</div><div class="num" id="requiredIncomeTop">—</div><div class="sub" id="requiredIncomePctTop">从现在到目标退休年龄平均需要</div></div>
+   <div class="kpi"><div class="lab" id="projectLabel">按当前路径预计可投资资产</div><div class="num" id="projectWealth">—</div><div class="sub" id="projectWealthSub">税后收入 − 支出 + 投资复利</div></div>
+   <div class="kpi"><div class="lab" id="requiredIncomeTopLabel">需要的税前年收入</div><div class="num" id="requiredIncomeTop">—</div><div class="sub" id="requiredIncomePctTop">从现在到目标退休年龄平均需要</div></div>
+   <div class="kpi" style="grid-column:1/-1"><div class="lab" id="path80Label">按当前路径 80 岁总资产</div><div class="num" id="path80Wealth">—</div><div class="sub" id="path80Sub">会受到退休后劳动收入保留比例的影响</div></div>
   </div>
  </div>
 
- <div class="card" style="margin-top:9px">
+<div class="card neutral-card" style="margin-top:9px">
   <h2 id="summaryTitle">总摘要 / Snapshot</h2>
   <div class="note" id="summaryText" style="margin-top:0">—</div>
  </div>
 
- <div class="card">
+ <div class="main-tabs" id="mainTabs">
+  <button data-v="cost" class="active"><span id="tabCostLabel">人生规划和生活成本 / Life planning & living costs</span><span class="sub" id="tabCostSub">Inputs, assumptions, and spending</span></button>
+  <button data-v="income"><span id="tabIncomeLabel">Income</span><span class="sub" id="tabIncomeSub">Assets, taxes, and target income</span></button>
+  <button data-v="outcome"><span id="tabOutcomeLabel">财富自由时间线 / FIRE timeline</span><span class="sub" id="tabOutcomeSub">Charts, paths, and detail</span></button>
+ </div>
+
+ <div class="card cost-card tab-panel" data-tab="cost">
   <h2>1. 计算口径</h2>
   <div class="seg" id="scope">
    <button data-v="family" class="active">双成人家庭</button>
    <button data-v="individual">个人口径</button>
+  </div>
+  <div class="grid" style="margin-top:12px;align-items:start;grid-template-columns:1fr 1fr;gap:12px">
+   <div class="control" style="margin-top:0">
+    <div class="head"><label id="currentAgeLabel">当前年龄</label><span class="pill" id="currentAgeV">25岁</span></div>
+    <input id="currentAge" type="range" min="18" max="70" step="1" value="25">
+   </div>
+   <div class="control" style="margin-top:0">
+    <div class="head"><label id="fiAgeLabel">预期退休 / 工作可选年龄</label><span class="pill" id="fiAgeV"></span></div>
+    <input id="fiAge" type="range" min="35" max="80" step="1" value="45">
+   </div>
+  </div>
+  <div class="grid" style="margin-top:12px;align-items:start;grid-template-columns:1fr 1fr;gap:12px">
+   <div class="control" style="margin-top:0">
+    <div class="head"><label id="kidsLabel">孩子数量</label><span class="pill" id="kidsV">2个</span></div>
+    <input id="kids" type="range" min="0" max="5" step="1" value="2">
+   </div>
+   <div class="control" id="childBirthAgeWrap" style="margin-top:0">
+    <div class="head"><label id="childBirthAgeLabel">第一个孩子出生年龄</label><span class="pill" id="childBirthAgeV">32岁</span></div>
+    <input id="childBirthAge" type="range" min="18" max="55" step="1" value="32">
+    <div class="desc" id="childBirthAgeDesc" style="margin-top:6px">默认按第一个孩子出生年龄开始计算；如果有多个孩子，后面的默认比第一个晚 2 年出生。</div>
+   </div>
   </div>
   <div class="desc" id="scopeDesc" style="margin-top:8px"></div>
   <details class="info"><summary>ⓘ Assumption</summary><div class="info-body">
@@ -97,162 +201,239 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
   </div></details>
  </div>
 
- <div class="card">
-  <h2>2. 时间和退休地点</h2>
-  <div class="control">
-   <div class="head"><label>当前年龄</label><span class="pill" id="currentAgeV">34岁</span></div>
-   <input id="currentAge" type="range" min="18" max="70" step="1" value="34">
-  </div>
-  <div class="control" style="margin-top:12px">
-   <div class="head"><label>预期退休 / 工作可选年龄</label><span class="pill" id="fiAgeV"></span></div>
-   <input id="fiAge" type="range" min="35" max="80" step="1" value="45">
-  </div>
-  <div class="grid" style="margin-top:12px;align-items:start;grid-template-columns:1fr 1fr;gap:12px">
+<div class="card cost-card tab-panel" data-tab="cost">
+  <h2>2. 时间、地点与年度支出</h2>
+  <div class="section-split">
+   <div class="section-main">
+ <details class="info" style="margin-top:0">
+   <summary id="relocationAssumptionSummary">ⓘ 地点假设 / Location assumption</summary><div class="info-body" id="relocationInfo"></div>
+  </details>
+  <div class="grid" style="margin-top:10px">
    <div>
-    <div class="choice-label" id="relocationPathLabel">长期居住路径</div>
-    <div class="seg" id="relocationPath">
-     <button data-v="returnChina" class="active">回国</button>
-     <button data-v="stayUS">留在美国</button>
-    </div>
+    <div class="choice-label" id="currentCityLabel">当前地点</div>
+    <select id="currentCity" class="uniform-select">
+     <option value="bay">湾区</option>
+     <option value="nyc">纽约</option>
+     <option value="seattle">西雅图</option>
+     <option value="losangeles">洛杉矶</option>
+     <option value="dallas">达拉斯</option>
+     <option value="shanghai">上海</option>
+     <option value="hangzhou">杭州</option>
+     <option value="suzhou">苏州</option>
+     <option value="chengdu">成都</option>
+     <option value="kunming">昆明</option>
+     <option value="dali">大理</option>
+     <option value="haikou">海口</option>
+     <option value="taiyuan">太原</option>
+    </select>
    </div>
-   <div class="control" id="returnAgeWrap" style="margin-top:0">
-    <div class="head"><label>全家回国年龄</label><span class="pill" id="returnAgeV"></span></div>
-    <input id="returnAge" type="range" min="40" max="55" step="1" value="45">
+   <div>
+    <div class="choice-label" id="retirementCityLabel">退休 / 半退休地点</div>
+    <select id="city" class="uniform-select">
+     <option value="bay">湾区</option>
+     <option value="nyc">纽约</option>
+     <option value="seattle">西雅图</option>
+     <option value="losangeles">洛杉矶</option>
+     <option value="dallas">达拉斯</option>
+     <option value="shanghai">上海</option>
+     <option value="hangzhou">杭州</option>
+     <option value="suzhou">苏州</option>
+     <option value="chengdu">成都</option>
+     <option value="kunming">昆明</option>
+     <option value="dali">大理</option>
+     <option value="haikou">海口</option>
+     <option value="taiyuan">太原</option>
+    </select>
    </div>
   </div>
+  <div class="desc" style="margin:8px 0 10px">当前地点决定退休前的 living / housing / travel / 家人支持等费用；退休地点决定退休后的长期生活成本。 / The current city drives pre-retirement spending, while the retirement city drives post-retirement living costs.</div>
   <div class="control">
-   <div class="head"><label>退休后劳动收入保留比例</label><span class="pill" id="postRetireIncomeV">0%</span></div>
-   <input id="postRetireIncome" type="range" min="0" max="1" step=".05" value="0">
-   <div class="desc" style="margin-top:6px">0% = 完全退休；例如 25% 可代表兼职、教学、咨询或小生意收入。</div>
+   <div class="head"><label id="bayBaseSpendLabel">当前地点家庭基础生活费（不含房贷 / housing）</label><span class="pill" id="bayBaseSpendV">$30k</span></div>
+    <input id="bayBaseSpend" type="range" min="15000" max="150000" step="1000" value="30000">
+    <div class="desc" id="bayBaseSpendDesc" style="margin-top:6px">这是当前地点的家庭总生活费（不含房贷）。默认值会从你去年的 spending snapshot + 当前家庭口径校准出来；你可以直接拖总额，也可以展开下面的 detail 逐项调 food / goods / insurance / medical / misc。food 和 goods 会随家庭人数变化，insurance 和 medical 主要随成人数变化，travel 仍然单独作为顶层支出。这里的 insurance 主要指房屋、车、寿险和 umbrella 这类保费，不再单独写“邮费”。</div>
   </div>
-  <div class="choice-label" id="currentCityLabel">当前地点</div>
-  <div class="seg" id="currentCity">
-   <button data-v="bay" class="active">湾区</button><button data-v="nyc">纽约</button><button data-v="seattle">西雅图</button><button data-v="losangeles">洛杉矶</button><button data-v="dallas">达拉斯</button><button data-v="shanghai">上海</button><button data-v="hangzhou">杭州</button><button data-v="suzhou">苏州</button><button data-v="chengdu">成都</button><button data-v="kunming">昆明</button><button data-v="dali">大理</button><button data-v="haikou">海口</button><button data-v="taiyuan">太原</button>
+  <details class="info" id="livingEditorWrap" open>
+   <summary id="livingEditorSummary">ⓘ 调整支出明细 / Adjust spending detail</summary>
+   <div class="info-body" id="livingEditorInfo"></div>
+  </details>
+
+  <div class="control hidden" id="returnAgeWrap" style="margin-top:12px">
+   <div class="head"><label id="retAgeLabel">全家回国年龄</label><span class="pill" id="returnAgeV"></span></div>
+   <input id="returnAge" type="range" min="40" max="55" step="1" value="45">
   </div>
-  <div class="desc" style="margin-top:8px">退休前的 living / housing / travel / 家人支持等费用，默认都按这里计算。</div>
-  <div class="choice-label" id="retirementCityLabel" style="margin-top:12px">退休 / 半退休地点</div>
-  <div class="seg" id="city">
-   <button data-v="bay" class="active">湾区</button><button data-v="nyc">纽约</button><button data-v="seattle">西雅图</button><button data-v="losangeles">洛杉矶</button><button data-v="dallas">达拉斯</button><button data-v="shanghai">上海</button><button data-v="hangzhou">杭州</button><button data-v="suzhou">苏州</button><button data-v="chengdu">成都</button><button data-v="kunming">昆明</button><button data-v="dali">大理</button><button data-v="haikou">海口</button><button data-v="taiyuan">太原</button>
+  <div style="margin-top:12px">
+  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+   <div class="choice-label" id="lifestyleLabel" style="margin-bottom:0">退休后生活方式</div>
+   <details class="info" style="margin-top:0"><summary id="lifestyleAssumptionSummary">ⓘ 退休后生活方式 Assumption</summary><div class="info-body" id="lifestyleInfo"></div></details>
   </div>
-  <details class="info"><summary id="cityAssumptionSummary">ⓘ 当前城市 assumption</summary><div class="info-body" id="cityInfo"></div></details>
-  <div class="card" id="foodSampleCard" style="margin-top:12px;padding:12px">
-   <div class="head" style="margin-bottom:8px">
-    <h2 style="margin:0;font-size:14px">城市吃饭样本 / City food sample</h2>
-    <span class="pill" id="foodSampleStatus">Loading sample CSV…</span>
-   </div>
- <div class="desc" style="margin-top:0">
-    这个表直接从 <code>city_food_spend_model.csv</code> 读取。每行都预先写好了人数、年额和月额，页面会优先把这里的 sample 写进城市说明卡片，方便以后继续扩城市。
-   </div>
-   <div class="scroll">
-    <table>
-     <thead>
-     <tr>
-      <th>City</th>
-      <th>People</th>
-      <th>Official food/yr</th>
-      <th>Model food/yr</th>
-      <th>Model food/mo</th>
-      <th>Home</th>
-      <th>Away</th>
-      <th>Source</th>
-     </tr>
-     </thead>
-     <tbody id="foodSampleRows">
-      <tr><td colspan="8">Loading…</td></tr>
-     </tbody>
-    </table>
-   </div>
+   <div class="seg" id="lifestyle"><button data-v="lean">节制</button><button data-v="base" class="active">舒适</button><button data-v="comfort">宽裕</button></div>
   </div>
-  <div class="card" id="housingSampleCard" style="margin-top:12px;padding:12px">
-   <div class="head" style="margin-bottom:8px">
-   <h2 style="margin:0;font-size:14px">城市住房样本 / City housing sample</h2>
-    <span class="pill" id="housingSampleStatus">Loading housing CSV…</span>
-   </div>
-   <div class="desc" style="margin-top:0">
-    这张表也直接从 <code>city_housing_model.csv</code> 读取，里面同时放了人数、月租、年租、买房预算和 source。
-   </div>
-   <div class="scroll">
-    <table>
-     <thead>
-     <tr>
-      <th>City</th>
-      <th>People</th>
-      <th>3BR rent/mo</th>
-      <th>3BR rent/yr</th>
-      <th>4BR rent/mo</th>
-      <th>4BR rent/yr</th>
-      <th>3BR buy</th>
-      <th>4BR buy</th>
-      <th>Source</th>
-     </tr>
-     </thead>
-     <tbody id="housingSampleRows">
-      <tr><td colspan="8">Loading…</td></tr>
-     </tbody>
-    </table>
-   </div>
-  </div>
+  <details class="info"><summary id="cityAssumptionSummary">ⓘ 当前城市假设</summary><div class="info-body" id="cityInfo"></div></details>
   <div class="grid" style="margin-top:12px">
    <div><div class="choice-label" id="housingLabel">退休住房</div><div class="seg" id="housing"><button data-v="rent">租房</button><button data-v="buy" class="active">买房</button></div></div>
    <div id="mortgageWrap" style="grid-column:1/-1">
-    <div class="note" style="margin-top:10px">买房模式默认：<b>现在就买</b>。首付从当前可投资资产中扣除，之后逐年支付房贷并累积房屋净值。</div>
-    <div class="control" style="margin-top:10px">
-     <div class="head"><label>购房年龄</label><span class="pill" id="homePurchaseAgeV"></span></div>
-     <input id="homePurchaseAge" type="range" min="18" max="70" step="1" value="45">
-     <div class="desc" style="margin-top:6px">默认规则：如果当前地点和退休地点相同，就从现在开始买房；如果不同，就从搬到退休地点那一年开始买房。你也可以手动改这个年龄。</div>
+    <details class="info" id="mortgageAdvancedWrap" style="margin-top:10px">
+     <summary id="mortgageAdvancedSummary">ⓘ 住房假设 / Housing assumptions</summary>
+     <div class="info-body" id="mortgageAdvancedInfo">
+      <div class="note" style="margin-top:0">买房模式默认 / Buy mode default：<b>如果退休地点和当前地点相同，就现在买；如果不同，就搬到退休地点那一年再买</b>。首付、房贷利率、年限和持有成本都可以在下面改。租房模式默认按退休地点的住房成本假设来估租金。<br><span style="opacity:.85">This explanation stays inside the housing assumptions detail so the top of the page can stay cleaner.</span></div>
+      <div class="control" style="margin-top:10px">
+       <div class="head"><label id="homePurchaseAgeLabel">购房时点</label><span class="pill" id="homePurchaseAgeV"></span></div>
+       <input id="homePurchaseAge" type="range" min="18" max="70" step="1" value="45">
+       <div class="desc" style="margin-top:6px">默认规则：如果当前地点和退休地点相同，就从现在开始买房；如果不同，就从搬到退休地点那一年开始买房。你也可以手动改这个时点。</div>
+      </div>
+      <div class="control" style="margin-top:10px">
+       <div class="head"><label id="homePriceLabel">购房价格 / Home price</label><span class="pill" id="homePriceV"></span></div>
+       <input id="homePrice" type="range" min="0" max="10000000" step="25000" value="1900000">
+       <div class="desc" id="homePriceDesc" style="margin-top:6px">默认值来自 location assumption 里的住房成本假设（按你的家庭口径）；你可以拖动改成自己的买房预算。 / Default value comes from the location assumption housing cost for your household; drag it to your own target home price.</div>
+      </div>
+      <div class="grid" style="margin-top:10px">
+       <div class="control"><div class="head"><label id="downPayLabel">首付比例</label><span class="pill" id="downPayV">20%</span></div><input id="downPay" type="range" min=".05" max=".60" step=".05" value=".20"></div>
+       <div class="control"><div class="head"><label id="mortgageRateLabel">房贷利率</label><span class="pill" id="mortgageRateV">6.5%</span></div><input id="mortgageRate" type="range" min=".02" max=".10" step=".0025" value=".065"></div>
+       <div class="control"><div class="head"><label id="mortgageYearsLabel">房贷年限</label><span class="pill" id="mortgageYearsV">30年</span></div><input id="mortgageYears" type="range" min="10" max="30" step="5" value="30"></div>
+       <div class="control"><div class="head"><label id="homeCarryLabel">房产税+保险+维护</label><span class="pill" id="homeCarryV">1.8%</span></div><input id="homeCarry" type="range" min="0" max=".035" step=".001" value=".018"></div>
+      </div>
+      <div class="desc" style="margin-top:8px">这份 <b>city_housing_model.csv</b> 就是模型最终采用的住房假设；租房和买房都会按这里的城市成本口径来算，下面可以直接查看对应的 rent / buy 假设。</div>
+      <details class="info sample-panel" id="housingSampleCard" style="margin-top:10px">
+       <summary><span class="sample-title">ⓘ 城市住房成本假设 / Housing expense per city assumption</span><span class="pill" id="housingSampleStatus">Loading housing CSV…</span></summary>
+       <div class="desc" style="margin-top:0">
+        这张表直接从 <code>city_housing_model.csv</code> 读取，里面放的是模型最终使用的城市住房假设，包括租金、买房预算、相对湾区系数和 source note。
+       </div>
+       <div class="scroll">
+        <table>
+         <thead>
+         <tr>
+          <th>City (zh)</th>
+          <th>City (en)</th>
+          <th>3BR rent/mo</th>
+          <th>3BR rent/yr</th>
+          <th>4BR rent/mo</th>
+          <th>4BR rent/yr</th>
+          <th>3BR buy</th>
+          <th>4BR buy</th>
+          <th>Factor</th>
+          <th>Source note</th>
+         </tr>
+         </thead>
+         <tbody id="housingSampleRows">
+          <tr><td colspan="10">Loading…</td></tr>
+         </tbody>
+        </table>
+       </div>
+      </details>
+     </div>
+   </details>
+  </div>
+ </div>
+  <div class="side-stack">
+    <div class="side-meter housing output-card output-card--housing">
+     <div class="k" id="housingSpendLabel">住房支出</div>
+     <div class="v" id="housingSpendV">—</div>
+     <div class="bar"><div class="fill" id="housingSpendBar"></div></div>
+     <div class="s" id="housingSpendS">—</div>
     </div>
-    <div class="grid" style="margin-top:10px">
-     <div class="control"><div class="head"><label>首付比例</label><span class="pill" id="downPayV">20%</span></div><input id="downPay" type="range" min=".05" max=".60" step=".05" value=".20"></div>
-     <div class="control"><div class="head"><label>房贷利率</label><span class="pill" id="mortgageRateV">6.5%</span></div><input id="mortgageRate" type="range" min=".02" max=".10" step=".0025" value=".065"></div>
-     <div class="control"><div class="head"><label>房贷年限</label><span class="pill" id="mortgageYearsV">30年</span></div><input id="mortgageYears" type="range" min="10" max="30" step="5" value="30"></div>
-     <div class="control"><div class="head"><label>房产税+保险+维护</label><span class="pill" id="homeCarryV">1.8%</span></div><input id="homeCarry" type="range" min="0" max=".035" step=".001" value=".018"></div>
+    <div class="side-meter housing output-card output-card--housing">
+     <div class="k" id="livingSpendLabel">当前地点家庭生活费（不含房贷）</div>
+     <div class="v" id="livingSpendV">—</div>
+     <div class="bar"><div class="fill" id="livingSpendBar"></div></div>
+     <div class="s" id="livingSpendS">—</div>
     </div>
    </div>
-   <div><div class="choice-label" id="lifestyleLabel">生活方式</div><div class="seg" id="lifestyle"><button data-v="lean">节制</button><button data-v="base" class="active">舒适</button><button data-v="comfort">宽裕</button></div></div>
   </div>
-  <details class="info"><summary id="lifestyleAssumptionSummary">ⓘ 生活方式 Assumption</summary><div class="info-body" id="lifestyleInfo"></div></details>
-  <details class="info"><summary id="relocationAssumptionSummary">ⓘ Assumption</summary><div class="info-body" id="relocationInfo"></div></details>
  </div>
 
- <div class="card">
-  <h2>3. 当前资产与收入</h2>
-  <div class="control"><div class="head"><label>你当前可投资资产</label><span class="pill" id="assetsV"></span></div><input id="assets" type="range" min="0" max="10000000" step="1000" value="1000000"></div>
-  <div class="control"><div class="head"><label>你当前税前年收入</label><span class="pill" id="incomeV"></span></div><input id="income" type="range" min="0" max="1500000" step="25000" value="200000"></div>
+ </div>
+ <div class="card cost-card tab-panel" data-tab="cost" style="margin-top:28px; clear:both">
+  <h2>3. 孩子与教育</h2>
+  <div class="section-split">
+   <div class="section-main">
+  <div class="grid">
+   <div>
+    <div class="choice-label" id="childcareLabel">0–5岁育儿方式</div>
+    <div class="seg" id="childcare"><button data-v="daycare">Daycare为主</button><button data-v="mixed" class="active">父母+Nanny+Daycare</button><button data-v="nanny">Nanny为主</button></div>
+   </div>
+  </div>
+  <div class="grid" id="kidsSchoolWrap" style="margin-top:12px">
+   <div><div class="choice-label" id="usSchoolLabel">美国阶段学校</div><div class="seg" id="usSchool"><button data-v="public" class="active">优质公立</button><button data-v="private">私立</button></div></div>
+   <div id="cnSchoolWrap"><div class="choice-label" id="cnSchoolLabel">回国后学校</div><div class="seg" id="cnSchool"><button data-v="intl" class="active">国际/双语</button><button data-v="public">中国公立</button><button data-v="stayUS">继续留美</button></div></div>
+  </div>
+  <details class="info sample-panel" id="kidsEduSampleCard" style="margin-top:12px">
+   <summary><span class="sample-title">ⓘ 孩子托育与教育假设 / Kids, childcare & education assumptions</span><span class="pill" id="kidsEduSampleStatus">Loading kids & education CSV…</span></summary>
+   <div class="desc" style="margin-top:0">
+    这张表直接从 <code>kids_education_model.csv</code> 读取，里面放的是 0-5 岁托育、美国阶段学校、回国后学校和大学的默认规划假设。这里算的是孩子托育 + 学校 + 大学的总成本，方便你以后单独校准。
+   </div>
+   <div class="scroll">
+    <table>
+     <thead>
+     <tr>
+      <th>Category</th>
+      <th>Label (zh)</th>
+      <th>Label (en)</th>
+      <th>Cost / yr</th>
+      <th>Applies to</th>
+      <th>Notes</th>
+     </tr>
+     </thead>
+     <tbody id="kidsEduSampleRows">
+      <tr><td colspan="6">Loading…</td></tr>
+     </tbody>
+    </table>
+   </div>
+   <div class="desc" id="kidsCostTooltipBody" style="margin-top:14px">
+    孩子托育与教育的支出是按“每年”计入的，不是一次性总额。0–5 岁托育会按年龄段逐年应用对应年度费用；6–17 岁学校费用也是按每年计算；18–21 岁大学按每年假设计算。模型会把这些年度费用乘上孩子实际停留在该年龄段的年数，再一起纳入总支出和财富路径。右侧的总成本卡片会随着托育或学校类型变化而更新。
+   </div>
+  </details>
+   </div>
+   <div class="side-stack">
+    <div class="side-meter output-card output-card--education">
+     <div class="k" id="kidsEduSummaryLabel">孩子托育与教育总成本</div>
+     <div class="v" id="kidsEduSummaryV">—</div>
+     <div class="bar"><div class="fill" id="kidsEduSummaryBar"></div></div>
+     <div class="s" id="kidsEduSummaryS">—</div>
+    </div>
+   </div>
+  </div>
+  </div>
+ <div class="card wealth-card income-card tab-panel" data-tab="income">
+  <h2>4. 当前资产与收入</h2>
+  <div class="control"><div class="head"><label id="assetsLabel">你当前可投资资产</label><span class="pill" id="assetsV"></span></div><input id="assets" type="range" min="0" max="10000000" step="1000" value="0"></div>
+  <div class="control"><div class="head"><label id="incomeLabel">你当前税前年收入</label><span class="pill" id="incomeV"></span></div><input id="income" type="range" min="0" max="1500000" step="25000" value="200000"></div>
   <div id="partnerIncomeWrap" class="hidden">
-   <div class="control"><div class="head"><label>第二位成人税前年收入（0-1.5M）</label><span class="pill" id="partnerIncomeV"></span></div><input id="partnerIncome" type="range" min="0" max="1500000" step="25000" value="200000"></div>
+   <div class="control"><div class="head"><label id="partnerIncomeLabel">第二位成人税前年收入（0-1.5M）</label><span class="pill" id="partnerIncomeV"></span></div><input id="partnerIncome" type="range" min="0" max="1500000" step="25000" value="200000"></div>
   </div>
   <div class="control">
-   <div class="head"><label>报税所在州</label><span class="pill" id="taxStateV">California</span></div>
-   <select id="taxState" style="width:100%;padding:10px 12px;border:1px solid #ddd5cb;border-radius:12px;background:#fff;font-family:inherit;font-size:13px;line-height:1.2;color:inherit;font-weight:500"><option value="CA" selected style="font:inherit">California</option><option value="NY" style="font:inherit">New York</option><option value="TX" style="font:inherit">Texas</option><option value="WA" style="font:inherit">Washington</option><option value="FL" style="font:inherit">Florida</option><option value="MA" style="font:inherit">Massachusetts</option><option value="NJ" style="font:inherit">New Jersey</option><option value="IL" style="font:inherit">Illinois</option><option value="PA" style="font:inherit">Pennsylvania</option><option value="VA" style="font:inherit">Virginia</option><option value="NC" style="font:inherit">North Carolina</option><option value="OTHER" style="font:inherit">其他州</option></select>
+   <div class="head"><label id="incomeGrowthLabel">年收入增长率</label><span class="pill" id="incomeGrowthV">5%</span></div>
+   <input id="incomeGrowth" type="range" min="0" max=".15" step=".005" value=".05">
+   <div class="desc" id="incomeGrowthDesc" style="margin-top:6px">默认按每年 5% 的收入增长来推演；这里会影响当前路径和达标路径里未来每年的税前年收入。</div>
+  </div>
+  <div class="control"><div class="head"><label id="retReturnLabel">长期实际投资回报</label><span class="pill" id="retV"></span></div><input id="ret" type="range" min="0" max=".07" step=".005" value=".035"></div>
+  <details class="info"><summary id="retReturnSummary">ⓘ 长期实际投资回报 Assumption</summary><div class="info-body" id="retInfo"></div></details>
+  <div class="control">
+   <div class="head"><label id="taxStateLabel">报税所在州</label><span class="pill" id="taxStateV">California</span></div>
+   <select id="taxState" class="uniform-select"><option value="CA" selected style="font:inherit">California</option><option value="NY" style="font:inherit">New York</option><option value="TX" style="font:inherit">Texas</option><option value="WA" style="font:inherit">Washington</option><option value="FL" style="font:inherit">Florida</option><option value="MA" style="font:inherit">Massachusetts</option><option value="NJ" style="font:inherit">New Jersey</option><option value="IL" style="font:inherit">Illinois</option><option value="PA" style="font:inherit">Pennsylvania</option><option value="VA" style="font:inherit">Virginia</option><option value="NC" style="font:inherit">North Carolina</option><option value="OTHER" style="font:inherit">其他州</option></select>
   </div>
   <div class="control">
-   <div class="head"><label>税率计算方式</label><span class="pill" id="taxModeV">自动估算</span></div>
+   <div class="head"><label id="taxCalcLabel">税率计算方式</label><span class="pill" id="taxModeV">自动估算</span></div>
    <div class="seg" id="taxMode"><button data-v="auto" class="active">自动估算</button><button data-v="manual">手动有效税率</button></div>
   </div>
   <div class="control hidden" id="manualTaxWrap">
-   <div class="head"><label>手动有效总税率</label><span class="pill" id="manualTaxV">40%</span></div>
+   <div class="head"><label id="manualTaxLabel">手动有效总税率</label><span class="pill" id="manualTaxV">40%</span></div>
    <input id="manualTax" type="range" min="0" max=".65" step=".01" value=".40">
    <div class="desc" style="margin-top:6px">如果你大概知道自己的 effective tax rate，可以直接覆盖自动估算。</div>
   </div>
   <div class="control">
-   <div class="head"><label>估算有效税率</label><span class="pill" id="taxV">—</span></div>
+   <div class="head"><label id="postRetireLabel">退休后劳动收入保留比例</label><span class="pill" id="postRetireIncomeV">0%</span></div>
+   <input id="postRetireIncome" type="range" min="0" max="1" step=".05" value="0">
+   <div class="desc" style="margin-top:6px">0% = 完全退休；例如 25% 可代表兼职、教学、咨询或小生意收入。</div>
+   <div class="desc" id="postRetireDesc" style="margin-top:6px">只影响退休后的劳动收入，因此会改变当前路径 80 岁总资产，不会改退休前的财富门槛。</div>
+  </div>
+  <div class="control">
+   <div class="head"><label id="taxRateLabel">估算有效税率</label><span class="pill" id="taxV">—</span></div>
    <div class="desc" id="taxBreakdown" style="margin-top:7px"></div>
    <details class="info"><summary id="taxAssumptionSummary">ⓘ 税率 Assumption</summary><div class="info-body" id="taxAssumptionInfo">
     自动模式：Federal 与 payroll tax 使用现有规划税档；California 使用分档估算。其他州目前使用规划级的州所得税近似，并不是逐州报税引擎。若你知道自己的实际 effective tax rate，建议切换“手动有效税率”。<br><br>
     无州个人所得税州（TX / WA / FL）按州所得税 0 处理。未计入 401(k)、HSA、itemized deductions、AMT、NIIT、capital gains、RSU timing 等个性化项目。
    </div></details>
   </div>
-  <div class="control"><div class="head"><label>长期实际投资回报</label><span class="pill" id="retV"></span></div><input id="ret" type="range" min="0" max=".07" step=".005" value=".035"></div>
-  <details class="info"><summary id="retReturnSummary">ⓘ 长期实际投资回报 Assumption</summary><div class="info-body" id="retInfo"></div></details>
-   <div class="control">
-   <div class="head"><label id="bayBaseSpendLabel">湾区 household 基础生活费（不含房贷 / housing）</label><span class="pill" id="bayBaseSpendV">$30k</span></div>
-    <input id="bayBaseSpend" type="range" min="15000" max="150000" step="1000" value="30000">
-    <div class="desc" id="bayBaseSpendDesc" style="margin-top:6px">湾区基础生活费会按家庭人数拆成 food / goods / insurance / medical / misc，food 和 goods 按人头，insurance 和 medical 主要按成人数，travel 仍然单独作为顶层支出。这里的 insurance 主要指房屋、车、寿险和 umbrella 这类保费，不再单独写“邮费”。</div>
-   </div>
-  <details class="info" id="livingEditorWrap">
-   <summary id="livingEditorSummary">ⓘ 调整支出明细 / Adjust spending detail</summary>
-   <div class="info-body" id="livingEditorInfo"></div>
-  </details>
   <details class="info" id="spendDetailWrap">
    <summary id="spendDetailSummary">ⓘ 支出的 detail / Spending detail</summary>
    <div class="info-body" id="spendDetailInfo"></div>
@@ -269,34 +450,15 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
   <details class="info"><summary id="formulaSummary">ⓘ 主要公式 / Main formulas</summary><div class="info-body" id="formulaInfo"></div></details>
  </div>
 
- <div class="card">
-  <h2>4. 孩子与教育</h2>
-  <div class="grid">
-   <div>
-    <div class="choice-label" id="kidsLabel">孩子数量</div>
-    <div class="seg" id="kids"><button data-v="0">0个</button><button data-v="1">1个</button><button data-v="2" class="active">2个</button></div>
-   </div>
-   <div>
-    <div class="choice-label" id="childcareLabel">0–5岁育儿方式</div>
-    <div class="seg" id="childcare"><button data-v="daycare">Daycare为主</button><button data-v="mixed" class="active">父母+Nanny+Daycare</button><button data-v="nanny">Nanny为主</button></div>
-   </div>
-  </div>
-  <div class="grid" id="kidsSchoolWrap" style="margin-top:12px">
-   <div><div class="choice-label" id="usSchoolLabel">美国阶段学校</div><div class="seg" id="usSchool"><button data-v="public" class="active">优质公立</button><button data-v="private">私立</button></div></div>
-   <div id="cnSchoolWrap"><div class="choice-label" id="cnSchoolLabel">回国后学校</div><div class="seg" id="cnSchool"><button data-v="intl" class="active">国际/双语</button><button data-v="public">中国公立</button><button data-v="stayUS">继续留美</button></div></div>
-  </div>
- </div>
-
- <div class="card">
-  <h2 id="retireOnTimeTitle">5. 如果想按时退休</h2>
-  <div class="note" id="retireOnTimeNote">如果选择“买房”，上面的总财富目标包含房产预算；如果选择“租房”，房产预算为 $0，但租金会持续进入退休后的年度支出，所以会提高所需可投资资产。</div>
+<div class="card wealth-card income-card tab-panel" data-tab="outcome">
+  <h2 id="retireOnTimeTitle">5. 财富自由时间线 / FIRE timeline</h2>
   <div class="solution" style="margin-top:9px">
    <div class="solvebox"><div class="slabel" id="requiredIncomeLabel">所需家庭税前年收入</div><div class="snum" id="requiredIncome">—</div><div class="stext" id="incomeDelta">—</div><div class="stext" id="incomeDeltaPct"></div></div>
    <div class="solvebox"><div class="slabel" id="spendCutLabel">或者每年少花</div><div class="snum" id="spendCut">—</div><div class="stext" id="spendCutDesc">如果收入不变，从现在到退休平均需要减少的年度支出。</div></div>
   </div>
  </div>
 
- <div class="card">
+ <div class="card wealth-card outcome-card tab-panel" data-tab="outcome">
  <div class="chart-head">
    <h2 id="projectionSectionTitle" style="margin:0">6. 年度收入、支出、总资产（至80岁）</h2>
    <div class="chart-toggle">
@@ -333,15 +495,17 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
   <div class="legend" id="wealthLegend"><span><i class="dot" style="background:#58719f"></i>可投资资产</span><span><i class="dot" style="background:#4f806b"></i>房屋净值</span><span><i class="dot" style="background:#b75b61"></i>房贷余额（负债）</span><span><i class="dot" style="background:#aa8344"></i>总财富</span></div>
  </div>
 
- <div class="card">
-  <details>
-   <summary id="annualSummary" style="font-size:18px;font-weight:700;cursor:pointer">7. 年度明细（至80岁）</summary>
-   <div class="scroll" style="margin-top:12px"><table><thead><tr><th>年龄</th><th>劳动收入</th><th>被动收入</th><th>支出</th><th>年度净现金流</th><th>投资收益</th><th>可投资资产</th><th>房屋净值</th><th>总财富</th></tr></thead><tbody id="rows"></tbody></table></div>
-  </details>
+<div class="card wealth-card outcome-card tab-panel" data-tab="outcome">
+  <div class="chart-head" style="margin-top:2px;align-items:flex-start">
+   <details class="annual-toggle" open>
+    <summary id="annualSummary">7. 年度明细（至80岁）</summary>
+    <div class="scroll" style="margin-top:12px"><table><thead><tr><th>年龄</th><th>劳动收入</th><th>被动收入</th><th>支出</th><th>年度净现金流</th><th>投资收益</th><th>可投资资产</th><th>房屋净值</th><th>总财富</th></tr></thead><tbody id="rows"></tbody></table></div>
+   </details>
+   <button id="downloadAnnualCsvBtn" type="button" class="export-btn">下载CSV</button>
  </div>
 
- <div class="card faq">
-  <h2>FAQ</h2>
+ <div class="card faq neutral-card outcome-card tab-panel" data-tab="outcome">
+  <h2>8. FAQ</h2>
 
   <details>
    <summary>为什么双成人家庭的支出不是个人口径的两倍？</summary>
@@ -362,6 +526,9 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
    <div class="answer">
     <b>1. 税后收入</b><br>
     税后收入 = 税前年收入 − Federal income tax − 州所得税 − Social Security − Medicare − Additional Medicare；也可以用手动有效总税率直接估算<br><br>
+
+    <b>1b. 年收入增长路径</b><br>
+    税前年收入会按“年收入增长率”滑杆逐年增长，直到退休年龄；退休后，如果还保留部分劳动收入，则按退休年龄对应的税前年收入再乘以保留比例计算。<br><br>
 
     <b>2. 年度家庭总支出</b><br>
     年度总支出 = 住房 + 成人基础生活 + 旅行 + 父母 / 家人支持 + 孩子托育/教育<br><br>
@@ -386,7 +553,7 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
     所需可投资资产 = 永久性年度支出 ÷ 4% + 孩子剩余支出 PV + 退休后剩余房贷付款 PV<br><br>
 
     <b>9. 买房与房贷</b><br>
-    买房模式默认从当前年龄立即买房：首付 = 房价 × 首付比例；初始房贷 = 房价 × (1 − 首付比例)。首付从当前可投资资产扣除；之后按等额本息房贷逐年计算本金与利息，同时计入房产税、保险和维护。房屋净值 = 房价 − 剩余房贷余额。<br>
+    买房模式默认会根据你的地点切换时点来买房：如果当前地点和退休地点相同，就从现在开始买；如果不同，就在搬到退休地点那一年开始买房。首付 = 房价 × 首付比例；初始房贷 = 房价 × (1 − 首付比例)。首付从当前可投资资产扣除；之后按等额本息房贷逐年计算本金与利息，同时计入房产税、保险和维护。房屋净值 = 房价 − 剩余房贷余额。<br>
     FIRE 目标不会重复算房子：长期永久支出只保留房产税/保险/维护；退休后尚未还完的房贷只按剩余付款的现值计一次；总财富展示中只加入退休年龄时已经形成的房屋净值，不再把整套房价重新加一遍。<br><br>
 
     <b>10. 退休时所需总财富</b><br>
@@ -440,1912 +607,21 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
     所以这里我们把美国工作年龄的医疗支出改成了更保守但不夸张的数：单人约 $2.3k/年，双成人约 $4.6k/年。退休前如果没有公司保险、改成 ACA / 自费，这个数字会明显更高。
    </div>
   </details>
+
+  <details id="faqResourcesDetail">
+   <summary>项目资源和假设文件在哪？</summary>
+   <div class="answer">
+    这个项目的 GitHub 仓库在这里：<a href="https://github.com/evasun777/fire-planner/tree/main" target="_blank" rel="noopener">github.com/evasun777/fire-planner</a><br><br>
+    主要的假设文件都放在仓库根目录：<br>
+    <b>ASSUMPTIONS.md</b>：主假设说明和口径总表<br>
+    <b>tax_assumptions.json</b>：税率估算的结构化数据<br>
+    <b>city_food_spend_model.csv</b>：城市吃饭成本样本<br>
+    <b>city_housing_model.csv</b>：城市住房成本假设<br>
+    <b>kids_education_model.csv</b>：孩子与教育假设
+   </div>
+  </details>
  </div>
 
-<script>
-(function(){
-const S={scope:'family',kids:2,childcare:'mixed',usSchool:'public',cnSchool:'intl',currentCity:'bay',city:'bay',housing:'buy',homePurchaseAge:45,homePurchaseAgeManual:false,lifestyle:'base',chartMode:'detail',projectionMode:'current',relocationPath:'returnChina',taxState:'CA',taxMode:'auto',lang:'bilingual',autoFood:true,livingPartsAuto:true,livingParts:{food:0,goods:0,insurance:0,medical:0,misc:0}};
- let currentPathFireAge=null;
- let currentPathFireIndex=-1;
- const CITY={
-  bay:{nameZh:'湾区',nameEn:'Bay Area',country:'US',livingFactor:1.00,rent3:6500*12,rent4:8000*12,buy3:1900000,buy4:2300000,living1:70000,secondAdult:22000,health1:12000,health2:8500,travel:18000,srcZh:'舒适型家庭住房：单成人+孩子按3BR，双成人+孩子按4BR。',srcEn:'Comfortable family baseline: 3BR for one adult plus kids, 4BR for two adults plus kids.'},
-  nyc:{nameZh:'纽约',nameEn:'New York',country:'US',livingFactor:1.14,rent3:7500*12,rent4:9000*12,buy3:1700000,buy4:2100000,living1:39000,secondAdult:24000,health1:13500,health2:9000,travel:18000,srcZh:'纽约按 Manhattan/近核心区家庭型住房的高成本假设。',srcEn:'New York assumes a high-cost Manhattan / near-core family baseline.'},
-  seattle:{nameZh:'西雅图',nameEn:'Seattle',country:'US',livingFactor:0.95,rent3:4600*12,rent4:5600*12,buy3:1250000,buy4:1550000,living1:33000,secondAdult:20000,health1:11000,health2:8000,travel:17000,srcZh:'西雅图按高薪科技城市但住房仍偏贵的规划假设。',srcEn:'Seattle assumes a high-income tech city with still-elevated housing costs.'},
-  losangeles:{nameZh:'洛杉矶',nameEn:'Los Angeles',country:'US',livingFactor:1.02,rent3:4200*12,rent4:5200*12,buy3:1150000,buy4:1450000,living1:34000,secondAdult:20500,health1:11200,health2:8000,travel:17000,srcZh:'洛杉矶按大都会区改善型家庭成本估算。',srcEn:'Los Angeles assumes a metro-area family planning baseline.'},
-  dallas:{nameZh:'达拉斯',nameEn:'Dallas',country:'US',livingFactor:0.82,rent3:3200*12,rent4:4000*12,buy3:850000,buy4:1050000,living1:30000,secondAdult:18000,health1:10000,health2:7500,travel:16000,srcZh:'达拉斯按较低住房成本、较强车依赖的家庭假设。',srcEn:'Dallas assumes lower housing costs and more car-dependent family spending.'},
-  shanghai:{nameZh:'上海',nameEn:'Shanghai',country:'CN',livingFactor:0.68,rent3:2100*12,rent4:2800*12,buy3:1500000,buy4:2000000,living1:30000,secondAdult:16000,health1:9000,health2:6500,travel:18000,srcZh:'上海改善型家庭长租：3居与4居分开，不再把双成人总支出翻倍。',srcEn:'Shanghai uses a family-friendly rental baseline and does not double total spending for two adults.'},
-  hangzhou:{nameZh:'杭州',nameEn:'Hangzhou',country:'CN',livingFactor:0.56,rent3:1400*12,rent4:1800*12,buy3:950000,buy4:1250000,living1:26000,secondAdult:14000,health1:8000,health2:5500,travel:17000,srcZh:'杭州舒适型改善住房：3居约$1.4k/月，4居约$1.8k/月；成人2增加的是边际成本。',srcEn:'Hangzhou uses comfortable-upgrade housing assumptions with incremental second-adult costs.'},
-  suzhou:{nameZh:'苏州',nameEn:'Suzhou',country:'CN',livingFactor:0.52,rent3:1050*12,rent4:1350*12,buy3:700000,buy4:900000,living1:24000,secondAdult:13000,health1:8000,health2:5500,travel:16000,srcZh:'苏州相对杭州住房和日常生活成本略低。',srcEn:'Suzhou is modeled slightly below Hangzhou for housing and everyday expenses.'},
-  chengdu:{nameZh:'成都',nameEn:'Chengdu',country:'CN',livingFactor:0.50,rent3:950*12,rent4:1250*12,buy3:620000,buy4:800000,living1:24000,secondAdult:13000,health1:8000,health2:5500,travel:17000,srcZh:'成都改善型3–4居室假设；金融城/高新区会更高。',srcEn:'Chengdu uses a 3-4BR improvement baseline; Finance City / Hi-tech zones can be higher.'},
-  kunming:{nameZh:'昆明',nameEn:'Kunming',country:'CN',livingFactor:0.44,rent3:750*12,rent4:1000*12,buy3:450000,buy4:580000,living1:22000,secondAdult:12000,health1:7500,health2:5000,travel:16000,srcZh:'昆明生活成本较低，住房按改善型3–4居室。',srcEn:'Kunming has lower living costs and a comfortable 3-4BR housing baseline.'},
-  dali:{nameZh:'大理',nameEn:'Dali',country:'CN',livingFactor:0.47,rent3:850*12,rent4:1150*12,buy3:520000,buy4:680000,living1:23000,secondAdult:12000,health1:8000,health2:5500,travel:18000,srcZh:'大理旅游属性强，长期租金波动更大。',srcEn:'Dali has stronger tourism effects and more volatile long-term rent.'},
-  haikou:{nameZh:'海口',nameEn:'Haikou',country:'CN',livingFactor:0.46,rent3:850*12,rent4:1150*12,buy3:520000,buy4:680000,living1:23000,secondAdult:12000,health1:8000,health2:5500,travel:17000,srcZh:'海口按改善型家庭长租；新片区差异较大。',srcEn:'Haikou uses an improved-family rental baseline with area-level variation.'},
-  taiyuan:{nameZh:'太原',nameEn:'Taiyuan',country:'CN',livingFactor:0.40,rent3:700*12,rent4:950*12,buy3:380000,buy4:500000,living1:20000,secondAdult:11000,health1:7000,health2:5000,travel:15000,srcZh:'太原按改善型3–4居室，不使用豪宅挂牌作为默认。',srcEn:'Taiyuan uses a comfortable 3-4BR baseline and avoids luxury-listing defaults.'}
- };
- const LIFE={lean:.82,base:1,comfort:1.28};
- const CC={daycare:{y0:45000,y15:22000},mixed:{y0:60000,y15:30000},nanny:{y0:80000,y15:50000}};
- const SCHOOL={usPublic:12000,usPrivate:35000,cnIntl:32500,cnPublic:8000,college:20000};
- const LANG={
-  zh:{
-   hero:'FIRE 财富自由规划器',section1:'1. 计算口径',section2:'2. 时间和退休地点',section3:'3. 当前资产与收入（0-10M scale）',section4:'4. 孩子与教育',section5:'5. 如果想按时退休',section6:'6. 年度收入、支出、总资产（至80岁）',section7:'7. 年度明细（至80岁）',section8:'8. 达标路径：按财富自由所需税前年收入',faq:'FAQ',overview:'总览',detail:'细分',buyNow:'买房模式默认：<b>现在就买</b>。首付从当前可投资资产中扣除，之后逐年支付房贷并累积房屋净值。',scopeIndividual:'当前：1个成人（只算1份收入）+ 你选择的孩子数量。',scopeFamily:'当前：2个成人（算2份收入）+ 同样的孩子数量；孩子成本不翻倍。',returnChina:'当前选择“回国”：模型在 {age} 岁开始切换到你选择的中国退休/半退休城市生活成本。',stayUS:'当前选择“留在美国”：模型不会使用回国年龄，也不会切换到中国城市成本；退休生活继续按美国住房和生活成本计算。',cityRule:'住房计算规则：卧室数 = 成人数 + 孩子数。1–2居价格目前按同城3居基准做规划型比例估算；3–4居使用城市设定值。',cityBuy:'当前选择买房。模型假设现在按 {down}% 首付购买 {home} 的 {beds} 居住房；首付立即从可投资资产扣除，剩余部分按 {yrs} 年、{rate}% 房贷逐年偿还。退休目标只计当时房屋净值 + 剩余房贷现值，不会再次加入整套房价。',cityRent:'当前选择租房。房产预算为 $0；模型按 {beds} 居长期租金 {rent}/月计入退休后的长期年度支出。',taxMode:'自动估算',manualTax:'手动有效税率',overviewLegend:'劳动收入 / 被动收入 / 年度支出 / 总财富（右轴）',detailLegend1:'0线上方 = 收入：劳动收入（本人 / 伴侣） + 被动收入（资产提取 / 投资收益）',detailLegend2:'Below zero = spending: housing / living / travel / parents / family support / kids',cityLabel:'当前城市 assumption',allYear:'7. 年度明细（至80岁）',retPath:'长期居住路径',retAge:'回国 / 退休切换年龄',currentAge:'当前年龄',fiAge:'预期退休 / 工作可选年龄',postRetire:'退休后劳动收入保留比例',withdraw:'退休后资产提取率',kids:'孩子数量',childcare:'0–5岁育儿方式',usSchool:'美国阶段学校',cnSchool:'回国后学校',retHousing:'退休住房',lifestyle:'生活方式',assets:'你当前可投资资产',income:'你当前税前年收入',partnerIncome:'第二位成人税前年收入（0-1.5M）',state:'报税所在州',taxCalc:'税率计算方式',taxHint:'如果你大概知道自己的 effective tax rate，可以直接覆盖自动估算。',taxRate:'估算有效税率',retReturn:'长期实际投资回报',lifestyleAssumption:'<b>生活方式是一个乘数</b>：节制 = 0.82×，舒适 = 1.00×，宽裕 = 1.28×。它目前只乘在“生活费”上（医疗已并入生活费），不会自动放大房贷、旅行、父母或孩子支出。',bayBaseSpend:'湾区基础生活费（不含房贷）',bayBaseSpendDesc:'Bay Area baseline living cost is multiplied by the city factor for each location; this baseline is then split into food / goods / insurance / medical / misc, and medical is no longer double-counted at the top level.',required:'如果想按时退休',requiredDesc:'If you choose buy, the target includes a housing budget; if you choose rent, housing budget is $0 but rent continues into retirement spending, which increases required investable assets.',wealthSectionTitle:'资产 vs 负债',wealthNote:'This chart focuses on asset structure, not cash flow: investable assets, home equity, mortgage balance, and total wealth.'},
-  en:{
-   hero:'FIRE Financial Freedom Planner',section1:'1. Household',section2:'2. Time and Retirement Location',section3:'3. Current Assets & Income (0-3M scale)',section4:'4. Kids & Education',section5:'5. If You Want to Retire on Time',section6:'6. Current path: annual income, spending, and total assets (to age 80)',section7:'7. Annual detail (to age 80)',section8:'8. Target path: required gross income for FIRE',faq:'FAQ',overview:'Overview',detail:'Detail',buyNow:'Buy mode defaults to <b>buying now</b>. The down payment is deducted from current investable assets, then mortgage principal and interest are paid over time while home equity accumulates.',scopeIndividual:'Current: 1 adult (1 income) + selected children count.',scopeFamily:'Current: 2 adults (2 incomes) + the same children count; children costs do not double.',returnChina:'Current setting "Return to China": the model switches to the selected China retirement / semi-retirement city cost at age {age}.',stayUS:'Current setting "Stay in the US": the model does not use the return age or switch to China city costs; retirement continues on US housing and living costs.',cityRule:'Housing rule: bedrooms = adults + children. 1-2BR prices are proportional estimates based on the local 3BR baseline; 3-4BR use city-specific assumptions.',cityBuy:'Buying mode assumes you purchase now with a {down}% down payment for a {beds}-bedroom home priced at {home}. The down payment is deducted immediately, and the mortgage is amortized over {yrs} years at {rate}% APR. The retirement target only counts home equity plus remaining mortgage PV, not the full house price again.',cityRent:'Rent mode sets home budget to $0; the model uses the long-term rent for a {beds}-bedroom home, {rent}/month, in retirement spending.',taxMode:'Auto estimate',manualTax:'Manual effective tax rate',overviewLegend:'Labor income / passive income / annual spending / total wealth (right axis)',detailLegend1:'Above zero = income: labor income (self / partner) + passive income (withdrawals / investment returns)',detailLegend2:'Below zero = spending: housing / living / travel / parents / family support / kids',cityLabel:'Current city assumption',allYear:'7. Annual detail (to age 80)',retPath:'Long-term location',retAge:'Return / retirement switch age',currentAge:'Current age',fiAge:'Expected retirement / work-optional age',postRetire:'Post-retirement labor income kept',withdraw:'Post-retirement withdrawal rate',kids:'Kids',childcare:'Ages 0-5 childcare',usSchool:'US school type',cnSchool:'School type in China',retHousing:'Retirement housing',lifestyle:'Lifestyle',assets:'Current investable assets',income:'Current gross income',partnerIncome:'Second adult gross income (0-1.5M scale)',state:'Tax filing state',taxCalc:'Tax calculation mode',taxHint:'If you already know your effective tax rate, you can override the auto estimate.',taxRate:'Estimated effective tax rate',retReturn:'Long-term real return',lifestyleAssumption:'<b>Lifestyle is a multiplier</b>: Lean = 0.82x, Base = 1.00x, Comfort = 1.28x. It currently multiplies living spending only (medical is embedded inside living), and does not automatically scale housing, travel, parents, or kids costs.',bayBaseSpend:'Bay Area baseline living cost (excluding housing)',bayBaseSpendDesc:'Bay Area baseline living cost is multiplied by the city factor for each location; this baseline is then split into food / goods / insurance / medical / misc, and medical is no longer double-counted at the top level.',required:'If you choose buy, the target includes a housing budget; if you choose rent, housing budget is $0 but rent continues into retirement spending, which increases required investable assets.',wealthSectionTitle:'Asset vs liability',wealthNote:'This chart focuses on asset structure, not cash flow: investable assets, home equity, mortgage balance, and total wealth.'}
- };
- LANG.bilingual = Object.fromEntries(Object.keys({...LANG.zh, ...LANG.en}).map(k=>{
-  const zh = LANG.zh[k] ?? '';
-  const en = LANG.en[k] ?? '';
-  if(!zh) return [k,en];
-  if(!en || zh===en) return [k,zh];
-  return [k,`${zh} / ${en}`];
- }));
- const $=id=>document.getElementById(id),$$=sel=>document.querySelectorAll(sel),n=id=>Number($(id).value)||0;
- const money=x=>(x<0?'−':'')+'$'+Math.round(Math.abs(x)).toLocaleString('en-US'),compact=x=>(x<0?'−':'')+'$'+(Math.abs(x)/1e6).toFixed(2)+'M';
- const CITY_ORDER=['bay','nyc','seattle','losangeles','dallas','shanghai','hangzhou','suzhou','chengdu','kunming','dali','haikou','taiyuan'];
- const FOOD_SAMPLE_URL='city_food_spend_model.csv';
- const HOUSING_SAMPLE_URL='city_housing_model.csv';
- let FOOD_SAMPLE_ROWS=[];
- let FOOD_SAMPLE_BY_KEY={};
- let FOOD_SAMPLE_STATUS='Loading sample CSV…';
- let HOUSING_SAMPLE_ROWS=[];
- let HOUSING_SAMPLE_BY_KEY={};
- let HOUSING_SAMPLE_STATUS='Loading housing CSV…';
- function parseCSV(text){
-  const rows=[];
-  let row=[];
-  let cell='';
-  let inQuotes=false;
-  const pushCell=()=>{row.push(cell);cell='';};
-  const pushRow=()=>{if(row.length) rows.push(row);row=[];};
-  const normalized=String(text||'').replace(/^\uFEFF/,'');
-  for(let i=0;i<normalized.length;i++){
-    const ch=normalized[i];
-    const next=normalized[i+1];
-    if(inQuotes){
-      if(ch==='"'&&next==='"'){cell+='"';i++;continue;}
-      if(ch==='"'){inQuotes=false;continue;}
-      cell+=ch;
-      continue;
-    }
-    if(ch==='"'){inQuotes=true;continue;}
-    if(ch===','){pushCell();continue;}
-    if(ch==='\n'){pushCell();pushRow();continue;}
-    if(ch==='\r') continue;
-    cell+=ch;
-  }
-  if(cell.length||row.length){pushCell();pushRow();}
-  return rows;
- }
-function normalizeFoodCityKey(value){
-  const text=String(value||'').toLowerCase();
-  if(text.includes('bay area') || text.includes('san francisco bay')) return 'bay';
-  if(text.includes('san francisco')) return 'bay';
-  if(text.includes('new york')) return 'nyc';
-  if(text.includes('shanghai')) return 'shanghai';
-  if(text.includes('chengdu')) return 'chengdu';
-  return '';
- }
- function numOrBlank(value){
-  const n=Number(String(value).replace(/[$,]/g,''));
-  return Number.isFinite(n) ? n : '';
- }
-function moneyMaybe(value){
-  return value==='' ? '—' : '$' + Math.round(Number(value)).toLocaleString('en-US');
-}
-function moneyOrDash(value){
-  return value==='' || value==null ? '—' : money(value);
-}
-function sourceLink(url){
-  if(!url) return '—';
-  return `<a href="${url}" target="_blank" rel="noopener">source</a>`;
-}
- async function loadFoodSampleCSV(){
-  try{
-    const res=await fetch(FOOD_SAMPLE_URL,{cache:'no-store'});
-    if(!res.ok) throw new Error(`HTTP ${res.status}`);
-    const text=await res.text();
-    const rows=parseCSV(text);
-    const header=rows.shift()||[];
-    FOOD_SAMPLE_ROWS=rows.map(cols=>{
-      const obj={};
-      header.forEach((h,i)=>{obj[h]=cols[i]??'';});
-      const row={
-        ...obj,
-        key:String(obj.city_key||'').trim() || normalizeFoodCityKey(obj.city),
-        household_size_assumed:numOrBlank(obj.household_size_assumed),
-        official_food_at_home_usd:numOrBlank(obj.official_food_at_home_usd),
-        official_food_away_from_home_usd:numOrBlank(obj.official_food_away_from_home_usd),
-        official_total_food_usd:numOrBlank(obj.official_total_food_usd),
-        model_total_food_usd:numOrBlank(obj.model_total_food_usd),
-        model_monthly_food_usd:numOrBlank(obj.model_monthly_food_usd),
-        groceries_index_vs_base:numOrBlank(obj.groceries_index_vs_base),
-        restaurant_index_vs_base:numOrBlank(obj.restaurant_index_vs_base),
-        model_vs_official_pct:numOrBlank(obj.model_vs_official_pct)
-      };
-      return row;
-    }).filter(row=>row.city);
-    FOOD_SAMPLE_BY_KEY=FOOD_SAMPLE_ROWS.reduce((acc,row)=>{
-      if(row.key) acc[row.key]=row;
-      return acc;
-    },{});
-    FOOD_SAMPLE_STATUS=`Loaded ${FOOD_SAMPLE_ROWS.length} sample rows from CSV`;
-  }catch(err){
-    FOOD_SAMPLE_ROWS=[];
-    FOOD_SAMPLE_BY_KEY={};
-    FOOD_SAMPLE_STATUS='CSV load failed';
-  }
-  const statusEl=$('foodSampleStatus');
-  if(statusEl) statusEl.textContent=FOOD_SAMPLE_STATUS;
-  const rowsEl=$('foodSampleRows');
-  if(rowsEl){
-    rowsEl.innerHTML=FOOD_SAMPLE_ROWS.length
-      ? FOOD_SAMPLE_ROWS.map(row=>`<tr>
-          <td>${row.city}</td>
-          <td>${row.household_size_assumed===''?'—':row.household_size_assumed}</td>
-          <td>${moneyMaybe(row.official_total_food_usd)}</td>
-          <td>${moneyMaybe(row.model_total_food_usd)}</td>
-          <td>${moneyMaybe(row.model_monthly_food_usd)}</td>
-          <td>${moneyMaybe(row.official_food_at_home_usd)}</td>
-          <td>${moneyMaybe(row.official_food_away_from_home_usd)}</td>
-          <td>${sourceLink(row.source_url)}</td>
-        </tr>`).join('')
-      : `<tr><td colspan="8">${FOOD_SAMPLE_STATUS}</td></tr>`;
-  }
- }
- async function loadHousingSampleCSV(){
-  try{
-    const res=await fetch(HOUSING_SAMPLE_URL,{cache:'no-store'});
-    if(!res.ok) throw new Error(`HTTP ${res.status}`);
-    const text=await res.text();
-    const rows=parseCSV(text);
-    const header=rows.shift()||[];
-    HOUSING_SAMPLE_ROWS=rows.map(cols=>{
-      const obj={};
-      header.forEach((h,i)=>{obj[h]=cols[i]??'';});
-      return {
-        ...obj,
-        city_key:String(obj.city_key||'').trim(),
-        household_size_assumed:numOrBlank(obj.household_size_assumed),
-        rent_3br_monthly_usd:numOrBlank(obj.rent_3br_monthly_usd),
-        rent_3br_annual_usd:numOrBlank(obj.rent_3br_annual_usd),
-        rent_4br_monthly_usd:numOrBlank(obj.rent_4br_monthly_usd),
-        rent_4br_annual_usd:numOrBlank(obj.rent_4br_annual_usd),
-        buy_3br_usd:numOrBlank(obj.buy_3br_usd),
-        buy_4br_usd:numOrBlank(obj.buy_4br_usd),
-        living_factor:numOrBlank(obj.living_factor)
-      };
-    }).filter(row=>row.city_key);
-    HOUSING_SAMPLE_BY_KEY=HOUSING_SAMPLE_ROWS.reduce((acc,row)=>{
-      acc[row.city_key]=row;
-      return acc;
-    },{});
-    HOUSING_SAMPLE_STATUS=`Loaded ${HOUSING_SAMPLE_ROWS.length} housing rows from CSV`;
-  }catch(err){
-    HOUSING_SAMPLE_ROWS=[];
-    HOUSING_SAMPLE_BY_KEY={};
-    HOUSING_SAMPLE_STATUS='Housing CSV load failed';
-  }
-  const statusEl=$('housingSampleStatus');
-  if(statusEl) statusEl.textContent=HOUSING_SAMPLE_STATUS;
-  const rowsEl=$('housingSampleRows');
-  if(rowsEl){
-    rowsEl.innerHTML=HOUSING_SAMPLE_ROWS.length
-      ? HOUSING_SAMPLE_ROWS.map(row=>`<tr>
-          <td>${row.city}</td>
-          <td>${row.household_size_assumed===''?'—':row.household_size_assumed}</td>
-          <td>${moneyMaybe(row.rent_3br_monthly_usd)}</td>
-          <td>${moneyMaybe(row.rent_3br_annual_usd)}</td>
-          <td>${moneyMaybe(row.rent_4br_monthly_usd)}</td>
-          <td>${moneyMaybe(row.rent_4br_annual_usd)}</td>
-          <td>${moneyMaybe(row.buy_3br_usd)}</td>
-          <td>${moneyMaybe(row.buy_4br_usd)}</td>
-          <td>${sourceLink(row.source_url)}</td>
-        </tr>`).join('')
-      : `<tr><td colspan="9">${HOUSING_SAMPLE_STATUS}</td></tr>`;
-  }
- }
- function L(key,vars={}){
-   const mode=LANG[S.lang]||LANG.zh;
-   let s=mode[key]||LANG.zh[key]||key;
-   Object.keys(vars).forEach(k=>{s=s.replaceAll(`{${k}}`,vars[k])});
-   return s;
- }
- function cityName(c){
-   if(S.lang==='zh') return c.nameZh;
-   if(S.lang==='en') return c.nameEn;
-   return `${c.nameZh} / ${c.nameEn}`;
- }
-function cityFoodSample(c){
-  const key=Object.keys(CITY).find(k=>CITY[k]===c) || '';
-  return FOOD_SAMPLE_BY_KEY[key] || null;
-}
-function cityHousingSample(c){
-  const key=Object.keys(CITY).find(k=>CITY[k]===c) || '';
-  return HOUSING_SAMPLE_BY_KEY[key] || null;
-}
-function citySource(c){
-  if(S.lang==='zh') return c.srcZh;
-  if(S.lang==='en') return c.srcEn;
-  return `${c.srcZh}<br>${c.srcEn}`;
-}
-function summaryText(pathData=[], currentFireAge=null, displayMode='current'){
-  const currentAge=n('currentAge');
-  const currentCity=cityName(currentHomeCity());
-  const retireCity=cityName(selectedHomeCity());
-  const lifestyleText=S.lang==='en'
-    ? (S.lifestyle==='lean'?'Lean':S.lifestyle==='comfort'?'Comfort':'Base')
-    : (S.lifestyle==='lean'?'节制':S.lifestyle==='comfort'?'宽裕':'舒适');
-  const modeText=S.lang==='en'
-    ? (displayMode==='target'?'Target path':'Current path')
-    : (displayMode==='target'?'达标路径':'当前路径');
-  const avgIncome=pathData.length
-    ? pathData.reduce((sum,x)=>sum+(x.incomeSelf+x.incomePartner+x.portfolioDraw+x.inv),0)/pathData.length
-    : 0;
-  const avgSpend=pathData.length
-    ? pathData.reduce((sum,x)=>sum+x.spend,0)/pathData.length
-    : 0;
-  const avgNet=avgIncome-avgSpend;
-  const fireAgeText=S.lang==='en'
-    ? (currentFireAge===null
-      ? 'Current-path FIRE age is not reached by age 80.'
-      : `Current-path FIRE age is ${currentFireAge}.`)
-    : (currentFireAge===null
-      ? '按当前路径，到80岁前仍未达到财富自由年龄。'
-      : `按当前路径，财富自由年龄是 ${currentFireAge} 岁。`);
-  const fireDefText=S.lang==='en'
-    ? 'FIRE means passive income is greater than total spending.'
-    : '财富自由的定义是被动收入大于总支出。';
-  const avgText=S.lang==='en'
-    ? `Average annual income: ${money(avgIncome)}/yr; average annual spending: ${money(avgSpend)}/yr; average net cash flow: ${money(avgNet)}/yr.`
-    : `平均年度收入：${money(avgIncome)}/年；平均年度支出：${money(avgSpend)}/年；平均净现金流：${money(avgNet)}/年。`;
-  const kidsText=S.lang==='en'
-    ? `${S.kids} kid${S.kids===1?'':'s'}`
-    : `${S.kids}个孩子`;
-  const scopeText=S.scope==='family'
-    ? (S.lang==='en'
-      ? 'dual-adult household'
-      : (S.lang==='bilingual' ? '双成人家庭 / dual-adult household' : '双成人家庭'))
-    : (S.lang==='en'
-      ? 'individual'
-      : (S.lang==='bilingual' ? '个人口径 / individual' : '个人口径'));
-  if(S.relocationPath==='returnChina'){
-    return S.lang==='en'
-      ? `${modeText} snapshot.<br>Household mode: ${scopeText}; lifestyle: ${lifestyleText}; kids: ${kidsText}.<br>Current age: ${currentAge}; planned retirement age: ${n('fiAge')}.<br>From age ${currentAge} to age ${n('fiAge')}, we use ${currentCity}; from age ${n('fiAge')} to age 80, we use ${retireCity}.<br>${avgText}<br>${fireAgeText} ${fireDefText}`
-      : `${modeText}快照。<br>家庭口径：${scopeText}；生活方式：${lifestyleText}；孩子：${kidsText}。<br>当前年龄：${currentAge} 岁；计划退休年龄：${n('fiAge')} 岁。<br>从 ${currentAge} 岁到 ${n('fiAge')} 岁按 ${currentCity} 计算；从 ${n('fiAge')} 岁到 80 岁按 ${retireCity} 计算。<br>${avgText}<br>${fireAgeText}${fireDefText}`;
-  }
-  return S.lang==='en'
-    ? `${modeText} snapshot.<br>Household mode: ${scopeText}; lifestyle: ${lifestyleText}; kids: ${kidsText}.<br>Current age: ${currentAge}; planned retirement age: ${n('fiAge')}.<br>From age ${currentAge} to age ${n('fiAge')}, we use ${currentCity}; from age ${n('fiAge')} to age 80, we use ${currentCity}.<br>${avgText}<br>${fireAgeText} ${fireDefText}`
-    : `${modeText}快照。<br>家庭口径：${scopeText}；生活方式：${lifestyleText}；孩子：${kidsText}。<br>当前年龄：${currentAge} 岁；计划退休年龄：${n('fiAge')} 岁。<br>从 ${currentAge} 岁到 ${n('fiAge')} 岁按 ${currentCity} 计算；从 ${n('fiAge')} 岁到 80 岁也按 ${currentCity} 计算。<br>${avgText}<br>${fireAgeText}${fireDefText}`;
-}
-function stateText(v){
-  const stateNames={CA:['California','California'],NY:['纽约','New York'],TX:['德州','Texas'],WA:['华盛顿州','Washington'],FL:['佛州','Florida'],MA:['马萨诸塞州','Massachusetts'],NJ:['新泽西州','New Jersey'],IL:['伊利诺伊州','Illinois'],PA:['宾夕法尼亚州','Pennsylvania'],VA:['弗吉尼亚州','Virginia'],NC:['北卡罗来纳州','North Carolina'],OTHER:['其他州','Other']};
-  const [zh,en]=stateNames[v]||[v,v];
-  if(S.lang==='zh') return zh;
-   if(S.lang==='en') return en;
-   return `${zh} / ${en}`;
- }
- function bayBaseSpend(){return livingBaseTargetTotal()}
- function livingSpendForCity(c){return Math.round(bayBaseSpend()*c.livingFactor)}
- function cityResource(c){
-   const base=money(bayBaseSpend());
-   const factor=c.livingFactor.toFixed(2);
-   const factorText=S.lang==='en'||S.lang==='bilingual' ? `factor ${factor}` : `系数 ${factor}`;
-   const sourceText=S.lang==='en'
-     ? 'Source: your Bay Area baseline input + the dashboard planning coefficients.'
-     : '来源：你的湾区基准输入 + 本页面的城市规划系数。';
-   return S.lang==='zh'
-     ? `Resource: <a href="./ASSUMPTIONS.md" target="_blank" rel="noopener">ASSUMPTIONS.md</a> · 湾区基础生活费 ${base}/年 × 城市${factorText} = 该城市固定生活费。<br>${sourceText}`
-     : S.lang==='en'
-       ? `Resource: <a href="./ASSUMPTIONS.md" target="_blank" rel="noopener">ASSUMPTIONS.md</a> · Bay Area baseline ${base}/yr × city ${factorText} = this city's fixed living cost.<br>${sourceText}`
-       : `Resource: <a href="./ASSUMPTIONS.md" target="_blank" rel="noopener">ASSUMPTIONS.md</a> · 湾区基础生活费 ${base}/年 × city ${factorText} = this city's fixed living cost.<br>${sourceText}`;
- }
- function renderLanguage(){
-  document.documentElement.lang=S.lang==='en'?'en':'zh-CN';
-  document.title=L('hero');
-  const heroTitle=document.querySelector('.hero h1');
-  if(heroTitle) heroTitle.textContent=L('hero');
-  const summaryTitle=$('summaryTitle');
-  if(summaryTitle) summaryTitle.textContent=S.lang==='en'
-    ? 'Snapshot'
-    : (S.lang==='bilingual' ? '总摘要 / Snapshot' : '总摘要');
-   const sectionTitles=document.querySelectorAll('.card > h2:not(#summaryTitle)');
-   const sectionMap=['section1','section2','section3','section4','section5','section6','faq'];
-   sectionTitles.forEach((el,i)=>{if(sectionMap[i]) el.textContent=L(sectionMap[i]);});
-  const annualSummary=$('annualSummary');
-   if(annualSummary) annualSummary.textContent=S.lang==='en'
-    ? '7. Annual detail (to age 80)'
-    : (S.lang==='bilingual' ? '7. 年度明细（至80岁） / Annual detail (to age 80)' : '7. 年度明细（至80岁）');
-  const kpiLabs=$$('.kpi .lab');
-  if(kpiLabs[0]) kpiLabs[0].textContent=S.lang==='en'
-    ? `Total wealth needed at age ${n('fiAge')}`
-    : `${n('fiAge')}岁需要的总财富`;
-  if(kpiLabs[1]) kpiLabs[1].textContent=S.lang==='en'?`Projected investable assets on current path`:'按当前路径预计可投资资产';
-  if(kpiLabs[2]) kpiLabs[2].textContent=S.lang==='en'?'Wealth gap':'财富 Gap';
-  if(kpiLabs[3]) kpiLabs[3].textContent=S.lang==='en'?'Required gross income':'需要的税前年收入';
-  const relocationPathLabel=$('relocationPathLabel');
-  if(relocationPathLabel) relocationPathLabel.textContent=L('retPath');
-  const currentCityLabel=$('currentCityLabel');
-  if(currentCityLabel) currentCityLabel.textContent=S.lang==='en'
-    ? 'Current city'
-    : (S.lang==='bilingual' ? '当前地点 / Current city' : '当前地点');
-  const retirementCityLabel=$('retirementCityLabel');
-  if(retirementCityLabel) retirementCityLabel.textContent=S.lang==='en'
-    ? 'Retirement / semi-retirement location'
-    : (S.lang==='bilingual' ? '退休 / 半退休地点 / Retirement / semi-retirement location' : '退休 / 半退休地点');
-  const housingLabel=$('housingLabel');
-  if(housingLabel) housingLabel.textContent=L('retHousing');
-  const lifestyleLabel=$('lifestyleLabel');
-  if(lifestyleLabel) lifestyleLabel.textContent=L('lifestyle');
-  const kidsLabel=$('kidsLabel');
-  if(kidsLabel) kidsLabel.textContent=L('kids');
-  const childcareLabel=$('childcareLabel');
-  if(childcareLabel) childcareLabel.textContent=L('childcare');
-  const usSchoolLabel=$('usSchoolLabel');
-  if(usSchoolLabel) usSchoolLabel.textContent=L('usSchool');
-  const cnSchoolLabel=$('cnSchoolLabel');
-  if(cnSchoolLabel) cnSchoolLabel.textContent=L('cnSchool');
-  const headLabels=$$('.head label');
-  if(headLabels[0]) headLabels[0].textContent=L('currentAge');
-  if(headLabels[1]) headLabels[1].textContent=L('fiAge');
-  if(headLabels[2]) headLabels[2].textContent=L('retAge');
-  if(headLabels[3]) headLabels[3].textContent=L('postRetire');
-  if(headLabels[4]) headLabels[4].textContent=S.lang==='en'?'Expected home purchase age':'购房年龄';
-  if(headLabels[5]) headLabels[5].textContent=S.lang==='en'?'Down payment ratio':'首付比例';
-  if(headLabels[6]) headLabels[6].textContent=S.lang==='en'?'Mortgage rate':'房贷利率';
-  if(headLabels[7]) headLabels[7].textContent=S.lang==='en'?'Mortgage term':'房贷年限';
-  if(headLabels[8]) headLabels[8].textContent=S.lang==='en'?'Property tax + insurance + maintenance':'房产税+保险+维护';
-  if(headLabels[9]) headLabels[9].textContent=S.scope==='family'
-    ? (S.lang==='en'
-      ? 'Combined current investable assets'
-      : (S.lang==='bilingual'
-        ? '你们当前可投资资产 / Combined current investable assets'
-        : '你们当前可投资资产'))
-    : L('assets');
-  if(headLabels[10]) headLabels[10].textContent=S.lang==='en'
-    ? (S.scope==='family' ? 'Current gross income (you and your partner)' : 'Current gross income')
-    : L('income');
-  if(headLabels[11]) headLabels[11].textContent=L('partnerIncome');
-  if(headLabels[12]) headLabels[12].textContent=L('state');
-  if(headLabels[13]) headLabels[13].textContent=L('taxCalc');
-  if(headLabels[14]) headLabels[14].textContent=L('manualTax');
-  if(headLabels[15]) headLabels[15].textContent=L('taxRate');
-  if(headLabels[16]) headLabels[16].textContent=L('retReturn');
-  if(headLabels[17]) headLabels[17].textContent=S.lang==='en'?'Bay Area household baseline living cost (excluding housing)':(S.lang==='bilingual'?'湾区 household 基础生活费（不含房贷） / Bay Area household baseline living cost (excluding housing)':'湾区 household 基础生活费（不含房贷）');
-  const bayBaseLabel=$('bayBaseSpendLabel');
-  if(bayBaseLabel) bayBaseLabel.textContent=S.lang==='en'?'Bay Area household baseline living cost (excluding housing)':(S.lang==='bilingual'?'湾区 household 基础生活费（不含房贷） / Bay Area household baseline living cost (excluding housing)':'湾区 household 基础生活费（不含房贷）');
-  const retInfo=$('retInfo');
-  if(retInfo) retInfo.innerHTML=S.lang==='en'
-    ? 'This is the <b>long-term real return</b> assumption used to grow current assets and future investment gains. Default is <b>3.5%</b>, but you can drag the slider to use 3%, 4%, or any value in between.'
-    : (S.lang==='bilingual'
-      ? '这是用来增长当前资产和未来投资收益的 <b>长期实际回报率</b> 假设。默认是 <b>3.5%</b>，你可以直接拖滑条改成 3%、4% 或中间任意值。 / This is the <b>long-term real return</b> assumption used to grow current assets and future investment gains. Default is <b>3.5%</b>, but you can drag the slider to use 3%, 4%, or any value in between.'
-      : '这是用来增长当前资产和未来投资收益的 <b>长期实际回报率</b> 假设。默认是 <b>3.5%</b>，你可以直接拖滑条改成 3%、4% 或中间任意值。');
-  const cityAssumptionSummary=$('cityAssumptionSummary');
-  if(cityAssumptionSummary) cityAssumptionSummary.textContent=S.lang==='en'
-    ? 'ⓘ Current city assumption'
-    : (S.lang==='bilingual' ? 'ⓘ 当前城市 assumption / Current city assumption' : 'ⓘ 当前城市 assumption');
-  const lifestyleAssumptionSummary=$('lifestyleAssumptionSummary');
-  if(lifestyleAssumptionSummary) lifestyleAssumptionSummary.textContent=S.lang==='en'
-    ? 'ⓘ Lifestyle assumption'
-    : (S.lang==='bilingual' ? 'ⓘ 生活方式 Assumption / Lifestyle assumption' : 'ⓘ 生活方式 Assumption');
-  const relocationAssumptionSummary=$('relocationAssumptionSummary');
-  if(relocationAssumptionSummary) relocationAssumptionSummary.textContent=S.lang==='en'
-    ? 'ⓘ Location assumption'
-    : (S.lang==='bilingual' ? 'ⓘ Assumption / Location assumption' : 'ⓘ Assumption');
-  const retReturnSummary=$('retReturnSummary');
-  if(retReturnSummary) retReturnSummary.textContent=S.lang==='en'
-    ? 'ⓘ Long-term real return assumption'
-    : (S.lang==='bilingual' ? 'ⓘ 长期实际投资回报 Assumption / Long-term real return assumption' : 'ⓘ 长期实际投资回报 Assumption');
-  const taxAssumptionSummary=$('taxAssumptionSummary');
-  if(taxAssumptionSummary) taxAssumptionSummary.textContent=S.lang==='en'?'ⓘ Tax assumption':'ⓘ 税率 Assumption';
-  const taxAssumptionInfo=$('taxAssumptionInfo');
-  if(taxAssumptionInfo) taxAssumptionInfo.innerHTML=S.lang==='en'
-    ? `Auto mode: federal and payroll taxes use the current planning brackets; California uses a bracketed estimate. Other states use a planning-level state-income-tax approximation, not a full state filing engine. If you already know your real effective tax rate, switch to “manual effective tax rate”.<br><br>
-Structured reference: <a href="./tax_assumptions.json" target="_blank" rel="noopener">tax_assumptions.json</a><br><br>
-States with no personal income tax (TX / WA / FL) are treated as 0 state income tax. This does not include 401(k), HSA, itemized deductions, AMT, NIIT, capital-gains timing, RSUs, or other personalized items.`
-    : `自动模式：Federal 与 payroll tax 使用现有规划税档；California 使用分档估算。其他州目前使用规划级的州所得税近似，并不是逐州报税引擎。若你知道自己的实际 effective tax rate，建议切换“手动有效税率”。<br><br>
-    结构化数据：<a href="./tax_assumptions.json" target="_blank" rel="noopener">tax_assumptions.json</a><br><br>
-    无州个人所得税州（TX / WA / FL）按州所得税 0 处理。未计入 401(k)、HSA、itemized deductions、AMT、NIIT、capital gains、RSU timing 等个性化项目。`;
-  const bayBaseDesc=$('bayBaseSpendDesc');
-  if(bayBaseDesc) bayBaseDesc.textContent=livingBaseSpendDescText();
-  const lifestyleInfo=$('lifestyleInfo');
-  if(lifestyleInfo) lifestyleInfo.innerHTML=L('lifestyleAssumption');
-  const retireOnTimeTitle=$('retireOnTimeTitle');
-  if(retireOnTimeTitle) retireOnTimeTitle.textContent=S.lang==='en'
-    ? '5. If You Want to Retire on Time'
-    : (S.lang==='bilingual'
-      ? '5. 如果想按时退休 / If You Want to Retire on Time'
-      : '5. 如果想按时退休');
-  const retireOnTimeNote=$('retireOnTimeNote');
-  if(retireOnTimeNote) retireOnTimeNote.textContent=S.lang==='en'
-    ? 'If you choose buy, the top wealth target includes a housing budget; if you choose rent, housing budget is $0, but rent continues into retirement spending, which increases required investable assets.'
-    : (S.lang==='bilingual'
-      ? '如果选择“买房”，上面的总财富目标包含房产预算；如果选择“租房”，房产预算为 $0，但租金会持续进入退休后的年度支出，所以会提高所需可投资资产。 / If you choose buy, the top wealth target includes a housing budget; if you choose rent, housing budget is $0, but rent continues into retirement spending, which increases required investable assets.'
-      : '如果选择“买房”，上面的总财富目标包含房产预算；如果选择“租房”，房产预算为 $0，但租金会持续进入退休后的年度支出，所以会提高所需可投资资产。');
-  const requiredIncomeLabel=$('requiredIncomeLabel');
-  if(requiredIncomeLabel) requiredIncomeLabel.textContent=S.lang==='en'
-    ? 'Required gross household income'
-    : (S.lang==='bilingual'
-      ? '所需家庭税前年收入 / Required gross household income'
-      : '所需家庭税前年收入');
-  const spendCutLabel=$('spendCutLabel');
-  if(spendCutLabel) spendCutLabel.textContent=S.lang==='en'
-    ? 'Or spend less each year'
-    : (S.lang==='bilingual'
-      ? '或者每年少花 / Or spend less each year'
-      : '或者每年少花');
-  const spendCutDesc=$('spendCutDesc');
-  if(spendCutDesc) spendCutDesc.textContent=S.lang==='en'
-    ? 'If income stays unchanged, this is the average annual spending reduction needed from now until retirement.'
-    : (S.lang==='bilingual'
-      ? '如果收入不变，从现在到退休平均需要减少的年度支出。 / If income stays unchanged, this is the average annual spending reduction needed from now until retirement.'
-      : '如果收入不变，从现在到退休平均需要减少的年度支出。');
-  const livingEditorSummary=$('livingEditorSummary');
-  if(livingEditorSummary) livingEditorSummary.textContent=S.lang==='en'
-    ? 'ⓘ Adjust spending detail / Edit living breakdown'
-    : (S.lang==='bilingual' ? 'ⓘ 调整支出明细 / Edit living breakdown' : 'ⓘ 调整支出明细');
-  const livingEditorInfo=$('livingEditorInfo');
-  if(livingEditorInfo){
-    syncFoodIfAuto();
-    const p=livingParts();
-    const total=livingPartsTotal();
-    const rows=LIVING_PARTS.map(([k,label])=>`
-      <div class="control">
-        <div class="head"><label>${S.lang==='en'?label.en:label.zh}</label><span class="pill" data-living-pill="${k}">${money(p[k])}${S.lang==='en'?'/yr':'/年'}</span></div>
-        <input data-living-key="${k}" type="range" min="0" max="${Math.max(2000,Math.ceil(Math.max(total,p[k])*1.8/500)*500)}" step="500" value="${p[k]}">
-      </div>`).join('');
-    livingEditorInfo.innerHTML=`
-      <div class="desc" style="margin-bottom:8px">${S.lang==='en'
-        ? 'Drag any item below to adjust the Bay Area baseline living-cost mix. The total baseline updates automatically, and the city living-cost projections follow that total. This default mix is calibrated from your last-year spending snapshot.'
-        : '你可以直接拖下面任意一项来调整湾区基准生活费的结构。总生活费会自动更新，城市生活费也会跟着这个总额变化。这个默认结构是根据你去年的 spending snapshot 做过校准的。'
-      }</div>
-      <div class="desc" style="margin-bottom:10px">${foodAssumptionNote()}</div>
-      <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">${rows}</div>
-    <div class="desc" style="margin-top:8px">${S.lang==='en'
-        ? `Current baseline total: <span id="livingBaseTotalV">${money(total)}/yr</span>`
-        : `当前基准总额：<span id="livingBaseTotalV">${money(total)}/年</span>`
-      }</div>`;
-  }
-  const spendDetailSummary=$('spendDetailSummary');
-  if(spendDetailSummary) spendDetailSummary.textContent=S.lang==='en'
-    ? 'ⓘ Spending detail / annual breakdown'
-    : (S.lang==='bilingual' ? 'ⓘ 支出的 detail / Spending detail' : 'ⓘ 支出的 detail');
-  const spendDetailInfo=$('spendDetailInfo');
-  if(spendDetailInfo){
-    const currentSpend=spend(n('currentAge'));
-    const fiSpend=spend(n('fiAge'));
-    const currentRetCity=retirementLocationCity(n('currentAge'));
-    const fiRetCity=retirementLocationCity(n('fiAge'));
-    const livingLine=ld=>S.lang==='en'
-      ? `Base living mix ${money(ld.coreLiving)} · Second adult add-on ${money(ld.secondAdult)} · Medical ${money(ld.medical)}`
-      : `基础生活 mix ${money(ld.coreLiving)} · 第二成人增量 ${money(ld.secondAdult)} · 医疗 ${money(ld.medical)}`;
-    const livingSubLine=ld=>S.lang==='en'
-      ? `Food ${money(ld.food)} · Consumer goods ${money(ld.goods)} · Insurance ${money(ld.insurance)} · Misc ${money(ld.misc)}`
-      : `吃饭 ${money(ld.food)} · 消费品 ${money(ld.goods)} · 保险 ${money(ld.insurance)} · 其他 ${money(ld.misc)}`;
-    const box=(title,sp,age,city)=>`
-      <div class="box">
-        <div class="a">${title}</div>
-        <div class="b">${money(sp.total)}${S.lang==='en'?'/yr':'/年'}</div>
-        <div class="a" style="margin-top:4px">${S.lang==='en'
-          ? `Age ${age} · ${city.nameEn}`
-          : `${age}岁 · ${city.nameZh}`
-        }</div>
-        <div class="a" style="margin-top:6px">${S.lang==='en'
-          ? `Housing ${money(sp.breakdown.housing)} · Living ${money(sp.breakdown.living)} · Travel ${money(sp.breakdown.travel)} · Parents ${money(sp.breakdown.parents)} · Kids ${money(sp.breakdown.kids)}`
-          : `住房 ${money(sp.breakdown.housing)} · 生活 ${money(sp.breakdown.living)} · 旅行 ${money(sp.breakdown.travel)} · 父母/家人支持 ${money(sp.breakdown.parents)} · 孩子 ${money(sp.breakdown.kids)}`
-        }</div>
-        <div class="a" style="margin-top:6px">${livingLine(sp.livingDetail)}</div>
-        <div class="a" style="margin-top:4px">${livingSubLine(sp.livingDetail)}</div>
-      </div>`;
-    spendDetailInfo.innerHTML=`<div class="breakdown">
-      ${box(S.lang==='en'?'Current age spending':'当前年龄支出',currentSpend,n('currentAge'),currentRetCity)}
-      ${box(S.lang==='en'?'At retirement age':'退休年龄支出',fiSpend,n('fiAge'),fiRetCity)}
-    </div>
-    <div class="desc" style="margin-top:8px">${S.lang==='en'
-      ? `Total annual spending is the sum of housing, living, travel, parents / family support, and kids. Medical is now embedded inside living so it is not double-counted at the top level. If you choose family mode, it uses two adults; if you choose rent, housing is rent instead of mortgage + ownership carry.`
-      : `年度总支出 = 住房 + 生活 + 旅行 + 父母 / 家人支持 + 孩子。医疗现在已经并入生活费，不再在顶层重复计算。家庭模式下按 2 个成人计算；选择租房时，住房用租金，不用房贷 + 持有成本。`
-    }</div>`;
-  }
-  const projectionSectionTitle=$('projectionSectionTitle');
-  if(projectionSectionTitle) projectionSectionTitle.textContent=S.lang==='en'
-    ? '6. Annual income, spending, and total assets (to age 80)'
-    : (S.lang==='bilingual'
-      ? '6. 年度收入、支出、总资产（至80岁） / Annual income, spending, and total assets (to age 80)'
-      : '6. 年度收入、支出、总资产（至80岁）');
-  updateLivingTotalsView();
-  const projectionCurrentBtn=$('projectionCurrentBtn');
-  const projectionTargetBtn=$('projectionTargetBtn');
-  if(projectionCurrentBtn) projectionCurrentBtn.textContent=S.lang==='en'?'Current path':(S.lang==='bilingual'?'当前路径 / Current path':'当前路径');
-  if(projectionTargetBtn) projectionTargetBtn.textContent=S.lang==='en'?'Target path':(S.lang==='bilingual'?'达标路径 / Target path':'达标路径');
-  const projectionNote=$('projectionNote');
-  if(projectionNote) projectionNote.textContent=S.lang==='en'
-    ? 'Current path projects from your current income and spending; target path projects from the gross income required for FIRE.'
-    : (S.lang==='bilingual'
-      ? '当前路径使用你现在的收入和支出做 projection；达标路径使用财富自由所需税前年收入做 projection。 / Current path projects from your current income and spending; target path projects from the gross income required for FIRE.'
-      : '当前路径使用你现在的收入和支出做 projection；达标路径使用财富自由所需税前年收入做 projection。');
-   const scopeBtns=$$('#scope button');
-   if(scopeBtns[0]) scopeBtns[0].textContent=S.lang==='en'?'Dual-adult family':(S.lang==='bilingual'?'双成人家庭 / Dual-adult family':'双成人家庭');
-   if(scopeBtns[1]) scopeBtns[1].textContent=S.lang==='en'?'Individual':(S.lang==='bilingual'?'个人口径 / Individual':'个人口径');
-   const relBtns=$$('#relocationPath button');
-   if(relBtns[0]) relBtns[0].textContent=S.lang==='en'?'Return to China':'回国';
-   if(relBtns[1]) relBtns[1].textContent=S.lang==='en'?'Stay in the US':'留在美国';
-   const kidsBtns=$$('#kids button');
-   ['0','1','2'].forEach((v,i)=>{if(kidsBtns[i]) kidsBtns[i].textContent=S.lang==='en'?`${v} kids`:`${v}个`;});
-   const childcareBtns=$$('#childcare button');
-   if(childcareBtns[0]) childcareBtns[0].textContent=S.lang==='en'?'Daycare':'Daycare为主';
-   if(childcareBtns[1]) childcareBtns[1].textContent=S.lang==='en'?'Parent + Nanny + Daycare':'父母+Nanny+Daycare';
-   if(childcareBtns[2]) childcareBtns[2].textContent=S.lang==='en'?'Nanny':'Nanny为主';
-   const usSchoolBtns=$$('#usSchool button');
-   if(usSchoolBtns[0]) usSchoolBtns[0].textContent=S.lang==='en'?'Public school':'优质公立';
-   if(usSchoolBtns[1]) usSchoolBtns[1].textContent=S.lang==='en'?'Private school':'私立';
-   const cnSchoolBtns=$$('#cnSchool button');
-   if(cnSchoolBtns[0]) cnSchoolBtns[0].textContent=S.lang==='en'?'Intl / bilingual':'国际/双语';
-   if(cnSchoolBtns[1]) cnSchoolBtns[1].textContent=S.lang==='en'?'China public':'中国公立';
-   if(cnSchoolBtns[2]) cnSchoolBtns[2].textContent=S.lang==='en'?'Stay in US':'继续留美';
-   const housingBtns=$$('#housing button');
-   if(housingBtns[0]) housingBtns[0].textContent=S.lang==='en'?'Rent':'租房';
-   if(housingBtns[1]) housingBtns[1].textContent=S.lang==='en'?'Buy':'买房';
-   const lifestyleBtns=$$('#lifestyle button');
-   if(lifestyleBtns[0]) lifestyleBtns[0].textContent=S.lang==='en'?'Lean':'节制';
-   if(lifestyleBtns[1]) lifestyleBtns[1].textContent=S.lang==='en'?'Base':'舒适';
-   if(lifestyleBtns[2]) lifestyleBtns[2].textContent=S.lang==='en'?'Comfort':'宽裕';
-   const taxModeBtns=$$('#taxMode button');
-   if(taxModeBtns[0]) taxModeBtns[0].textContent=L('taxMode');
-   if(taxModeBtns[1]) taxModeBtns[1].textContent=L('manualTax');
-   $('overviewLegend').innerHTML=`<span><i class="dot" style="background:#4f806b"></i>${S.lang==='en'?'Labor income':'劳动收入'}</span><span><i class="dot" style="background:#aa8344"></i>${S.lang==='en'?'Passive income':'被动收入'}</span><span><i class="dot" style="background:#b75b61"></i>${S.lang==='en'?'Annual spending':'年度支出'}</span><span><i class="dot" style="background:#58719f"></i>${S.lang==='en'?'Total wealth (right axis)':'总财富（右轴）'}</span>`;
-   $('detailLegend').innerHTML=`<span>${L('detailLegend1')}</span><span>${L('detailLegend2')}</span>`;
-  const cityBtns=$$('#city button');
-  CITY_ORDER.forEach((key,i)=>{if(cityBtns[i]) cityBtns[i].textContent=cityName(CITY[key]);});
-  const currentCityBtns=$$('#currentCity button');
-  CITY_ORDER.forEach((key,i)=>{if(currentCityBtns[i]) currentCityBtns[i].textContent=cityName(CITY[key]);});
-  const faqTitle=document.querySelector('.faq h2');
-  if(faqTitle) faqTitle.textContent=L('faq');
-  const faqCards=$$('.faq details');
-  if(S.lang==='en' && faqCards.length>=5){
-    faqCards[0].querySelector('summary').textContent='Why is dual-adult spending not 2x the individual version?';
-    faqCards[0].querySelector('.answer').innerHTML='Because childcare, school, and college costs do not double just because there is one more adult. Housing is adjusted by household size using the rule “bedrooms = adults + children”; for example, 1 adult + 2 kids = 3BR and 2 adults + 2 kids = 4BR. We also only add the second adult’s marginal costs for food, clothing, transportation, and daily living, while medical is already embedded inside living costs.';
-    faqCards[1].querySelector('summary').textContent='How is "projected investable assets on the current path" calculated?';
-    faqCards[1].querySelector('.answer').innerHTML='Each year we estimate federal + state + payroll taxes from gross income, subtract annual household spending to get the year’s surplus, and then grow beginning-of-year investable assets by the long-term real return. End-of-year assets = beginning assets + investment return + after-tax income − spending.';
-    faqCards[2].querySelector('summary').textContent='All formulas';
-    faqCards[2].querySelector('.answer').innerHTML=`<b>1. After-tax income</b><br>
-    After-tax income = gross income − federal income tax − state income tax − Social Security − Medicare − Additional Medicare; you can also use the manual effective tax rate directly.<br><br>
-    <b>2. Annual household spending</b><br>
-    Annual spending = housing + adult living + travel + parents / family support + kids childcare / education.<br><br>
-    <b>3. Annual surplus</b><br>
-    Annual surplus = after-tax income − annual household spending.<br><br>
-    <b>4. Annual investment return</b><br>
-    Investment return = beginning-of-year investable assets × long-term real return.<br><br>
-    <b>5. End-of-year investable assets</b><br>
-    End-of-year investable assets = beginning assets + investment return + annual surplus.<br><br>
-    <b>6. Present value of kids’ remaining future spending</b><br>
-    Kids spending PV = Σ［future year t kids spending ÷ (1 + real return)^t］<br><br>
-    <b>7. Long-term retirement spending</b><br>
-    Long-term retirement spending = retirement-location housing (if renting) + adult living + travel + parents / family support.<br>
-    If you buy, rent is no longer included in long-term retirement spending.<br><br>
-    <b>8. Required investable assets at retirement</b><br>
-    Required investable assets = perpetual annual spending ÷ 4% + kids remaining spending PV + remaining mortgage payment PV.<br><br>
-    <b>9. Buying and mortgage</b><br>
-    In buy mode, you buy immediately at the current age: down payment = home price × down payment ratio; initial mortgage = home price × (1 − down payment ratio). The down payment is deducted from current investable assets; then principal and interest are amortized each year, together with property tax, insurance, and maintenance. Home equity = home price − remaining mortgage balance.<br>
-    The FIRE target does not double-count the house: perpetual spending only keeps property tax / insurance / maintenance; any remaining mortgage is counted once via the present value of future payments; and total wealth only includes the home equity already built by the retirement age.<br><br>
-    <b>10. Total wealth needed at retirement</b><br>
-    Total wealth needed = required investable assets + housing budget<br><br>
-    <b>11. Wealth Gap</b><br>
-    Gap = projected investable assets at retirement age − total wealth needed at retirement<br>
-    If you buy, the housing budget is already included in total wealth, so it is also part of the Gap; Gap > 0 means you are projected to exceed the target, Gap < 0 means there is still a shortfall.<br><br>
-    <b>12. Required gross income</b><br>
-    The model uses binary search to back-solve the average gross income needed so projected assets at retirement age reach the target.<br><br>
-    <b>13. Required income vs current income</b><br>
-    Percentage Difference = (required gross income − current gross income) ÷ current gross income<br><br>
-    <b>14. Required annual spending cut if income stays unchanged</b><br>
-    The model uses binary search to back-solve the average annual spending reduction needed so projected assets at retirement age reach the target.<br><br>
-    <b>15. Retirement withdrawals</b><br>
-    Retirement withdrawals are derived automatically and are no longer manually set. The system treats “that year’s spending − passive income − any retained labor income” as the cash flow that needs to be filled from the investment account; if passive income already covers it, the withdrawal is 0. Assets still evolve as “beginning assets + investment return + after-tax labor income − spending”, so withdrawals are not double-counted.<br><br>
-    <b>16. Detailed cash-flow chart</b><br>
-    Above zero = self after-tax income + partner after-tax income (family mode) + investment return<br>
-    Below zero = housing + base living + travel + parents / family support + childcare / education<br><br>
-    <b>17. Bedroom count</b><br>
-    Bedrooms = adults + children<br><br>
-    <b>18. Amount units</b><br>
-    The dashboard uses 2026 purchasing-power dollars, so long-term investment return is shown as real return, defaulting to 3%.<br><br>
-    <b>19. Age ranges</b><br>
-    Current age is 18–70; retirement / work-optional age cannot be earlier than current age. The annual simulation starts at current age and extends through at least age 80.<br><br>
-    <b>20. Asset path after retirement</b><br>
-    The chart starts at your selected current age and extends through at least age 80. Before retirement age it uses your current gross income assumption; starting the year after the retirement age, labor income = pre-retirement gross income × “post-retirement labor income kept”. Investment return and household spending continue year by year, so you can see whether assets keep growing, flatten, or decline.`;
-    faqCards[3].querySelector('summary').textContent='How does the automatic tax estimate work?';
-    faqCards[3].querySelector('.answer').innerHTML='Federal uses the current planning brackets and the standard deduction; payroll tax includes Social Security, Medicare, and Additional Medicare; California uses a bracketed estimate. Other states use a planning-level state income tax approximation, not a full state filing engine. If you already know your real effective tax rate, switch to manual effective tax rate.<br><br>States with no personal income tax (TX / WA / FL) are treated as 0 state income tax. This does not include 401(k), HSA, itemized deductions, AMT, NIIT, capital-gains timing, RSUs, or other personalized items.';
-    faqCards[4].querySelector('summary').textContent='Where does the medical assumption come from?';
-    faqCards[4].querySelector('.answer').innerHTML='For adults who are working and covered by employer insurance, we now use a more realistic cash-spending estimate: <a href="https://www.kff.org/health-costs/health-policy-101-employer-sponsored-health-insurance/" target="_blank" rel="noopener">KFF 2025 employer-sponsored insurance benchmark</a> shows average employee premium contributions of about $1,440/year; <a href="https://www.kff.org/health-costs/how-much-do-people-with-employer-plans-spend-out-of-pocket-on-cost-sharing/" target="_blank" rel="noopener">KFF 2025 cost-sharing analysis</a> shows average out-of-pocket cost sharing of about $869/year. Together, a working-age adult with normal employer insurance can be planned at roughly <b>$2.3k/year</b>.<br><br>So we now model U.S. working-age medical spending more conservatively but not wildly high: about $2.3k/year for one adult and $4.6k/year for two adults. If there is no employer coverage and you switch to ACA / self-pay, the number can be much higher.';
-  }
-  const pathAssumptionSummary=$('pathAssumptionSummary');
-  if(pathAssumptionSummary) pathAssumptionSummary.textContent=S.lang==='en'
-    ? 'ⓘ How is "projected assets on current path" calculated?'
-    : 'ⓘ “当前路径预计资产”怎么算？';
-  const pathAssumptionInfo=$('pathAssumptionInfo');
-  if(pathAssumptionInfo) pathAssumptionInfo.innerHTML=S.lang==='en'
-    ? `<b>Each year:</b><br>
-      1) After-tax income = gross income × (1 − effective tax rate)<br>
-      2) Annual surplus = after-tax income − that year’s household spending<br>
-      3) Investment return = beginning-of-year investable assets × real return<br>
-      4) End-of-year investable assets = beginning assets + investment return + annual surplus<br><br>
-      If you choose “return to China”, spending before the return age uses Bay Area costs and spending after the return age uses the target city’s costs.<br><br>
-      Effective tax rate changes automatically with current gross income and household / individual mode; the real return defaults to <b>3.5%</b>. This is a deterministic planning baseline, not a promise that markets will actually return 3.5% every year.`
-    : `<b>每一年：</b><br>
-    1) 税后收入 = 税前年收入 × (1 − 有效税率)<br>
-    2) 年度结余 = 税后收入 − 当年家庭支出<br>
-    3) 投资收益 = 年初可投资资产 × 实际投资回报率<br>
-    4) 年末可投资资产 = 年初资产 + 投资收益 + 年度结余<br><br>
-    如果你选择“回国”，回国年龄之前按湾区生活费算，回国年龄之后按目标城市生活费算。<br><br>
-    有效税率会根据当前税前年收入和个人/家庭口径自动变化；实际投资回报率默认 <b>3.5%</b>（真实购买力口径），你也可以直接拖动上面的滑条改成 3% 或其他数值。这是确定性 baseline，不代表每年市场真的会稳定涨 3.5%。`;
-  const wealthTitle=$('wealthSectionTitle');
-  if(wealthTitle) wealthTitle.textContent=S.lang==='en'
-    ? '7. Current path: annual income, spending, and total assets (to age 80)'
-    : (S.lang==='bilingual'
-      ? '7. 当前路径：年度收入、支出、总资产（至80岁） / Current path: annual income, spending, and total assets (to age 80)'
-      : '7. 当前路径：年度收入、支出、总资产（至80岁）');
-  const targetPathTitle=$('targetPathTitle');
-  if(targetPathTitle) targetPathTitle.textContent=S.lang==='en'
-    ? '8. Target path: required gross income for FIRE'
-    : (S.lang==='bilingual'
-      ? '8. 达标路径：按财富自由所需税前年收入 / Target path: required gross income for FIRE'
-      : '8. 达标路径：按财富自由所需税前年收入');
-  const targetPathNote=$('targetPathNote');
-  if(targetPathNote) targetPathNote.textContent=S.lang==='en'
-    ? 'This table is back-solved from the required gross income so you can compare what the year-by-year cash flow and asset build-up look like once you reach the FIRE threshold.'
-    : '这张表是用“所需税前年收入”反推出来的，方便你对比：如果收入达到财富自由门槛，年度现金流和资产积累会长什么样。';
-  const annualDetailSummary=$('annualSummary');
-  if(annualDetailSummary) annualDetailSummary.textContent=S.lang==='en'
-    ? '7. Annual detail (to age 80)'
-    : (S.lang==='bilingual' ? '7. 年度明细（至80岁） / Annual detail (to age 80)' : '7. 年度明细（至80岁）');
-  const wealthLegend=$('wealthLegend');
-  if(wealthLegend) wealthLegend.innerHTML=S.lang==='en'
-    ? `<span><i class="dot" style="background:#58719f"></i>Investable assets</span><span><i class="dot" style="background:#4f806b"></i>Home equity</span><span><i class="dot" style="background:#b75b61"></i>Mortgage balance (debt)</span><span><i class="dot" style="background:#aa8344"></i>Total wealth</span>`
-    : `<span><i class="dot" style="background:#58719f"></i>可投资资产</span><span><i class="dot" style="background:#4f806b"></i>房屋净值</span><span><i class="dot" style="background:#b75b61"></i>房贷余额（负债）</span><span><i class="dot" style="background:#aa8344"></i>总财富</span>`;
-  const wealthSectionTitleEl=$('wealthSectionTitle');
-  if(wealthSectionTitleEl) wealthSectionTitleEl.textContent=L('wealthSectionTitle');
-  const wealthNote=$('wealthNote');
-  if(wealthNote) wealthNote.textContent=L('wealthNote');
-  const annualTable=document.getElementById('rows')?.closest('table');
-  if(annualTable){
-    const annualHeaders=annualTable.querySelectorAll('thead th');
-    if(annualHeaders.length>=9){
-      const ths=S.lang==='en'
-        ? ['Age','Labor income','Passive income','Spending','Net cash flow','Investment return','Investable assets','Home equity','Total wealth']
-        : ['年龄','劳动收入','被动收入','支出','年度净现金流','投资收益','可投资资产','房屋净值','总财富'];
-      annualHeaders.forEach((th,i)=>{if(ths[i]) th.textContent=ths[i];});
-    }
-  }
-  const targetTable=document.getElementById('targetRows')?.closest('table');
-  if(targetTable){
-    const targetHeaders=targetTable.querySelectorAll('thead th');
-    if(targetHeaders.length>=9){
-      const ths=S.lang==='en'
-        ? ['Age','Labor income','Passive income','Spending','Net cash flow','Investment return','Investable assets','Home equity','Total wealth']
-        : ['年龄','劳动收入','被动收入','支出','年度净现金流','投资收益','可投资资产','房屋净值','总财富'];
-      targetHeaders.forEach((th,i)=>{if(ths[i]) th.textContent=ths[i];});
-    }
-  }
-  const faqSummary=document.querySelector('.card.faq details summary');
-  if(faqSummary) faqSummary.textContent=S.lang==='en'?'Why isn\'t dual-adult spending 2x the individual case?':'为什么双成人家庭的支出不是个人口径的两倍？';
-  const faqDetails=document.querySelectorAll('.faq details');
-  if(faqDetails[0]){
-    faqDetails[0].querySelector('summary').textContent=S.lang==='en'
-      ? 'Why isn’t dual-adult spending 2x the individual case?'
-      : '为什么双成人家庭的支出不是个人口径的两倍？';
-    faqDetails[0].querySelector('.answer').innerHTML=S.lang==='en'
-      ? 'Because childcare, tuition, and college support do not double when you add one adult. Housing is adjusted by bedroom count using <b>bedrooms = adults + children</b>; adding a second adult mainly increases food, clothing, transportation, and medical costs.'
-      : '因为孩子的托育、学费和大学支持不会因为多一个成人而翻倍。住房按“卧室数 = 成人数 + 孩子数”自动调整，例如1成人+2孩子=3居、2成人+2孩子=4居；此外只增加第二个成人的餐饮、衣物、交通和医疗等边际成本。';
-  }
-  if(faqDetails[1]){
-    faqDetails[1].querySelector('summary').textContent=S.lang==='en'
-      ? '"Projected investable assets on current path" - how is it calculated?'
-      : '“当前路径预计可投资资产”是怎么算的？';
-    faqDetails[1].querySelector('.answer').innerHTML=S.lang==='en'
-      ? 'Each year, we estimate federal, state, and payroll taxes from gross income to get after-tax income, then subtract that year’s household spending. The portfolio grows by long-term real return on beginning-of-year investable assets. End-of-year assets = beginning assets + investment return + after-tax income − annual spending.'
-      : '每一年先根据税前年收入自动估算 Federal + California + payroll taxes，得到税后收入，再减去当年的家庭支出；年初可投资资产按长期实际回报率产生投资收益。年末资产 = 年初资产 + 投资收益 + 税后收入 − 年度支出。';
-  }
-  if(faqDetails[2]){
-    faqDetails[2].querySelector('summary').textContent=S.lang==='en'
-      ? 'All formulas'
-      : '所有计算公式';
-    faqDetails[2].querySelector('.answer').innerHTML=S.lang==='en'
-      ? `<b>1. After-tax income</b><br>After-tax income = gross income − federal income tax − state tax − Social Security − Medicare − Additional Medicare; you can also override with a manual effective tax rate.<br><br>
-<b>2. Annual household spending</b><br>Annual spending = housing + base living + travel + parents / family support + childcare / education.<br><br>
-<b>3. Annual surplus</b><br>Annual surplus = after-tax income − annual spending.<br><br>
-<b>4. Annual investment return</b><br>Investment return = beginning-of-year investable assets × long-term real return.<br><br>
-<b>5. End-of-year investable assets</b><br>End-of-year investable assets = beginning assets + investment return + annual surplus.<br><br>
-<b>6. Present value of remaining child costs</b><br>Child cost PV = Σ[future child cost in year t ÷ (1 + real return)^t].<br><br>
-<b>7. Long-term annual retirement spending</b><br>Long-term annual spending = retirement-location housing (if renting) + adult living + travel + parents / family support. If you buy, rent is not included in long-term annual spending.<br><br>
-<b>8. Required investable assets at retirement</b><br>Required investable assets = perpetual annual spending ÷ 4% + child cost PV + remaining mortgage payment PV.<br><br>
-<b>9. Buy vs mortgage</b><br>Buying mode assumes you buy immediately at the current age: down payment = home price × down-payment ratio; initial mortgage = home price × (1 − down-payment ratio). The down payment comes out of current investable assets; then principal and interest are paid via an amortizing mortgage, while property tax, insurance, and maintenance are included. Home equity = home price − remaining mortgage balance. FIRE does not count the house twice: only property tax / insurance / maintenance stay in perpetual spending; remaining mortgage payments are counted once as PV; total wealth only adds home equity already built by the FI age, not the whole house price again.<br><br>
-<b>10. Required total wealth at retirement</b><br>Required total wealth = required investable assets + housing budget.<br><br>
-<b>11. Wealth gap</b><br>Gap = projected investable assets at retirement age − required total wealth.<br>If you buy, the housing budget is already inside required total wealth, so it also affects the gap; Gap &gt; 0 means you are above target, Gap &lt; 0 means there is still a shortfall.<br><br>
-<b>12. Required gross income</b><br>The model uses binary search to back into the average gross income needed so projected investable assets at retirement age reach the target.<br><br>
-<b>13. Income percentage difference</b><br>Percentage Difference = (required gross income − current gross income) ÷ current gross income.<br><br>
-<b>14. If income stays fixed, how much spending must be cut</b><br>The model binary-searches the average annual spending reduction needed so projected investable assets at retirement age reach the target.<br><br>
-<b>15. Retirement withdrawals</b><br>Retirement withdrawals are automatic: the model fills the gap left after passive income and any retained labor income are counted. In practice, withdrawal cash flow is roughly annual spending − passive income − retained labor income, never below 0 and never above the remaining portfolio balance. The long-term investment return assumption is still 3.5% and is applied to whatever investable assets remain. Withdrawals are cash flow taken from the portfolio, not extra investment return, so the portfolio itself still updates as beginning assets + return + after-tax labor income − spending.<br><br>
-<b>16. Detail cash-flow chart</b><br>Above zero = self after-tax income + partner after-tax income (family mode) + investment return<br>
-Below zero = housing + base living + travel + parents / family support + childcare / education<br><br>
-<b>17. Room count</b><br>Bedrooms = adults + children.<br><br>
-<b>18. Currency / real-return basis</b><br>The model uses 2026-dollar purchasing power, so long-term investment return is expressed as a real return, default 3%.<br><br>
-<b>19. Age range</b><br>Current age can be 18-70; retirement / work-optional age cannot be earlier than current age. The annual simulation starts at current age and extends to at least age 80.<br><br>
-<b>20. Retirement path after FI</b><br>The chart starts at your selected current age and runs to at least age 80. Before retirement age, labor income uses the current gross income assumption; starting the year after retirement age, labor income = pre-retirement gross income × post-retirement labor income kept. Investment return and household spending continue year by year so you can see whether assets grow, flatten, or decline after retirement.`
-      : `<b>1. 税后收入</b><br>
-税后收入 = 税前年收入 − Federal income tax − 州所得税 − Social Security − Medicare − Additional Medicare；也可以用手动有效总税率直接估算<br><br>
-
-<b>2. 年度家庭总支出</b><br>
-年度总支出 = 住房 + 成人基础生活 + 旅行 + 父母 / 家人支持 + 孩子托育/教育<br><br>
-
-<b>3. 年度结余</b><br>
-年度结余 = 税后收入 − 年度总支出<br><br>
-
-<b>4. 当年投资收益</b><br>
-投资收益 = 年初可投资资产 × 长期实际回报率<br><br>
-
-<b>5. 年末可投资资产</b><br>
-年末可投资资产 = 年初可投资资产 + 投资收益 + 年度结余<br><br>
-
-<b>6. 孩子未来剩余支出的现值</b><br>
-孩子支出 PV = Σ［未来第 t 年孩子支出 ÷ (1 + 实际回报率)^t］<br><br>
-
-<b>7. 退休后长期年度支出</b><br>
-长期年度支出 = 退休地点住房（若租房） + 成人生活 + 旅行 + 父母 / 家人支持<br>
-如果选择买房，退休后不再把房租计入长期年度支出。<br><br>
-
-<b>8. 退休时所需可投资资产</b><br>
-所需可投资资产 = 永久性年度支出 ÷ 4% + 孩子剩余支出 PV + 退休后剩余房贷付款 PV<br><br>
-
-<b>9. 买房与房贷</b><br>
-买房模式默认从当前年龄立即买房：首付 = 房价 × 首付比例；初始房贷 = 房价 × (1 − 首付比例)。首付从当前可投资资产扣除；之后按等额本息房贷逐年计算本金与利息，同时计入房产税、保险和维护。房屋净值 = 房价 − 剩余房贷余额。<br>
-FIRE 目标不会重复算房子：长期永久支出只保留房产税/保险/维护；退休后尚未还完的房贷只按剩余付款的现值计一次；总财富展示中只加入退休年龄时已经形成的房屋净值，不再把整套房价重新加一遍。<br><br>
-
-<b>10. 退休时所需总财富</b><br>
-所需总财富 = 所需可投资资产 + 房产预算<br><br>
-
-<b>11. 财富 Gap</b><br>
-Gap = 退休年龄预计可投资资产 − 退休时所需总财富<br>
-如果选择买房，房产预算已经包含在“所需总财富”中，因此也会进入 Gap；Gap &gt; 0 表示预计超过总财富目标，Gap &lt; 0 表示仍有缺口。<br><br>
-
-<b>12. 所需税前年收入</b><br>
-模型用二分搜索反推平均税前年收入，使退休年龄预计可投资资产达到目标。<br><br>
-
-<b>13. 所需收入与当前收入的百分比差异</b><br>
-Percentage Difference = (所需税前年收入 − 当前税前年收入) ÷ 当前税前年收入<br><br>
-
-<b>14. 如果收入不变，需要削减的年度支出</b><br>
-模型用二分搜索反推每年平均需要减少的支出，使退休年龄预计可投资资产达到目标。<br><br>
-
-<b>15. 退休后的资产提取</b><br>
-退休后资产提取是自动计算的，不再手调。更直白地说，系统会把“当年支出 − 被动收入 − 任何保留的劳动收入”当成需要从投资账户补的那部分现金流；如果这部分已经被被动收入覆盖，那提取就是 0。长期投资回报仍按 3.5% 计算，并作用在剩余的可投资资产上；如果资产已经被花到 0，那投资收益也会变成 0。<br><br>
-
-<b>16. 细分 Cash Flow 图</b><br>
-0线上方 = 本人税后收入 + 伴侣税后收入（家庭模式） + 投资收益<br>
-0线下方 = 住房 + 基础生活 + 旅行 + 父母 / 家人支持 + 托育/教育<br><br>
-
-<b>17. 房间数</b><br>
-卧室数 = 成人数 + 孩子数<br><br>
-
-<b>18. 金额口径</b><br>
-模型主要使用 2026 美元购买力口径，因此长期投资回报率采用实际回报率，默认 3%。<br><br>
-
-<b>19. 年龄范围</b><br>
-当前年龄可选 18–70 岁；退休 / 工作可选年龄不能早于当前年龄。年度模拟从当前年龄开始，并至少延伸到80岁。<br><br>
-
-<b>20. 退休后的资产路径</b><br>
-图表从你选择的“当前年龄”开始，并至少延伸到80岁。退休年龄之前使用当前税前年收入假设；从退休年龄后的下一年开始，劳动收入 = 退休前税前年收入 × “退休后劳动收入保留比例”。投资收益与家庭支出继续逐年计算，因此可以观察退休后资产是增长、趋平还是下降。`;
-  }
-  if(faqDetails[3]){
-    faqDetails[3].querySelector('summary').textContent=S.lang==='en'
-      ? 'How does the automatic tax estimate work?'
-      : '税率自动估算使用什么数据？';
-    faqDetails[3].querySelector('.answer').innerHTML=S.lang==='en'
-      ? 'Federal uses the 2026 IRS tax brackets and standard deduction; payroll tax includes Social Security, Medicare, and Additional Medicare; California uses the latest published FTB schedule and standard deduction as a planning approximation. The model is for FIRE planning, not a substitute for filing taxes.'
-      : 'Federal 使用 2026 IRS tax brackets 与 standard deduction；Payroll tax 包括 Social Security、Medicare 和 Additional Medicare；California 当前使用 FTB 最新公布的税档与 standard deduction 作为规划近似。模型用于 FIRE 规划，不等同于正式报税结果。';
-  }
-  if(faqDetails[4]){
-    faqDetails[4].querySelector('summary').textContent=S.lang==='en'
-      ? 'Where does the medical assumption come from?'
-      : '医疗假设是怎么来的？';
-    faqDetails[4].querySelector('.answer').innerHTML=S.lang==='en'
-      ? `For a working-age adult with employer-sponsored coverage, we now use a cash-spending estimate that is closer to reality. The <a href="https://www.kff.org/health-costs/health-policy-101-employer-sponsored-health-insurance/" target="_blank" rel="noopener">KFF 2025 employer-sponsored insurance benchmark</a> shows an average employee premium contribution of about $1,440 per year for single coverage, and the <a href="https://www.kff.org/health-costs/how-much-do-people-with-employer-plans-spend-out-of-pocket-on-cost-sharing/" target="_blank" rel="noopener">KFF 2025 cost-sharing analysis</a> shows average out-of-pocket cost-sharing of about $869 per person. Together, that puts a typical insured working-age adult around <b>$2.3k/year</b> in planning terms.<br><br>
-      We now model US working-age medical spending at roughly $2.3k/year for one adult and $4.6k/year for two adults. If you do not have employer coverage and instead buy ACA coverage or pay fully out of pocket, the number will be materially higher.`
-      : `对于“工作中、公司有保险”的成年人，我们现在用更接近现实的现金支出做规划：<a href="https://www.kff.org/health-costs/health-policy-101-employer-sponsored-health-insurance/" target="_blank" rel="noopener">KFF 2025 employer-sponsored insurance benchmark</a> 显示，单人平均雇员保费自付约 $1,440/年；<a href="https://www.kff.org/health-costs/how-much-do-people-with-employer-plans-spend-out-of-pocket-on-cost-sharing/" target="_blank" rel="noopener">KFF 2025 cost-sharing analysis</a> 显示，雇主保险人群平均 out-of-pocket cost-sharing 约 $869/年。两者合起来，工作年龄、正常有雇主保险的单个成年人，大致可以按 <b>$2.3k/年</b> 规划。<br><br>
-      所以这里我们把美国工作年龄的医疗支出改成了更保守但不夸张的数：单人约 $2.3k/年，双成人约 $4.6k/年。退休前如果没有公司保险、改成 ACA / 自费，这个数字会明显更高。`;
-  }
- }
-function bind(id,key,cast){document.querySelectorAll('#'+id+' button').forEach(b=>b.onclick=()=>{S[key]=cast?cast(b.dataset.v):b.dataset.v;document.querySelectorAll('#'+id+' button').forEach(x=>x.classList.toggle('active',x===b));scheduleUpdate()})}
- function adults(){return S.scope==='family'?2:1}
- function bedrooms(){return Math.max(1,adults()+S.kids)}
- function housingByBedrooms(c,mode){
-   const br=bedrooms();
-   if(mode==='rent'){
-     if(br<=1)return c.rent3*0.55;
-     if(br===2)return c.rent3*0.75;
-     if(br===3)return c.rent3;
-     return c.rent4;
-   }else{
-     if(br<=1)return c.buy3*0.60;
-     if(br===2)return c.buy3*0.78;
-     if(br===3)return c.buy3;
-     return c.buy4;
-   }
- }
-function currentHomeCity(){return CITY[S.currentCity]||CITY.bay}
-function selectedHomeCity(){return CITY[S.city]}
-function suggestedHomePurchaseAge(){
-  if(S.relocationPath==='returnChina' && S.currentCity!==S.city) return n('fiAge');
-  return n('currentAge');
-}
-function homePurchaseAge(){return Math.max(n('currentAge'),Math.min(n('homePurchaseAge'),n('fiAge')))}
- function residenceCity(age){
-   return age<n('fiAge')?currentHomeCity():retirementLocationCity(age);
- }
- function homePriceForCity(c){return housingByBedrooms(c,'buy')}
- function homePrice(){return S.housing==='buy'?homePriceForCity(selectedHomeCity()):0}
- function mortgageInitialPrincipalForCity(c){return homePriceForCity(c)*(1-n('downPay'))}
- function monthlyMortgagePaymentForCity(c){
-   const P=mortgageInitialPrincipalForCity(c), yrs=n('mortgageYears'), mr=n('mortgageRate')/12, N=yrs*12;
-   if(P<=0||N<=0)return 0;
-   if(mr===0)return P/N;
-   return P*mr*Math.pow(1+mr,N)/(Math.pow(1+mr,N)-1);
- }
- function mortgageSnapshotForCity(c,age,startAge=homePurchaseAge()){
-   if(S.housing!=='buy')return {balance:0,principalPaid:0,interestPaid:0,annualPayment:0};
-   const start=startAge;
-   const monthsElapsed=Math.max(0,Math.min((age-start)*12,n('mortgageYears')*12));
-   let bal=mortgageInitialPrincipalForCity(c), pmt=monthlyMortgagePaymentForCity(c), prin=0, interest=0;
-   const mr=n('mortgageRate')/12;
-   for(let i=0;i<monthsElapsed;i++){
-     if(bal<=0)break;
-     const it=bal*mr, pr=Math.min(bal,Math.max(0,pmt-it));
-     bal-=pr;
-   }
-   // payments during this age year
-   let temp=bal;
-   for(let i=0;i<12;i++){
-     if(temp<=0)break;
-     const it=temp*mr, pr=Math.min(temp,Math.max(0,pmt-it));
-     temp-=pr; prin+=pr; interest+=it;
-   }
-   return {balance:Math.max(0,bal),principalPaid:prin,interestPaid:interest,annualPayment:prin+interest};
- }
- function mortgageSnapshot(age){
-   return mortgageSnapshotForCity(residenceCity(age),age,homePurchaseAge());
- }
- function homeEquityAt(age){
-   if(S.housing!=='buy')return 0;
-   const c=residenceCity(age);
-   if(age<homePurchaseAge()) return 0;
-   return Math.max(0,homePriceForCity(c)-mortgageSnapshotForCity(c,age+1).balance);
- }
- function ownershipCarry(c=residenceCity(_spendAge||n('currentAge'))){return S.housing==='buy'?homePriceForCity(c)*n('homeCarry'):0}
-
- function births(){const a=n('currentAge');if(S.kids===0)return[];if(S.kids===1)return[a+2];return[a+2,a+3]}
- function kidCost(cage,age){
-  if(cage<0)return 0;let cc=CC[S.childcare];
-  if(cage===0)return cc.y0;if(cage<=5)return cc.y15;
-  if(cage<=17){
-   const c=selectedHomeCity();
-   const useChinaSchool=c.country==='CN'&&S.relocationPath==='returnChina'&&age>=n('fiAge')&&S.cnSchool!=='stayUS';
-   if(!useChinaSchool) return S.usSchool==='public'?SCHOOL.usPublic:SCHOOL.usPrivate;
-   return S.cnSchool==='intl'?SCHOOL.cnIntl:SCHOOL.cnPublic;
-  }
-  if(cage<=21)return SCHOOL.college;return 0
- }
- function parentSupport(age,m){return age<=70?15000*m:0;}
- function medicalSpend(c=selectedHomeCity(),age=_spendAge||n('currentAge')){
-  const a=adults();
-  if(c.country==='US'){
-   const employerCoveredHealth=a===1?2300:4600;
-   return (age<n('fiAge')?employerCoveredHealth:(a===1?12000:20500))*LIFE[S.lifestyle];
-  }
-  return ((c.health1||0)+(a===2?(c.health2||0):0))*LIFE[S.lifestyle];
- }
- function livingBreakdown(coreLiving,medical,secondAdult=0){
-  const totalBase=Math.max(0,coreLiving+secondAdult);
-  const p=livingParts();
-  const baseTotal=Math.max(1,livingPartsTotal());
-  const scale=totalBase/baseTotal;
-  const parts={
-   coreLiving:totalBase,
-   food:p.food*scale,
-   goods:p.goods*scale,
-   insurance:p.insurance*scale,
-   medical:medical,
-   misc:p.misc*scale,
-   secondAdult
-  };
-  parts.total=totalBase+medical;
-  return parts;
- }
- function livingEditorHTML(){
-  const p=livingParts();
-  const total=livingPartsTotal();
-  return LIVING_PARTS.map(([k,label])=>{
-    const current=p[k]||0;
-    const max=Math.max(2000,Math.ceil(Math.max(total,current)*1.8/500)*500);
-    return `<div class="control">
-      <div class="head"><label>${S.lang==='en'?label.en:label.zh}</label><span class="pill" data-living-pill="${k}">${money(current)}${S.lang==='en'?'/yr':'/年'}</span></div>
-      <input data-living-key="${k}" type="range" min="0" max="${max}" step="500" value="${current}">
-    </div>`;
-  }).join('');
- }
- function cityAdultSpend(c=selectedHomeCity(),age=_spendAge||n('currentAge')){
-  let m=LIFE[S.lifestyle],a=adults();
-  const purchaseAge=homePurchaseAge();
-  let housing;
-  if(S.housing==='rent' || age<purchaseAge){
-    housing=housingByBedrooms(c,'rent');
-  }else{
-    const downPayment=age===purchaseAge?homePriceForCity(c)*n('downPay'):0;
-    housing=mortgageSnapshotForCity(c,age,purchaseAge).annualPayment+ownershipCarry(c)+downPayment;
-  }
-  let medical=medicalSpend(c,age);
-  let coreLiving=livingSpendForCity(c)*m;
-  let secondAdult=(a===2?c.secondAdult*m:0);
-  let living=coreLiving+secondAdult+medical;
-  let parents=parentSupport(age,m);
-  return {housing,living,health:0,medical,livingDetail:livingBreakdown(coreLiving,medical,secondAdult),travel:c.travel*m,parents,total:housing+living+c.travel*m+parents};
- }
- function usAdultSpend(c=CITY.bay,age=_spendAge||n('currentAge')){
-  let a=adults(),m=LIFE[S.lifestyle];
-  const purchaseAge=homePurchaseAge();
-  let housing;
-  if(S.housing==='rent' || age<purchaseAge){
-    housing=housingByBedrooms(c,'rent');
-  }else{
-    const downPayment=age===purchaseAge?homePriceForCity(c)*n('downPay'):0;
-    housing=mortgageSnapshotForCity(c,age,purchaseAge).annualPayment+ownershipCarry(c)+downPayment;
-  }
-  const medical=medicalSpend(c,age);
-  let coreLiving=livingSpendForCity(c)*m;
-  let secondAdult=(a===2?c.secondAdult*m:0);
-  let living=coreLiving+secondAdult+medical;
-  let travel=15000*m,parents=parentSupport(age,m);
-  return {housing,living,health:0,medical,livingDetail:livingBreakdown(coreLiving,medical,secondAdult),travel,parents,total:housing+living+travel+parents};
- }
- function retirementLocationCity(age){
-   if(age<n('fiAge')) return currentHomeCity();
-   const c=selectedHomeCity();
-   if(S.relocationPath==='returnChina'){
-     return c;
-   }
-   return c.country==='US'?c:CITY.bay;
- }
- function retirementAdultSpend(age){
-   const c=retirementLocationCity(age);
-   return c.country==='US'?usAdultSpend(c):cityAdultSpend(c);
- }
- let _spendAge=null;
- function adultSpend(age){
-  _spendAge=age;
-   const v=retirementAdultSpend(age);
-   _spendAge=null;
-   return v;
- }
-function spend(age){
-  let ad=adultSpend(age);
-  let kids=births().reduce((s,b)=>s+kidCost(age-b,age),0);
-  return {
-     ad,kids,total:ad.total+kids,
-     breakdown:{
-       housing:ad.housing,
-       living:ad.living,
-       travel:ad.travel,
-       parents:ad.parents,
-       kids:kids
-     },
-    livingDetail:ad.livingDetail
-  };
- }
- function startAssets(){
-  if(S.housing!=='buy') return Math.max(0,n('assets'));
-  if(n('currentAge')<homePurchaseAge()) return Math.max(0,n('assets'));
-  const c=currentHomeCity();
-  return Math.max(0,n('assets')-homePriceForCity(c)*n('downPay'));
- }
- function gross(){return n('income')+(S.scope==='family'?n('partnerIncome'):0)}
-
- function progressiveTax(taxable, brackets){
-   taxable=Math.max(0,taxable);
-   let tax=0,prev=0;
-   for(let i=0;i<brackets.length;i++){
-     const [cap,rate]=brackets[i];
-     const top=cap===null?taxable:Math.min(taxable,cap);
-     if(top>prev) tax+=(top-prev)*rate;
-     if(cap===null||taxable<=cap) break;
-     prev=cap;
-   }
-   return tax;
- }
-
- function estimateTaxes(grossOverride=null){
-   const joint=S.scope==='family';
-   let g1, g2;
-   if(grossOverride!==null){
-     // When solving required household income, preserve the current household income split.
-     const current1=n('income'), current2=joint?n('partnerIncome'):0, total=Math.max(1,current1+current2);
-     g1=grossOverride*(current1/total);
-     g2=joint?grossOverride*(current2/total):0;
-   }else{
-     g1=n('income'); g2=joint?n('partnerIncome'):0;
-   }
-   const g=g1+g2;
-   if(S.taxMode==='manual'){
-     const total=g*n('manualTax');
-     return {gross:g,federal:0,california:0,state:0,socialSecurity:0,medicare:0,additionalMedicare:0,total,effective:g>0?total/g:0,net:g-total};
-   }
-
-   const fedSingle=[[12400,.10],[50400,.12],[105700,.22],[201775,.24],[256225,.32],[640600,.35],[null,.37]];
-   const fedJoint=[[24800,.10],[100800,.12],[211400,.22],[403550,.24],[512450,.32],[768700,.35],[null,.37]];
-   const fedDed=joint?32200:16100;
-   const fedTaxable=Math.max(0,g-fedDed);
-   const federal=progressiveTax(fedTaxable,joint?fedJoint:fedSingle);
-
-   // California latest official published schedule currently available: 2025.
-   const caSingle=[[11079,.01],[26264,.02],[41452,.04],[57542,.06],[72724,.08],[371479,.093],[445771,.103],[742953,.113],[null,.123]];
-   const caJoint=[[22158,.01],[52528,.02],[82904,.04],[115084,.06],[145448,.08],[742958,.093],[891542,.103],[1485906,.113],[null,.123]];
-   const caDed=joint?11412:5706;
-   const caTaxable=Math.max(0,g-caDed);
-   let california=progressiveTax(caTaxable,joint?caJoint:caSingle);
-   // California Mental Health Services Tax: +1% on taxable income above $1M.
-   if(caTaxable>1000000) california+=(caTaxable-1000000)*.01;
-
-   function ficaForWage(w){
-     const ss=Math.min(w,184500)*.062;
-     const medicare=w*.0145;
-     return {ss,medicare};
-   }
-   const f1=ficaForWage(g1), f2=ficaForWage(g2);
-   const socialSecurity=f1.ss+f2.ss;
-   const medicare=f1.medicare+f2.medicare;
-   const addMedThreshold=joint?250000:200000;
-   const additionalMedicare=Math.max(0,g-addMedThreshold)*.009;
-
-   let stateTax=california;
-   if(S.taxState!=='CA'){
-     const stateRate={NY:.065,TX:0,WA:0,FL:0,MA:.05,NJ:.06,IL:.045,PA:.031,VA:.05,NC:.045,OTHER:.04}[S.taxState]??.04;
-     stateTax=g*stateRate;
-   }
-   const total=federal+stateTax+socialSecurity+medicare+additionalMedicare;
-   return {gross:g,federal,california:stateTax,state:stateTax,socialSecurity,medicare,additionalMedicare,total,effective:g>0?total/g:0,net:g-total};
- }
-
- function net(grossOverride=null){return estimateTaxes(grossOverride).net}
- function householdNetSplit(){
-   if(S.scope!=='family') return {self:estimateTaxes(n('income')).net,partner:0};
-   // Approximate household after-tax income split proportional to gross wages.
-   const tx=estimateTaxes(), totalGross=Math.max(1,n('income')+n('partnerIncome'));
-   return {self:tx.net*n('income')/totalGross, partner:tx.net*n('partnerIncome')/totalGross};
- }
- function permanentSpend(){
-   return spend(n('fiAge')).total;
- }
- function kidPV(){let fi=n('fiAge'),r=n('ret'),pv=0;for(let age=fi;age<=65;age++){let k=births().reduce((s,b)=>s+kidCost(age-b,age),0);pv+=k/Math.pow(1+r,age-fi+1)}return pv}
- function houseReserveAtAge(age){
-   // House is assumed purchased now, so retirement target should not add the full home price again.
-   // For total-net-worth presentation, include only the home equity expected to exist at the age being evaluated.
-   return S.housing==='buy'?homeEquityAt(age):0;
- }
- function houseReserve(){
-   return houseReserveAtAge(n('fiAge'));
- }
- function mortgagePVAtFI(){
-  if(S.housing!=='buy')return 0;
-  const fi=n('fiAge'), r=n('ret');
-  let pv=0;
-  for(let age=fi;age<fi+n('mortgageYears')+1;age++){
-     const pay=mortgageSnapshot(age).annualPayment;
-     if(pay<=0)break;
-     pv+=pay/Math.pow(1+r,age-fi+1);
-  }
-  return pv;
- }
-function retirementSpendPV(){
-  const fi=n('fiAge'), r=n('ret');
-  let pv=0;
-  for(let age=fi;age<=80;age++){
-    pv+=spend(age).total/Math.pow(1+r,age-fi+1);
-  }
-  return pv;
-}
-function retirementSpendPVAtAge(startAge){
-  const r=n('ret');
-  let pv=0;
-  for(let age=startAge;age<=80;age++){
-    pv+=spend(age).total/Math.pow(1+r,age-startAge+1);
-  }
-  return pv;
-}
-function liquidTarget(){
-  // Liquid FIRE need = discounted future spending through age 80.
-  // The spending path is age-aware, so return-age changes affect the target.
-  return retirementSpendPV();
-}
-function liquidTargetAtAge(startAge){
-  return retirementSpendPVAtAge(startAge);
-}
-function totalTarget(){return liquidTarget()+houseReserve()}
-function totalTargetAtAge(startAge){return liquidTargetAtAge(startAge)+houseReserveAtAge(startAge)}
- function deterministic(grossOverride=null,cut=0,endAge=null){
-  const fi=n('fiAge');
-  const finalAge=endAge===null?fi:endAge;
-  let a=startAssets(),r=n('ret'),out=[];
-  const baseGross=grossOverride===null?gross():grossOverride;
-  const startAge=n('currentAge');
-
-  for(let age=startAge;age<=finalAge;age++){
-   const incomeFactor=age<=fi?1:n('postRetireIncome');
-   const yearGross=baseGross*incomeFactor;
-   const laborNet=estimateTaxes(yearGross).net;
-
-   const rawSpend=spend(age);
-   const sp=Math.max(0,rawSpend.total-cut);
-   const inv=Math.max(0,a)*r;
-
-   // Retirement withdrawals are computed automatically from the gap between spending
-   // and what passive income plus any retained labor income already covers.
-   const portfolioDraw=age>fi?Math.min(Math.max(0,a),Math.max(0,sp-inv-laborNet)):0;
-   const laborIncome=laborNet;
-   const passiveIncome=portfolioDraw+inv;
-   const disposableIncome=laborIncome+passiveIncome;
-   const cashSurplus=disposableIncome-sp;
-
-   // Asset accounting: return + labor income - spending.
-   // This is algebraically equivalent to subtracting the withdrawal then reinvesting unused cash.
-   a=a+inv+laborNet-sp;
-
-   let split={self:0,partner:0};
-   if(yearGross>0){
-     const selfGrossBase=grossOverride===null?n('income'):baseGross*(n('income')/Math.max(1,gross()));
-     const partnerGrossBase=S.scope==='family'
-       ? (grossOverride===null?n('partnerIncome'):baseGross*(n('partnerIncome')/Math.max(1,gross())))
-       : 0;
-     const totalBase=Math.max(1,selfGrossBase+partnerGrossBase);
-     split={self:laborNet*selfGrossBase/totalBase,partner:laborNet*partnerGrossBase/totalBase};
-   }
-
-   const equity=homeEquityAt(age);
-   const mortgageBalance=mortgageSnapshot(age+1).balance;
-   out.push({
-     age,net:disposableIncome,laborNet,laborIncome,passiveIncome,portfolioDraw,spend:sp,surplus:cashSurplus,inv,
-     assets:a,homeEquity:equity,mortgageBalance,totalWealth:a+equity,
-     incomeSelf:split.self,incomePartner:split.partner,
-     spendBreakdown:rawSpend.breakdown
-   });
-  }
-  return out;
- } function solveIncome(goal){let lo=0,hi=2500000;for(let i=0;i<55;i++){let mid=(lo+hi)/2;if(deterministic(mid).slice(-1)[0].assets>=goal)hi=mid;else lo=mid}return hi}
- function solveCut(goal){if(deterministic().slice(-1)[0].assets>=goal)return 0;let lo=0,hi=400000;for(let i=0;i<55;i++){let mid=(lo+hi)/2;if(deterministic(null,mid).slice(-1)[0].assets>=goal)hi=mid;else lo=mid}return hi}
-function draw(data){
-  let c=$('chart'),ctx=c.getContext('2d'),W=c.width,H=c.height,m={l:66,r:64,t:24,b:35};
-  ctx.clearRect(0,0,W,H);
-  const pw=W-m.l-m.r, ph=H-m.t-m.b;
-  const fiAge=n('fiAge');
-  function drawRetirementMarker(x){
-    ctx.save();
-    ctx.strokeStyle='#aa8344';ctx.lineWidth=1.5;ctx.setLineDash([5,4]);
-    ctx.beginPath();ctx.moveTo(x,m.t);ctx.lineTo(x,H-m.b);ctx.stroke();
-    ctx.setLineDash([]);ctx.fillStyle='#8d6b37';ctx.font='9px sans-serif';
-    ctx.fillText(S.lang==='en'?`Age ${fiAge}, when you retire`:`${fiAge}岁退休`,Math.min(x+5,W-m.r-55),m.t+12);
-    ctx.restore();
-  }
-  function drawFiMarker(x,age){
-    ctx.save();
-    ctx.strokeStyle='#3f6f60';ctx.lineWidth=1.8;ctx.setLineDash([3,4]);
-    ctx.beginPath();ctx.moveTo(x,m.t);ctx.lineTo(x,H-m.b);ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.fillStyle='#3f6f60';
-    ctx.font='9px sans-serif';
-    const label=S.lang==='en'
-      ? `FIRE age ${age}: current path reaches the wealth target`
-      : `财富自由年龄 ${age}岁：当前路径达到总财富门槛`;
-    ctx.fillText(label,Math.min(x+5,W-m.r-150),m.t+24);
-    ctx.restore();
-  }
-
-  if(S.chartMode==='overview'){
-    const leftMax=Math.max(...data.flatMap(x=>[x.incomeSelf+x.incomePartner,x.portfolioDraw+x.inv,x.spend]))*1.15;
-    const rightMax=Math.max(...data.map(x=>x.totalWealth))*1.10;
-    const rightAxisX=W-m.r;
-
-    ctx.font='10px sans-serif';
-    ctx.strokeStyle='#ebe6df';
-    ctx.fillStyle='#867f77';
-
-    // Left axis: labor income / passive income / spending
-    for(let i=0;i<=5;i++){
-      const y=m.t+ph*i/5;
-      const leftVal=leftMax*(1-i/5);
-      ctx.beginPath();ctx.moveTo(m.l,y);ctx.lineTo(rightAxisX,y);ctx.stroke();
-      ctx.textAlign='left';
-      ctx.fillText('$'+(leftVal/1000).toFixed(0)+'k',5,y+3);
-    }
-
-    // Right axis: investable assets
-    ctx.fillStyle='#58719f';
-    for(let i=0;i<=5;i++){
-      const y=m.t+ph*i/5;
-      const rightVal=rightMax*(1-i/5);
-      ctx.textAlign='right';
-      ctx.fillText('$'+(rightVal/1e6).toFixed(1)+'M',W-3,y+3);
-    }
-    ctx.textAlign='left';
-
-    const xFor=i=>m.l+pw*i/(data.length-1);
-    const yLeft=v=>m.t+ph*(1-Math.max(0,v)/leftMax);
-    const yRight=v=>m.t+ph*(1-Math.max(0,v)/rightMax);
-
-    function lineAccessor(accessor,yFn,color,width=2.5){
-      ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=width;
-      data.forEach((x,i)=>{
-        const xx=xFor(i),yy=yFn(accessor(x));
-        i?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy);
-      });
-      ctx.stroke();
-    }
-
-    lineAccessor(x=>x.incomeSelf+x.incomePartner,yLeft,'#4f806b');
-    lineAccessor(x=>x.portfolioDraw+x.inv,yLeft,'#aa8344');
-    lineAccessor(x=>x.spend,yLeft,'#b75b61');
-    lineAccessor(x=>x.totalWealth,yRight,'#58719f',3);
-
-    ctx.fillStyle='#867f77';
-    data.forEach((x,i)=>{if(i%2===0)ctx.fillText(S.lang==='en'?`${x.age}`:`${x.age}岁`,xFor(i)-6,H-10)});
-
-    // Small axis labels
-    ctx.font='9px sans-serif';
-    ctx.fillStyle='#867f77';
-    ctx.fillText(S.lang==='en'?'Left axis: labor income / passive income / spending':'左轴：劳动收入 / 被动收入 / 支出',m.l,m.t-5);
-    ctx.fillStyle='#58719f';
-    ctx.textAlign='right';
-    ctx.fillText(S.lang==='en'?'Right axis: total wealth':'右轴：总财富',W-m.r,m.t-5);
-    ctx.textAlign='left';
-    const fiIdx=Math.max(0,Math.min(data.length-1,fiAge-data[0].age));
-    drawRetirementMarker(xFor(fiIdx));
-    if(S.projectionMode==='current' && currentPathFireAge!==null){
-      drawFiMarker(xFor(currentPathFireIndex),currentPathFireAge);
-    }
-
-    c._chartMeta={data,mode:'overview',leftMax,rightMax,m,pw,ph,W,H};
-    return;
-  }
-
-  // Detail mode: stacked cash-flow waterfall around zero.
-  const incomeTotal=x=>x.incomeSelf+x.incomePartner+x.portfolioDraw+x.inv;
-  const laborIncome=x=>x.incomeSelf+x.incomePartner;
-  const passiveIncome=x=>x.portfolioDraw+x.inv;
-  const expenseTotal=x=>Object.values(x.spendBreakdown).reduce((a,b)=>a+b,0);
-  const maxPos=Math.max(...data.flatMap(x=>[laborIncome(x),passiveIncome(x)]),1);
-  const maxNeg=Math.max(...data.map(expenseTotal),1);
-  const maxAbs=Math.max(maxPos,maxNeg)*1.15;
-  const zeroY=m.t+ph/2;
-  const scale=(ph/2)/maxAbs;
-
-  ctx.font='10px sans-serif';
-  ctx.fillStyle='#867f77';
-  ctx.strokeStyle='#ebe6df';
-  for(let i=1;i<=2;i++){
-    const val=maxAbs*i/2;
-    const yu=zeroY-val*scale, yd=zeroY+val*scale;
-    ctx.beginPath();ctx.moveTo(m.l,yu);ctx.lineTo(W-m.r,yu);ctx.stroke();
-    ctx.beginPath();ctx.moveTo(m.l,yd);ctx.lineTo(W-m.r,yd);ctx.stroke();
-    ctx.fillText('$'+(val/1000).toFixed(0)+'k',8,yu+3);
-    ctx.fillText('−$'+(val/1000).toFixed(0)+'k',4,yd+3);
-  }
-  ctx.strokeStyle='#a9a19a';ctx.lineWidth=1.5;
-  ctx.beginPath();ctx.moveTo(m.l,zeroY);ctx.lineTo(W-m.r,zeroY);ctx.stroke();
-  ctx.fillStyle='#867f77';ctx.fillText('$0',25,zeroY+3);
-
-  const slot=pw/data.length;
-  const barW=Math.max(8,Math.min(30,slot*.62));
-  const cols={
-    self:'#4f806b', partner:'#7b9d8e', draw:'#6f8f7c', inv:'#aa8344',
-    housing:'#b75b61', living:'#c6866d',
-    travel:'#a78c6b', parents:'#8d7a6d', kids:'#805b68'
-  };
-
-  data.forEach((d,i)=>{
-    const x=m.l+slot*i+slot/2-barW/2;
-
-    let y=zeroY;
-    [
-      ['self',d.incomeSelf],
-      ['partner',S.scope==='family'?d.incomePartner:0],
-      ['draw',d.portfolioDraw],
-      ['inv',d.inv]
-    ].forEach(([k,v])=>{
-      if(v<=0)return;
-      const h=v*scale;
-      y-=h;ctx.fillStyle=cols[k];ctx.fillRect(x,y,barW,h);
-    });
-
-    y=zeroY;
-    [
-      ['housing',d.spendBreakdown.housing],
-      ['living',d.spendBreakdown.living],
-      ['travel',d.spendBreakdown.travel],
-      ['parents',d.spendBreakdown.parents],
-      ['kids',d.spendBreakdown.kids]
-    ].forEach(([k,v])=>{
-      if(v<=0)return;
-      const h=v*scale;
-      ctx.fillStyle=cols[k];ctx.fillRect(x,y,barW,h);y+=h;
-    });
-
-    if(i%2===0){
-      ctx.fillStyle='#867f77';
-      ctx.fillText(S.lang==='en'?`${d.age}`:`${d.age}岁`,x+barW/2-6,H-10);
-    }
-  });
-
-  const fiIdx=Math.max(0,Math.min(data.length-1,fiAge-data[0].age));
-  drawRetirementMarker(m.l+slot*fiIdx+slot/2);
-  if(S.projectionMode==='current' && currentPathFireAge!==null){
-    drawFiMarker(m.l+slot*currentPathFireIndex+slot/2,currentPathFireAge);
-  }
-    c._chartMeta={data,mode:'detail',m,pw,ph,W,H,slot,barW,zeroY,scale};
-  }
- function drawWealth(data){
-  let c=$('wealthChart');
-  if(!c) return;
-  let ctx=c.getContext('2d'),W=c.width,H=c.height,m={l:66,r:64,t:24,b:35};
-  if(!ctx) return;
-  ctx.clearRect(0,0,W,H);
-  const pw=W-m.l-m.r, ph=H-m.t-m.b;
-  const maxPos=Math.max(...data.flatMap(x=>[x.assets,x.homeEquity,x.totalWealth]),1);
-  const maxNeg=Math.max(...data.map(x=>x.mortgageBalance),1);
-  const zeroY=m.t+ph*(maxPos/(maxPos+maxNeg));
-  const topSpan=Math.max(1,zeroY-m.t);
-  const bottomSpan=Math.max(1,H-m.b-zeroY);
-  const xFor=i=>m.l+pw*i/(data.length-1);
-  const y=v=>v>=0?zeroY-v*topSpan/maxPos:zeroY+(-v)*bottomSpan/maxNeg;
-
-  ctx.font='10px sans-serif';
-  ctx.strokeStyle='#ebe6df';
-  ctx.fillStyle='#867f77';
-  for(let i=0;i<=4;i++){
-    const val=maxPos*(1-i/4);
-    const yy=m.t+topSpan*i/4;
-    ctx.beginPath();ctx.moveTo(m.l,yy);ctx.lineTo(W-m.r,yy);ctx.stroke();
-    ctx.textAlign='left';
-    ctx.fillText('$'+(val/1e6).toFixed(1)+'M',5,yy+3);
-  }
-  for(let i=1;i<=4;i++){
-    const val=maxNeg*i/4;
-    const yy=zeroY+bottomSpan*i/4;
-    ctx.beginPath();ctx.moveTo(m.l,yy);ctx.lineTo(W-m.r,yy);ctx.stroke();
-    ctx.textAlign='left';
-    ctx.fillText('−$'+(val/1e6).toFixed(1)+'M',5,yy+3);
-  }
-  ctx.strokeStyle='#a9a19a';ctx.lineWidth=1.5;
-  ctx.beginPath();ctx.moveTo(m.l,zeroY);ctx.lineTo(W-m.r,zeroY);ctx.stroke();
-  ctx.fillStyle='#867f77';ctx.fillText('$0',25,zeroY+3);
-
-  function lineAccessor(accessor,color,width=2.5,dashed=false){
-    ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dashed?[6,4]:[]);
-    data.forEach((x,i)=>{
-      const xx=xFor(i),yy=y(accessor(x));
-      i?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy);
-    });
-    ctx.stroke();ctx.setLineDash([]);
-  }
-
-  lineAccessor(x=>x.assets,'#58719f',3);
-  lineAccessor(x=>x.homeEquity,'#4f806b',2.5);
-  lineAccessor(x=>-x.mortgageBalance,'#b75b61',2.5,true);
-  lineAccessor(x=>x.totalWealth,'#aa8344',3);
-
-  ctx.fillStyle='#867f77';
-  data.forEach((x,i)=>{if(i%2===0)ctx.fillText(S.lang==='en'?`${x.age}`:`${x.age}岁`,xFor(i)-6,H-10)});
-  ctx.font='9px sans-serif';
-  ctx.fillStyle='#867f77';
-  ctx.fillText(S.lang==='en'?'Left axis: assets / equity / debt':'左轴：资产 / 净值 / 负债',m.l,m.t-5);
-  ctx.textAlign='right';
-  ctx.fillText(S.lang==='en'?'Right axis: total wealth':'右轴：总财富',W-m.r,m.t-5);
-  ctx.textAlign='left';
-
-  c._wealthMeta={data,m,pw,ph,W,H,maxPos,maxNeg,zeroY,topSpan,bottomSpan};
- }
- function showWealthTooltipFromClientX(clientX,clientY){
-  const c=$('wealthChart'),meta=c._wealthMeta,tip=$('wealthTooltip');
-  if(!meta) return;
-  const rect=c.getBoundingClientRect();
-  const xCanvas=(clientX-rect.left)*(c.width/rect.width);
-  const idx=Math.max(0,Math.min(meta.data.length-1,Math.round((xCanvas-meta.m.l)/meta.pw*(meta.data.length-1))));
-  const d=meta.data[idx];
-  tip.innerHTML=S.lang==='en'
-    ? `<b>Age ${d.age}</b><br>Investable assets: ${compact(d.assets)}<br>Home equity: ${compact(d.homeEquity)}<br>Mortgage balance: ${compact(d.mortgageBalance)}<br>Total wealth: ${compact(d.totalWealth)}`
-    : `<b>${d.age}岁</b><br>可投资资产：${compact(d.assets)}<br>房屋净值：${compact(d.homeEquity)}<br>房贷余额：${compact(d.mortgageBalance)}<br>总财富：${compact(d.totalWealth)}`;
-  tip.style.display='block';
-  const xCss=(clientX-rect.left);
-  tip.style.left=Math.min(rect.width-205,Math.max(4,xCss+8))+'px';
-  tip.style.top='12px';
- }
- function showTooltipFromClientX(clientX,clientY){
-  const c=$('chart'),meta=c._chartMeta,tip=$('chartTooltip');
-  if(!meta)return;
-   const rect=c.getBoundingClientRect();
-   const xCanvas=(clientX-rect.left)*(c.width/rect.width);
-   let idx;
-   if(meta.mode==='detail'){
-     idx=Math.max(0,Math.min(meta.data.length-1,Math.floor((xCanvas-meta.m.l)/meta.slot)));
-   }else{
-     idx=Math.max(0,Math.min(meta.data.length-1,Math.round((xCanvas-meta.m.l)/meta.pw*(meta.data.length-1))));
-   }
-   const d=meta.data[idx],b=d.spendBreakdown;
-   const laborIncome=d.incomeSelf+d.incomePartner;
-   const passiveIncome=d.portfolioDraw+d.inv;
-   const totalIncome=laborIncome+passiveIncome;
-   if(S.chartMode==='overview'){
-    tip.innerHTML=S.lang==='en'
-      ? `<b>Age ${d.age}</b><br>Labor income: ${money(laborIncome)}<br>Passive income: ${money(passiveIncome)}<br>Total available income: ${money(totalIncome)}<br>Annual spending: ${money(d.spend)}<br>Investable assets: ${compact(d.assets)}<br>Home equity: ${compact(d.homeEquity)}<br>Total wealth: ${compact(d.totalWealth)}`
-      : `<b>${d.age}岁</b><br>劳动收入：${money(laborIncome)}<br>被动收入：${money(passiveIncome)}<br>总可用收入：${money(totalIncome)}<br>年度支出：${money(d.spend)}<br>可投资资产：${compact(d.assets)}<br>房屋净值：${compact(d.homeEquity)}<br>总财富：${compact(d.totalWealth)}`;
-   }else{
-     const totalIn=totalIncome;
-     const totalOut=Object.values(b).reduce((a,v)=>a+v,0);
-     tip.innerHTML=S.lang==='en'
-      ? `<b>Age ${d.age} · Cash Flow</b><br>
-      <span style="color:#bfe2d1">+ Labor income: ${money(laborIncome)}</span><br>
-      <span style="color:#e3c98f">+ Passive income: ${money(passiveIncome)}</span><br>
-      <b>Total inflow: ${money(totalIn)}</b><br><br>
-      <span style="color:#bfe2d1">+ Self after-tax income: ${money(d.incomeSelf)}</span><br>
-      ${S.scope==='family'?`<span style="color:#bfe2d1">+ Partner after-tax income: ${money(d.incomePartner)}</span><br>`:''}
-      <span style="color:#bfe2d1">+ Retirement withdrawals: ${money(d.portfolioDraw)}</span><br><span style="color:#e3c98f">+ Investment return: ${money(d.inv)}</span><br>
-      <span>− Housing: ${money(b.housing)}</span><br>
-      <span>− Base living: ${money(b.living)}</span><br>
-      <span>− Travel: ${money(b.travel)}</span><br>
-      <span>− Parents / family support: ${money(b.parents)}</span><br>
-      <span>− Childcare / education: ${money(b.kids)}</span><br>
-      <b>Total outflow: ${money(totalOut)}</b><br><br>
-      Net cash flow: <b>${money(totalIn-totalOut)}</b>`
-      : `<b>${d.age}岁 · Cash Flow</b><br>
-      <span style="color:#bfe2d1">+ 劳动收入：${money(laborIncome)}</span><br>
-      <span style="color:#e3c98f">+ 被动收入：${money(passiveIncome)}</span><br>
-      <b>总流入：${money(totalIn)}</b><br><br>
-      <span style="color:#bfe2d1">+ 本人税后收入：${money(d.incomeSelf)}</span><br>
-      ${S.scope==='family'?`<span style="color:#bfe2d1">+ 伴侣税后收入：${money(d.incomePartner)}</span><br>`:''}
-      <span style="color:#bfe2d1">+ 退休后资产提取：${money(d.portfolioDraw)}</span><br><span style="color:#e3c98f">+ 投资收益：${money(d.inv)}</span><br>
-      <span>− 住房：${money(b.housing)}</span><br>
-      <span>− 基础生活：${money(b.living)}</span><br>
-      <span>− 旅行：${money(b.travel)}</span><br>
-      <span>− 父母 / 家人支持：${money(b.parents)}</span><br>
-      <span>− 托育/教育：${money(b.kids)}</span><br>
-      <b>总流出：${money(totalOut)}</b><br><br>
-      净现金流：<b>${money(totalIn-totalOut)}</b>`;
-   }
-   tip.style.display='block';
-   const xCss=(clientX-rect.left);
-   tip.style.left=Math.min(rect.width-205,Math.max(4,xCss+8))+'px';
-   tip.style.top='12px';
- }
-function renderRows(tbodyId,data,fireAge=null){
-  const tbody=$(tbodyId);
-  if(!tbody) return;
- tbody.innerHTML='';
- data.forEach(x=>{
-    const tr=document.createElement('tr');
-    if(fireAge!==null && x.age===fireAge) tr.classList.add('fire-hit');
-    const labor=x.incomeSelf+x.incomePartner;
-    const passive=x.portfolioDraw+x.inv;
-    tr.innerHTML=`<td>${x.age}</td><td>${money(labor)}</td><td>${money(passive)}</td><td>${money(x.spend)}</td><td class="${x.surplus>=0?'pos':'neg'}">${money(x.surplus)}</td><td>${money(x.inv)}</td><td>${compact(x.assets)}</td><td>${compact(x.homeEquity)}</td><td>${compact(x.totalWealth)}</td>`;
-    tbody.appendChild(tr);
-  });
- }
- let lastRenderedLang=null;
- let updateScheduled=false;
- function scheduleUpdate(){
-  if(updateScheduled) return;
-  updateScheduled=true;
-  requestAnimationFrame(()=>{updateScheduled=false;update()});
- }
-function update(){
-  if(lastRenderedLang!==S.lang){
-    renderLanguage();
-    lastRenderedLang=S.lang;
-  }
-  const projectionCurrentBtn=$('projectionCurrentBtn');
-  const projectionTargetBtn=$('projectionTargetBtn');
-  const targetProjection=S.projectionMode==='target';
-  if(projectionCurrentBtn) projectionCurrentBtn.classList.toggle('active',!targetProjection);
-  if(projectionTargetBtn) projectionTargetBtn.classList.toggle('active',targetProjection);
-  $('overviewLegend').style.display='flex';
-  $('detailLegend').classList.add('show');
-  $('partnerIncomeWrap').classList.toggle('hidden',S.scope!=='family');
-  $('scopeDesc').textContent=S.scope==='individual'?L('scopeIndividual'):L('scopeFamily');
-  const hideKidsEducation=S.kids===0;
-  $('childcare').closest('.grid')?.classList.toggle('hidden',hideKidsEducation);
-  $('kidsSchoolWrap').classList.toggle('hidden',hideKidsEducation);
-  $('cnSchoolWrap').classList.toggle('hidden',S.relocationPath==='stayUS');
-  $('returnAgeWrap')?.classList.add('hidden');
-  $('postRetireIncomeV').textContent=Math.round(n('postRetireIncome')*100)+'%';
-  $('mortgageWrap').classList.toggle('hidden',S.housing!=='buy');
-  $('downPayV').textContent=Math.round(n('downPay')*100)+'%';
-  $('mortgageRateV').textContent=(n('mortgageRate')*100).toFixed(2)+'%';
-  $('mortgageYearsV').textContent=n('mortgageYears')+(S.lang==='en'?' yrs':'年');
-  $('homeCarryV').textContent=(n('homeCarry')*100).toFixed(1)+'%';
-  $('taxStateV').textContent=stateText(S.taxState);
-  $('taxModeV').textContent=S.taxMode==='auto'?L('taxMode'):L('manualTax');
-  $('manualTaxWrap').classList.toggle('hidden',S.taxMode!=='manual');
-  $('manualTaxV').textContent=Math.round(n('manualTax')*100)+'%';
-  $('currentAgeV').textContent=n('currentAge')+(S.lang==='en'?' yrs':'岁');
-  const fiEl=$('fiAge');
-  fiEl.min=n('currentAge');
-  if(n('fiAge')<n('currentAge')) fiEl.value=n('currentAge');
-  $('fiAgeV').textContent=n('fiAge')+(S.lang==='en'?' yrs':'岁');
-  const purchaseEl=$('homePurchaseAge');
-  if(purchaseEl){
-    purchaseEl.min=n('currentAge');
-    purchaseEl.max=Math.max(n('currentAge'),n('fiAge'));
-    const suggestedPurchaseAge=suggestedHomePurchaseAge();
-    if(!S.homePurchaseAgeManual && Number(purchaseEl.value)!==suggestedPurchaseAge) purchaseEl.value=suggestedPurchaseAge;
-    if(n('homePurchaseAge')<n('currentAge')) purchaseEl.value=n('currentAge');
-    if(n('homePurchaseAge')>n('fiAge')) purchaseEl.value=n('fiAge');
-  }
-  if($('homePurchaseAgeV')) $('homePurchaseAgeV').textContent=n('homePurchaseAge')+(S.lang==='en'?' yrs':'岁');
-  $('relocationInfo').innerHTML=S.relocationPath==='returnChina'
-    ? (S.lang==='en'
-      ? `Assumption: from age ${n('currentAge')} to age ${n('fiAge')}, we use ${cityName(CITY[S.currentCity])}; from age ${n('fiAge')} to age 80, we use ${cityName(CITY[S.city])}.`
-      : `假设：从 ${n('currentAge')} 岁到 ${n('fiAge')} 岁按 ${cityName(CITY[S.currentCity])} 计算；从 ${n('fiAge')} 岁到 80 岁按 ${cityName(CITY[S.city])} 计算。`)
-    : (S.lang==='en'
-      ? `Assumption: from age ${n('currentAge')} to age 80, we use ${cityName(CITY[S.currentCity])}; the model does not switch to a China retirement city.`
-      : `假设：从 ${n('currentAge')} 岁到 80 岁都按 ${cityName(CITY[S.currentCity])} 计算，不切换到回国退休地点。`);
-  $('assetsV').textContent=money(n('assets'));$('incomeV').textContent=money(n('income'))+(S.lang==='en'?'/yr':'/年');$('partnerIncomeV').textContent=money(n('partnerIncome'))+(S.lang==='en'?'/yr':'/年');$('retV').textContent=(n('ret')*100).toFixed(1)+'%';
-  const tx=estimateTaxes();
-  $('taxV').textContent=(tx.effective*100).toFixed(1)+'%';
-  $('taxBreakdown').textContent=S.lang==='en'
-    ? `Estimated after-tax income ${money(tx.net)}/yr · Federal ${money(tx.federal)} · State ${money(tx.california)} · Social Security ${money(tx.socialSecurity)} · Medicare ${money(tx.medicare+tx.additionalMedicare)}`
-    : `预计税后收入 ${money(tx.net)}/年 · Federal ${money(tx.federal)} · 州税 ${money(tx.california)} · Social Security ${money(tx.socialSecurity)} · Medicare ${money(tx.medicare+tx.additionalMedicare)}`;
-  const formulaSummary=$('formulaSummary');
-  if(formulaSummary) formulaSummary.textContent=S.lang==='en'
-    ? 'ⓘ Main formulas + current values'
-    : (S.lang==='bilingual' ? 'ⓘ 主要公式 / Main formulas + 当前数值' : 'ⓘ 主要公式 + 当前数值');
-  $('totalNeedLabel').textContent=S.lang==='en'
-    ? `Total wealth needed at age ${n('fiAge')}`
-    : `${n('fiAge')}岁需要的总财富`;
-  $('projectLabel').textContent=S.lang==='en'
-    ? `Projected investable assets at age ${n('fiAge')} on ${targetProjection?'target path':'current path'}`
-    : (targetProjection
-      ? `按达标路径 ${n('fiAge')}岁预计可投资资产`
-      : `按当前路径 ${n('fiAge')}岁预计可投资资产`);
-  let c=selectedHomeCity();
-  {
-    const selectedBuy = housingByBedrooms(c,'buy');
-    const selectedRent = housingByBedrooms(c,'rent');
-    const sample = cityFoodSample(c);
-    const housingSample = cityHousingSample(c);
-    $('cityInfo').innerHTML=`<div class="info-grid">
-      <div class="icell"><div class="ik">${S.lang==='en'?'3BR rent':'3居租金'}</div><div class="iv">${money(c.rent3/12)}${S.lang==='en'?'/mo':'/月'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'4BR rent':'4居租金'}</div><div class="iv">${money(c.rent4/12)}${S.lang==='en'?'/mo':'/月'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'3BR buy budget':'3居买房预算'}</div><div class="iv">${compact(c.buy3)}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'4BR buy budget':'4居买房预算'}</div><div class="iv">${compact(c.buy4)}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Living factor':'生活系数'}</div><div class="iv">${c.livingFactor.toFixed(2)}x</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Home price used':'当前模型采用房价'}</div><div class="iv">${S.housing==='buy'?compact(selectedBuy):'$0'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Rent used':'当前模型采用租金'}</div><div class="iv">${S.housing==='rent'?money(selectedRent/12)+(S.lang==='en'?'/mo':'/月'):'$0'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Derived living cost':'推导后的生活费'}</div><div class="iv">${money(livingSpendForCity(c))}${S.lang==='en'?'/yr':'/年'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Second-adult increment':'第二成人增量'}</div><div class="iv">${money(c.secondAdult)}${S.lang==='en'?'/yr':'/年'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Sample household size':'样本人数'}</div><div class="iv">${sample?(sample.household_size_assumed||'—'):'—'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Sample food total':'吃饭样本总额'}</div><div class="iv">${sample?moneyOrDash(sample.official_total_food_usd):'—'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Sample model food':'样本模型值'}</div><div class="iv">${sample?moneyOrDash(sample.model_total_food_usd):'—'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Sample model / month':'样本月额'}</div><div class="iv">${sample?money(sample.model_monthly_food_usd):'—'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Housing sample people':'住房样本人数'}</div><div class="iv">${housingSample?(housingSample.household_size_assumed||'—'):'—'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Sample rent 3BR':'样本3居租金'}</div><div class="iv">${housingSample?money(housingSample.rent_3br_monthly_usd)+'/mo':'—'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Sample rent 3BR / yr':'样本3居年租'}</div><div class="iv">${housingSample?money(housingSample.rent_3br_annual_usd)+'/yr':'—'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Sample rent 4BR / yr':'样本4居年租'}</div><div class="iv">${housingSample?money(housingSample.rent_4br_annual_usd)+'/yr':'—'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Sample buy 3BR':'样本3居买房'}</div><div class="iv">${housingSample?compact(housingSample.buy_3br_usd):'—'}</div></div>
-    </div>
-    ${sample?`<div class="note" style="margin-top:10px">${S.lang==='en'
-      ? `CSV sample matched: <b>${sample.city}</b>. Household size ${sample.household_size_assumed || '—'}; official food spend ${moneyOrDash(sample.official_total_food_usd)}/yr; model food spend ${moneyOrDash(sample.model_total_food_usd)}/yr (${moneyOrDash(sample.model_monthly_food_usd)}/mo); model vs official ${sample.model_vs_official_pct===''?'—':sample.model_vs_official_pct.toFixed(1)+'%'}. Original source: ${sourceLink(sample.source_url)}.`
-      : `CSV 样本已匹配：<b>${sample.city}</b>。家庭人数 ${sample.household_size_assumed || '—'}；官方吃饭支出 ${moneyOrDash(sample.official_total_food_usd)}/年；模型值 ${moneyOrDash(sample.model_total_food_usd)}/年（${moneyOrDash(sample.model_monthly_food_usd)}/月）；模型相对官方 ${sample.model_vs_official_pct===''?'—':sample.model_vs_official_pct.toFixed(1)+'%'}. 原始来源：${sourceLink(sample.source_url)}。`
-    }</div>`:''}
-    ${housingSample?`<div class="note" style="margin-top:8px">${S.lang==='en'
-      ? `CSV housing sample matched: <b>${housingSample.city}</b>. Household size ${housingSample.household_size_assumed || '—'}; 3BR rent ${money(housingSample.rent_3br_monthly_usd)}/mo (${money(housingSample.rent_3br_annual_usd)}/yr); 4BR rent ${money(housingSample.rent_4br_monthly_usd)}/mo (${money(housingSample.rent_4br_annual_usd)}/yr); 3BR buy ${compact(housingSample.buy_3br_usd)}; 4BR buy ${compact(housingSample.buy_4br_usd)}. Original source: ${sourceLink(housingSample.source_url)}.`
-      : `CSV 住房样本已匹配：<b>${housingSample.city}</b>。家庭人数 ${housingSample.household_size_assumed || '—'}；3居租金 ${money(housingSample.rent_3br_monthly_usd)}/月（${money(housingSample.rent_3br_annual_usd)}/年）；4居租金 ${money(housingSample.rent_4br_monthly_usd)}/月（${money(housingSample.rent_4br_annual_usd)}/年）；3居买房 ${compact(housingSample.buy_3br_usd)}；4居买房 ${compact(housingSample.buy_4br_usd)}。原始来源：${sourceLink(housingSample.source_url)}。`
-    }</div>`:''}
-    ${citySource(c)}<br><br>
-    ${cityResource(c)}<br><br>
-    <b>${S.lang==='en'?'Housing rule':'住房计算规则'}</b>: ${L('cityRule')}<br><br><b>${S.lang==='en'?'Current housing':'当前住房'}：</b>${S.housing==='buy'
-      ? L('cityBuy',{down:Math.round(n('downPay')*100),home:compact(selectedBuy),beds:bedrooms(),yrs:n('mortgageYears'),rate:(n('mortgageRate')*100).toFixed(2)})
-      : L('cityRent',{beds:bedrooms(),rent:money(selectedRent/12)})
-    }`;
-  }
-  let now=spend(45),ad=adultSpend(45);
-  
-  
-  let liquidGoal=liquidTarget(),propertyGoal=houseReserve(),goal=totalTarget();
-  const endAge=Math.max(80,n('fiAge'));
-  const currentData=deterministic(null,0,endAge);
-  const currentFireIndex=currentData.findIndex(x=>x.totalWealth>=totalTargetAtAge(x.age));
-  const currentFireAge=currentFireIndex>=0?currentData[currentFireIndex].age:null;
-  currentPathFireIndex=currentFireIndex;
-  currentPathFireAge=currentFireAge;
-  const summaryTextEl=$('summaryText');
-  if(summaryTextEl) summaryTextEl.innerHTML=summaryText(currentData,currentFireAge,S.projectionMode);
-  const req=solveIncome(goal),cut=solveCut(goal);
-  const targetData=deterministic(req,0,endAge);
-  const data=S.projectionMode==='target'?targetData:currentData;
-  const fiPoint=data.find(x=>x.age===n('fiAge'))||data.slice(-1)[0];
-  const proj=fiPoint.assets;
-  const projectedTotal=fiPoint.totalWealth;
-  const gap=projectedTotal-goal;
-  const formulaInfo=$('formulaInfo');
-  if(formulaInfo){
-    const currentRetCity=retirementLocationCity(n('fiAge'));
-    const preRetCity=S.relocationPath==='returnChina'?CITY.bay:currentRetCity;
-    const postRetCity=currentRetCity;
-    const investRate=(n('ret')*100).toFixed(1)+'%';
-    const taxRatePct=(tx.effective*100).toFixed(1)+'%';
-    const lifestyleMult=LIFE[S.lifestyle].toFixed(2)+'x';
-    const fiSpend=spend(n('fiAge'));
-    const preLiving=money(livingSpendForCity(preRetCity))+(S.lang==='en'?'/yr':'/年');
-    const postLiving=money(livingSpendForCity(postRetCity))+(S.lang==='en'?'/yr':'/年');
-    const currentRetSpend=money(fiSpend.total)+(S.lang==='en'?'/yr':'/年');
-    const mortgageNote=S.housing==='buy'
-      ? `${money(mortgageSnapshot(n('fiAge')).annualPayment)}${S.lang==='en'?'/yr':'/年'}`
-      : '$0';
-    formulaInfo.innerHTML=`<div class="info-grid">
-      <div class="icell"><div class="ik">${S.lang==='en'?'Taxed income':'税后收入'}</div><div class="iv">${money(tx.net)}${S.lang==='en'?'/yr':'/年'}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Formula':'公式'}</div><div class="iv">${money(gross())}${S.lang==='en'?'/yr':'/年'} × (1 − ${taxRatePct})</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Lifestyle multiplier':'生活方式倍率'}</div><div class="iv">${lifestyleMult}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Living cost path':'生活费路径'}</div><div class="iv">${preLiving}${S.relocationPath==='returnChina'&&currentRetCity.country==='CN'?` → ${postLiving}`:''}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Retirement spend (this age)':'当前年龄支出'}</div><div class="iv">${currentRetSpend}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Mortgage / housing cash cost':'房贷 / 住房现金成本'}</div><div class="iv">${mortgageNote}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Retirement spending PV':'退休期支出现值'}</div><div class="iv">${compact(liquidGoal)}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Total wealth target':'总财富目标'}</div><div class="iv">${compact(goal)} = ${compact(liquidGoal)} + ${compact(propertyGoal)}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Projected wealth at FI age':'退休年龄预计总财富'}</div><div class="iv">${compact(projectedTotal)} = ${compact(fiPoint.assets)} + ${compact(fiPoint.homeEquity)}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Wealth gap':'财富 Gap'}</div><div class="iv">${(gap>=0?'+':'−')+compact(Math.abs(gap))}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Current inputs':'当前输入'}</div><div class="iv">${S.lang==='en'?`${n('currentAge')} / ${n('fiAge')} yrs · ${money(n('assets'))} · ${money(n('income'))}/yr`:`${n('currentAge')} / ${n('fiAge')}岁 · ${money(n('assets'))} · ${money(n('income'))}/年`}</div></div>
-      <div class="icell"><div class="ik">${S.lang==='en'?'Return / return-city rule':'回国 / 城市规则'}</div><div class="iv">${S.lang==='en'
-        ? (S.relocationPath==='returnChina'
-            ? `Before age ${n('fiAge')}, use ${cityName(preRetCity)}; from age ${n('fiAge')} onward, use ${cityName(postRetCity)}.`
-            : `No China city switch; stay in ${cityName(postRetCity)} through age 80.`)
-        : (S.relocationPath==='returnChina'
-            ? `从 ${n('fiAge')} 岁前按 ${preRetCity.nameZh} 计算；${n('fiAge')} 岁起按 ${postRetCity.nameZh} 计算。`
-            : `不切换回国城市，直到 80 岁都按 ${postRetCity.nameZh} 计算。`)}</div></div>
-    </div>
-    <div class="desc" style="margin-top:8px">${S.lang==='en'
-      ? `Main inputs used here: real return ${investRate}, effective tax ${taxRatePct}, lifestyle ${lifestyleMult}, Bay Area baseline ${money(bayBaseSpend())}/yr, selected city factor ${c.livingFactor.toFixed(2)}x, and retirement age ${n('fiAge')}.`
-      : `这里主要用到的输入：实际回报 ${investRate}、有效税率 ${taxRatePct}、生活方式倍率 ${lifestyleMult}、湾区基准生活费 ${money(bayBaseSpend())}/年、所选城市系数 ${c.livingFactor.toFixed(2)}x、退休年龄 ${n('fiAge')} 岁。`
-    }</div>
-    <div class="desc" style="margin-top:8px">${S.lang==='en'
-      ? `<b>FIRE definition:</b> at the retirement age, passive income (withdrawals + portfolio returns) plus any retained labor income should be enough to cover that year’s spending; separately, the total asset base should stay strong enough through age 80.`
-      : `<b>财富自由定义：</b>在退休年龄，<b>被动收入（提款 + 投资收益）</b> 再加上任何保留的劳动收入，应该足以覆盖当年的支出；同时，总资产基底还要足够支撑到80岁。`
-    }</div>`;
-  }
-  const faqFormulaDetail=document.getElementById('faqFormulaDetail');
-  if(faqFormulaDetail){
-    const exampleAge=n('fiAge');
-    const exampleProjected=compact(projectedTotal);
-    const exampleGoal=compact(goal);
-    const exampleLiquid=compact(liquidGoal);
-    const exampleProperty=compact(propertyGoal);
-    const exampleGap=(gap>=0?'+':'−')+compact(Math.abs(gap));
-    const exampleReq=money(req)+(S.lang==='en'?'/yr':'/年');
-    const exampleCut=money(cut)+(S.lang==='en'?'/yr':'/年');
-    faqFormulaDetail.querySelector('summary').textContent=S.lang==='en'
-      ? 'All formulas + current example'
-      : '所有计算公式 + 当前示例';
-    faqFormulaDetail.querySelector('.answer').innerHTML=S.lang==='en'
-      ? `<b>Current example</b><br>
-        With the current settings, the retirement-age target at <b>${exampleAge} years old</b> is <b>${exampleGoal}</b> total wealth.<br>
-        It is built from <b>${exampleLiquid}</b> of retirement spending PV plus <b>${exampleProperty}</b> of home equity.<br>
-        The current-path projection is <b>${exampleProjected}</b>, so the wealth gap is <b>${exampleGap}</b>.<br>
-        To hit that target, the model estimates you need about <b>${exampleReq}</b> of gross income, or else you would need to cut spending by about <b>${exampleCut}</b> per year.<br><br>
-        <b>How the number is built</b><br>
-        1) We estimate after-tax income from gross income using federal, state, and payroll taxes.<br>
-        2) We estimate annual spending from housing, living, travel, parents / family support, and childcare / education.<br>
-        3) We discount future retirement spending through age 80 using the real return assumption.<br>
-        4) Required total wealth = retirement spending PV + home equity.<br>
-        5) Projected wealth = projected investable assets + home equity at the FI age.<br><br>
-        <b>FIRE definition</b><br>
-        The model treats you as financially independent when passive income plus any retained labor income can cover annual spending at the retirement age, while the asset base remains strong enough through age 80. In practical terms, the withdrawal you need is the remaining gap after passive income is subtracted from spending.`
-      : `<b>当前示例</b><br>
-        按现在这套设置，<b>${exampleAge}岁</b> 时需要的总财富是 <b>${exampleGoal}</b>。<br>
-        其中 <b>${exampleLiquid}</b> 来自“退休期支出现值”，<b>${exampleProperty}</b> 来自“房屋净值”。<br>
-        当前路径预计总财富是 <b>${exampleProjected}</b>，所以财富 Gap 是 <b>${exampleGap}</b>。<br>
-        如果要达到这个目标，模型估算所需税前年收入大约是 <b>${exampleReq}</b>，或者你每年大约需要少花 <b>${exampleCut}</b>。<br><br>
-        <b>这个数字怎么来的</b><br>
-        1) 先根据税前年收入和 Federal / 州税 / payroll tax 估算税后收入。<br>
-        2) 再根据住房、生活、旅行、父母 / 家人支持、孩子托育/教育估算年度支出。<br>
-        3) 把未来到80岁的退休支出按实际回报率折现。<br>
-        4) 退休时所需总财富 = 退休期支出现值 + 房屋净值。<br>
-        5) 当前路径预计总财富 = 退休年龄时预计可投资资产 + 房屋净值。<br><br>
-        <b>财富自由定义</b><br>
-        在退休年龄，被动收入加上任何保留的劳动收入，应该足以覆盖当年的支出；同时，总资产基底还要足够支撑到80岁。`;
-  }
-  $('totalNeed').textContent=compact(goal);
-  $('totalNeedBreakdown').textContent=S.lang==='en'
-    ? `Retirement spending PV ${compact(liquidGoal)} + home equity ${compact(propertyGoal)} = total wealth ${compact(goal)}`
-    : `退休期支出现值 ${compact(liquidGoal)} + 房屋净值 ${compact(propertyGoal)} = 总财富 ${compact(goal)}`;
-  $('projectWealth').textContent=compact(proj);
-  $('projectWealth').parentElement.querySelector('.sub').textContent=S.lang==='en'
-    ? `Home equity ${compact(fiPoint.homeEquity)} · total wealth ${compact(projectedTotal)}`
-    : `房屋净值 ${compact(fiPoint.homeEquity)} · 总财富 ${compact(projectedTotal)}`;
-  $('wealthGap').textContent=(gap>=0?'+':'−')+compact(Math.abs(gap));
-  $('wealthGap').style.color=gap>=0?'#4f806b':'#b75b61';
-  $('wealthGap').parentElement.querySelector('.sub').textContent=S.lang==='en'
-    ? (gap>=0?'Above the retirement wealth target':'Still below the retirement wealth target')
-    : (gap>=0?'已超过退休时总财富目标':'距离退休时总财富目标仍有缺口');
-  $('requiredIncomeTop').textContent=money(req)+(S.lang==='en'?'/yr':'/年');
-  $('requiredIncome').textContent=money(req)+(S.lang==='en'?'/yr':'/年');
-  const currentGross=gross();
-  const pctDiff=currentGross>0?(req-currentGross)/currentGross:0;
-  const pctAbs=Math.abs(pctDiff*100);
-  const pctText=S.lang==='en'
-    ? (Math.abs(pctDiff)<0.005
-      ? 'About the same as the current income assumption'
-      : (pctDiff>0?`About ${pctAbs.toFixed(0)}% higher than current income`:`About ${pctAbs.toFixed(0)}% lower than current income`))
-    : (Math.abs(pctDiff)<0.005
-      ? '与当前收入假设基本相同'
-      : (pctDiff>0?`比当前收入高 ${pctAbs.toFixed(0)}%`:`比当前收入低 ${pctAbs.toFixed(0)}%`));
-  $('requiredIncomePctTop').textContent=S.lang==='en'
-    ? `${pctText} · current ${money(currentGross)}/yr`
-    : `${pctText} · 当前 ${money(currentGross)}/年`;
-  $('incomeDelta').textContent=S.lang==='en'
-    ? (req<=currentGross?'Current income is already sufficient under the deterministic baseline.':`It is about ${money(req-currentGross)}/yr above current gross income.`)
-    : (req<=currentGross?'当前收入按确定性基准已足够。':`比当前总税前年收入多约 ${money(req-currentGross)}/年。`);
-  $('incomeDeltaPct').textContent=S.lang==='en'
-    ? (Math.abs(pctDiff)<0.005?'About the same as current income assumptions.':(pctDiff>0?`About ${pctAbs.toFixed(0)}% higher than current income.`:`About ${pctAbs.toFixed(0)}% lower than current income.`))
-    : pctText;
-  $('spendCut').textContent=money(cut)+(S.lang==='en'?'/yr':'/年');
-  const fireAgeLabel=$('fireAgeLabel');
-  const fireAgeValue=$('fireAgeValue');
-  const fireAgeSub=$('fireAgeSub');
-  const fireAgeSideNote=$('fireAgeSideNote');
-  if(fireAgeLabel) fireAgeLabel.textContent=S.lang==='en'?'Current-path FIRE age':'当前路径的财富自由年龄';
-  if(fireAgeSub) fireAgeSub.textContent=S.lang==='en'
-    ? 'The first year when the current path reaches the age-specific total wealth target'
-    : '当前路径首次达到对应年龄总财富门槛的那一年';
-  if(fireAgeValue) fireAgeValue.textContent=currentFireAge===null
-    ? (S.lang==='en'?'Not reached by age 80':'80岁前未达到')
-    : (S.lang==='en'?`${currentFireAge} years old`:`${currentFireAge}岁`);
-  if(fireAgeSideNote) fireAgeSideNote.textContent=currentFireAge===null
-    ? (S.lang==='en'?'On the current path, the age-specific wealth target is never reached before age 80.':'按当前路径，到80岁前仍未达到对应年龄的总财富门槛。')
-    : (S.lang==='en'
-      ? `The current path first reaches the wealth target in ${currentFireAge}.`
-      : `按当前路径，首次达到总财富门槛是在 ${currentFireAge} 岁。`);
-  draw(data);
-  drawWealth(data);
-  renderRows('rows',data,S.projectionMode==='current'?currentFireAge:null);
- }
-bind('langMode','lang');bind('scope','scope');bind('relocationPath','relocationPath');bind('taxMode','taxMode');bind('kids','kids',Number);bind('childcare','childcare');bind('usSchool','usSchool');bind('cnSchool','cnSchool');bind('currentCity','currentCity');bind('city','city');bind('housing','housing');bind('lifestyle','lifestyle');
-document.querySelectorAll('#scope button, #kids button, #lifestyle button').forEach(btn=>btn.addEventListener('click',()=>{S.livingPartsAuto=true;S.autoFood=true;}));
-['currentAge','fiAge','postRetireIncome','assets','income','partnerIncome','ret','downPay','mortgageRate','mortgageYears','homeCarry','manualTax'].forEach(id=>$(id).addEventListener('input',scheduleUpdate));
-const homePurchaseAgeEl=$('homePurchaseAge');
-  if(homePurchaseAgeEl) homePurchaseAgeEl.addEventListener('input',()=>{S.homePurchaseAgeManual=true;scheduleUpdate()});
- $('bayBaseSpend').addEventListener('input',e=>{syncLivingPartsFromTotal(Number(e.target.value)||0);updateLivingTotalsView();scheduleUpdate()});
- document.addEventListener('input',e=>{
-   const t=e.target;
-   if(!t || !t.matches) return;
-   if(t.matches('[data-living-key]')){
-     const key=t.dataset.livingKey;
-     if(key){
-       if(key==='food') S.autoFood=false;
-       setLivingPart(key,Number(t.value)||0);
-       updateLivingTotalsView();
-       scheduleUpdate();
-     }
-   }
- });
- $('projectionCurrentBtn').addEventListener('click',()=>{S.projectionMode='current';scheduleUpdate();});
- $('projectionTargetBtn').addEventListener('click',()=>{S.projectionMode='target';scheduleUpdate();});
-  $('taxState').addEventListener('change',e=>{S.taxState=e.target.value;scheduleUpdate();});
-  const chartEl=$('chart');
-  chartEl.addEventListener('mousemove',e=>showTooltipFromClientX(e.clientX,e.clientY));
-  chartEl.addEventListener('mouseleave',()=>{$('chartTooltip').style.display='none'});
-  chartEl.addEventListener('touchstart',e=>{if(e.touches[0])showTooltipFromClientX(e.touches[0].clientX,e.touches[0].clientY)},{passive:true});
-  chartEl.addEventListener('touchmove',e=>{if(e.touches[0])showTooltipFromClientX(e.touches[0].clientX,e.touches[0].clientY)},{passive:true});
-  chartEl.addEventListener('touchend',()=>{setTimeout(()=>{$('chartTooltip').style.display='none'},900)});
-  const wealthChartEl=$('wealthChart');
-  if(wealthChartEl){
-    wealthChartEl.addEventListener('mousemove',e=>showWealthTooltipFromClientX(e.clientX,e.clientY));
-    wealthChartEl.addEventListener('mouseleave',()=>{$('wealthTooltip').style.display='none'});
-    wealthChartEl.addEventListener('touchstart',e=>{if(e.touches[0])showWealthTooltipFromClientX(e.touches[0].clientX,e.touches[0].clientY)},{passive:true});
-    wealthChartEl.addEventListener('touchmove',e=>{if(e.touches[0])showWealthTooltipFromClientX(e.touches[0].clientX,e.touches[0].clientY)},{passive:true});
-    wealthChartEl.addEventListener('touchend',()=>{setTimeout(()=>{$('wealthTooltip').style.display='none'},900)});
-  }
-
- const LIVING_PARTS=[
-  ['food', {zh:'吃饭', en:'Food'}],
-  ['goods', {zh:'消费品', en:'Consumer goods'}],
-  ['insurance', {zh:'保险', en:'Insurance'}],
-  ['medical', {zh:'医疗', en:'Medical'}],
-  ['misc', {zh:'其他', en:'Misc'}]
- ];
- function defaultLivingPartsForHousehold(){
-  const a=adults();
-  const k=S.kids;
-  return {
-    food: Math.round(a*2600 + k*1200),
-    goods: Math.round(a*3000 + k*900),
-    insurance: Math.round(a*1100 + k*150),
-    medical: Math.round(a*1400 + k*400),
-    misc: Math.round(a*2800 + k*900)
-  };
- }
- function livingParts(){
-  if(!S.livingParts || S.livingPartsAuto){
-    S.livingParts=defaultLivingPartsForHousehold();
-    S.livingPartsAuto=true;
-  }
-  return S.livingParts;
- }
- function livingPartsTotal(){
-  return Object.values(livingParts()).reduce((a,b)=>a+b,0);
- }
- function foodAssumptionAnnual(){
-  const a=adults();
-  const k=S.kids;
-  const style={lean:.92,base:1,comfort:1.15}[S.lifestyle] ?? 1;
-  return Math.round((a*2600 + k*1200) * style);
- }
- function foodAssumptionNote(){
-  if(S.lang==='en'){
-    if(S.lifestyle==='lean') return `Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. Food scales by people count, so more adults/kids increase the base automatically, while lean mode keeps the per-person food budget a bit lower.`;
-    if(S.lifestyle==='comfort') return `Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. Food scales by people count, so more adults/kids increase the base automatically, while comfort mode assumes more dining out and convenience spending.`;
-    return `Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. Food scales by people count, so more adults/kids increase the base automatically.`;
-  }
-  if(S.lang==='bilingual'){
-    if(S.lifestyle==='lean') return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。food 会按人头自动放大，所以成人和孩子越多，base 越高；节制模式只是把人均 food 压低一点。 / Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. Food scales by people count, so more adults/kids increase the base automatically, while lean mode keeps the per-person food budget a bit lower.`;
-    if(S.lifestyle==='comfort') return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。food 会按人头自动放大，所以成人和孩子越多，base 越高；舒适模式假设外食和便利性开销更多。 / Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. Food scales by people count, so more adults/kids increase the base automatically, while comfort mode assumes more dining out and convenience spending.`;
-    return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。food 会按人头自动放大，所以成人和孩子越多，base 越高。 / Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. Food scales by people count, so more adults/kids increase the base automatically.`;
-  }
-  if(S.lifestyle==='lean') return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。food 会按人头自动放大，所以成人和孩子越多，base 越高；节制模式只是把人均 food 压低一点。`;
-  if(S.lifestyle==='comfort') return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。food 会按人头自动放大，所以成人和孩子越多，base 越高；舒适模式假设外食和便利性开销更多。`;
-  return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。food 会按人头自动放大，所以成人和孩子越多，base 越高。`;
- }
- function livingBaseSpendDescText(){
-  if(S.lang==='en'){
-    return 'Bay Area baseline living cost is split by household size into food / goods / insurance / medical / misc. Food and goods scale by people count, insurance and medical primarily scale by adults, and travel remains a separate top-level spending item. Insurance here mainly means home, auto, life, and umbrella premiums.';
-  }
-  if(S.lang==='bilingual'){
-    return '湾区基础生活费会按家庭人数拆成 food / goods / insurance / medical / misc。food 和 goods 按人头，insurance 和 medical 主要按成人数，travel 仍然单独作为顶层支出。这里的 insurance 主要指房屋、车、寿险和 umbrella 这类保费，不再单独写“邮费”。 / Bay Area baseline living cost is split by household size into food / goods / insurance / medical / misc. Food and goods scale by people count, insurance and medical primarily scale by adults, and travel remains a separate top-level spending item. Insurance here mainly means home, auto, life, and umbrella premiums.';
-  }
-  return '湾区基础生活费会按家庭人数拆成 food / goods / insurance / medical / misc。food 和 goods 按人头，insurance 和 medical 主要按成人数，travel 仍然单独作为顶层支出。这里的 insurance 主要指房屋、车、寿险和 umbrella 这类保费，不再单独写“邮费”。';
- }
- function syncFoodIfAuto(){
-  if(!S.autoFood) return;
-  S.livingParts.food=foodAssumptionAnnual();
- }
- function recalibrateLivingPartsIfAuto(){
-  if(!S.livingPartsAuto) return;
-  S.livingParts=defaultLivingPartsForHousehold();
-  syncFoodIfAuto();
- }
- function livingBaseTargetTotal(){
-  recalibrateLivingPartsIfAuto();
-  syncFoodIfAuto();
-  return livingPartsTotal();
- }
- function updateLivingTotalsView(){
-  const livingTotal=bayBaseSpend();
-  const bayBaseSpendEl=$('bayBaseSpend');
-  const bayBaseSpendV=$('bayBaseSpendV');
-  const livingBaseTotalV=$('livingBaseTotalV');
-  if(bayBaseSpendEl) bayBaseSpendEl.value=livingTotal;
-  if(bayBaseSpendV) bayBaseSpendV.textContent=money(livingTotal)+'/yr';
-  if(livingBaseTotalV) livingBaseTotalV.textContent=money(livingTotal)+'/yr';
- }
- function syncLivingPartsFromTotal(total){
-  const p=livingParts();
-  S.livingPartsAuto=false;
-  const current=livingPartsTotal();
-  if(current<=0){
-    const base={food:.3333,goods:.1806,insurance:.1528,medical:.125,misc:.2083};
-    Object.keys(base).forEach(k=>{p[k]=Math.max(0,Math.round(total*base[k]));});
-  }else{
-    const ratio=total/current;
-    Object.keys(p).forEach(k=>{p[k]=Math.max(0,Math.round(p[k]*ratio));});
-    const diff=total-livingPartsTotal();
-    p.misc=Math.max(0,p.misc+diff);
-  }
- }
- function setLivingPart(key,value){
-  const p=livingParts();
-  S.livingPartsAuto=false;
-  p[key]=Math.max(0,Math.round(value));
- }
-
- update();
- Promise.all([loadFoodSampleCSV(),loadHousingSampleCSV()]).finally(()=>scheduleUpdate());
-})();
-</script>
+<script src="./dashboard-app.js"></script>
 </body>
 </html>

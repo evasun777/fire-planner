@@ -1,0 +1,10 @@
+key,category,label_zh,label_en,annual_cost_usd,annual_cost_y0_usd,annual_cost_y15_usd,applies_to,notes
+daycare,childcare,Daycare为主,Daycare first,,"45000","22000",Ages 0-5,规划口径：0-5岁以 daycare 为主
+mixed,childcare,父母+Nanny+Daycare,Parent + Nanny + Daycare,,"60000","30000",Ages 0-5,规划口径：0-5岁混合托育
+nanny,childcare,Nanny为主,Nanny first,,"80000","50000",Ages 0-5,规划口径：0-5岁以 nanny 为主
+usPublic,school,美国优质公立,US public school,"12000","","",Ages 6-17,美国阶段学校年费
+usPrivate,school,美国私立,US private school,"35000","","",Ages 6-17,美国阶段学校年费
+cnIntl,school,回国国际/双语,China intl / bilingual school,"32500","","",Ages 6-17,回国后学校年费
+cnPublic,school,回国中国公立,China public school,"8000","","",Ages 6-17,回国后学校年费
+stayUS,school,继续留美,Stay in the US,"0","","",Ages 6-17,选择留美时不切换中国学校成本
+college,school,大学,College,"20000","","",Ages 18-21,孩子大学年费假设

@@ -1,0 +1,14 @@
+city_key,city_zh,city_en,rent_3br_monthly_usd,rent_3br_annual_usd,rent_4br_monthly_usd,rent_4br_annual_usd,buy_3br_usd,buy_4br_usd,living_factor,source_note
+bay,湾区,Bay Area,6500,78000,8000,96000,1900000,2300000,1.00,Bay Area planning baseline
+nyc,纽约,New York,7500,90000,9000,108000,1700000,2100000,1.14,NYC planning baseline
+seattle,西雅图,Seattle,4600,55200,5600,67200,1250000,1550000,0.95,Seattle planning baseline
+losangeles,洛杉矶,Los Angeles,4200,50400,5200,62400,1150000,1450000,1.02,Los Angeles planning baseline
+dallas,达拉斯,Dallas,3200,38400,4000,48000,850000,1050000,0.82,Dallas planning baseline
+shanghai,上海,Shanghai,2100,25200,2800,33600,1500000,2000000,0.68,Shanghai planning baseline
+hangzhou,杭州,Hangzhou,1400,16800,1800,21600,950000,1250000,0.56,Hangzhou planning baseline
+suzhou,苏州,Suzhou,1050,12600,1350,16200,700000,900000,0.52,Suzhou planning baseline
+chengdu,成都,Chengdu,950,11400,1250,15000,620000,800000,0.50,Chengdu planning baseline
+kunming,昆明,Kunming,750,9000,1000,12000,450000,580000,0.44,Kunming planning baseline
+dali,大理,Dali,850,10200,1150,13800,520000,680000,0.47,Proxy estimate from local planning baseline; direct city-page links are sparse
+haikou,海口,Haikou,850,10200,1150,13800,520000,680000,0.46,Haikou planning baseline
+taiyuan,太原,Taiyuan,700,8400,950,11400,380000,500000,0.40,Proxy estimate from local planning baseline; direct city-page links are sparse

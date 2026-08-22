@@ -1,0 +1,157 @@
+{
+  "version": "2026-08-15",
+  "purpose": "Planning assumptions for automatic effective tax rate estimation in the FIRE dashboard.",
+  "currency": "USD",
+  "incomeType": "wage_income",
+  "modes": {
+    "autoEstimate": {
+      "description": "Estimate federal, payroll, and state taxes from gross wage income using planning brackets.",
+      "notes": [
+        "This is a planning approximation, not a tax filing engine.",
+        "If the user already knows their effective tax rate, manual mode can override it."
+      ]
+    },
+    "manualEffectiveRate": {
+      "description": "User-provided total effective tax rate applied directly to gross income."
+    }
+  },
+  "federal": {
+    "taxYear": 2026,
+    "filingStatus": {
+      "single": {
+        "standardDeduction": 16100,
+        "brackets": [
+          { "upTo": 12400, "rate": 0.10 },
+          { "upTo": 50400, "rate": 0.12 },
+          { "upTo": 105700, "rate": 0.22 },
+          { "upTo": 201775, "rate": 0.24 },
+          { "upTo": 256225, "rate": 0.32 },
+          { "upTo": 640600, "rate": 0.35 },
+          { "upTo": null, "rate": 0.37 }
+        ]
+      },
+      "joint": {
+        "standardDeduction": 32200,
+        "brackets": [
+          { "upTo": 24800, "rate": 0.10 },
+          { "upTo": 100800, "rate": 0.12 },
+          { "upTo": 211400, "rate": 0.22 },
+          { "upTo": 403550, "rate": 0.24 },
+          { "upTo": 512450, "rate": 0.32 },
+          { "upTo": 768700, "rate": 0.35 },
+          { "upTo": null, "rate": 0.37 }
+        ]
+      }
+    }
+  },
+  "payrollTax": {
+    "socialSecurityRate": 0.062,
+    "socialSecurityWageBase": 184500,
+    "medicareRate": 0.0145,
+    "additionalMedicareRate": 0.009,
+    "additionalMedicareThreshold": {
+      "single": 200000,
+      "joint": 250000
+    }
+  },
+  "california": {
+    "taxYear": 2025,
+    "standardDeduction": {
+      "single": 5706,
+      "joint": 11412
+    },
+    "brackets": {
+      "single": [
+        { "upTo": 11079, "rate": 0.01 },
+        { "upTo": 26264, "rate": 0.02 },
+        { "upTo": 41452, "rate": 0.04 },
+        { "upTo": 57542, "rate": 0.06 },
+        { "upTo": 72724, "rate": 0.08 },
+        { "upTo": 371479, "rate": 0.093 },
+        { "upTo": 445771, "rate": 0.103 },
+        { "upTo": 742953, "rate": 0.113 },
+        { "upTo": null, "rate": 0.123 }
+      ],
+      "joint": [
+        { "upTo": 22158, "rate": 0.01 },
+        { "upTo": 52528, "rate": 0.02 },
+        { "upTo": 82904, "rate": 0.04 },
+        { "upTo": 115084, "rate": 0.06 },
+        { "upTo": 145448, "rate": 0.08 },
+        { "upTo": 742958, "rate": 0.093 },
+        { "upTo": 891542, "rate": 0.103 },
+        { "upTo": 1485906, "rate": 0.113 },
+        { "upTo": null, "rate": 0.123 }
+      ]
+    },
+    "mentalHealthServicesTax": {
+      "threshold": 1000000,
+      "rate": 0.01
+    }
+  },
+  "otherStates": {
+    "noPersonalIncomeTax": ["TX", "WA", "FL"],
+    "planningRates": {
+      "NY": 0.065,
+      "MA": 0.05,
+      "NJ": 0.06,
+      "IL": 0.045,
+      "PA": 0.031,
+      "VA": 0.05,
+      "NC": 0.045,
+      "OTHER": 0.04
+    }
+  },
+  "excludedItems": [
+    "401(k)",
+    "HSA",
+    "itemized deductions",
+    "AMT",
+    "NIIT",
+    "capital gains timing",
+    "RSU timing",
+    "other personalized tax optimizations"
+  ],
+  "visualizationRows": [
+    {
+      "label": "Single / CA / $200k gross",
+      "filingStatus": "single",
+      "state": "CA",
+      "grossIncome": 200000,
+      "federalTax": 36734,
+      "stateTax": 14507.98,
+      "payrollTax": 14339,
+      "additionalMedicareTax": 0,
+      "totalTax": 65580.98,
+      "effectiveTaxRate": 0.3279049
+    },
+    {
+      "label": "Joint / CA / $400k gross",
+      "filingStatus": "joint",
+      "state": "CA",
+      "grossIncome": 400000,
+      "federalTax": 73468,
+      "stateTax": 29015.96,
+      "payrollTax": 28678,
+      "additionalMedicareTax": 1350,
+      "totalTax": 132511.96,
+      "effectiveTaxRate": 0.3312799
+    },
+    {
+      "label": "Single / TX / $200k gross",
+      "filingStatus": "single",
+      "state": "TX",
+      "grossIncome": 200000,
+      "federalTax": 36734,
+      "stateTax": 0,
+      "payrollTax": 14339,
+      "additionalMedicareTax": 0,
+      "totalTax": 51073,
+      "effectiveTaxRate": 0.255365
+    }
+  ],
+  "sourceNotes": [
+    "Use this file for visualization, tooltip linking, or future charting.",
+    "The live dashboard still computes taxes in index.html, so this file is a structured reference rather than the active runtime calculator."
+  ]
+}

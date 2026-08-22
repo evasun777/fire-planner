@@ -93,6 +93,7 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
 .fire-hit td{font-weight:800;color:#2d2926}
 .hero-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:nowrap}
 .hero-row > div:first-child{min-width:0;flex:1 1 auto}
+.hero-actions{display:flex;gap:6px;align-items:center;flex:0 0 auto;justify-content:flex-end;flex-wrap:wrap}
 .lang-toggle{justify-content:flex-end;flex:0 0 auto;margin-left:auto;white-space:nowrap}
 .lang-toggle button{min-width:0}
 .main-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0 18px}
@@ -128,6 +129,7 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
 .tab-panel.is-hidden{display:none !important}
 @media(max-width:700px){
  .hero-row{flex-direction:column;flex-wrap:nowrap}
+ .hero-actions{justify-content:flex-start;flex-wrap:wrap}
  .lang-toggle{margin-left:0;justify-content:flex-start;white-space:normal}
  .main-tabs{grid-template-columns:1fr}
 }
@@ -140,10 +142,13 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
    <div class="eyebrow">LIFE MAP</div>
    <h1>FIRE 财富自由规划器</h1>
   </div>
-  <div class="seg lang-toggle" id="langMode">
-   <button data-v="zh">中文</button>
-   <button data-v="en">English</button>
-   <button data-v="bilingual" class="active">中英双语</button>
+  <div class="hero-actions">
+   <div class="seg lang-toggle" id="langMode">
+    <button data-v="zh">中文</button>
+    <button data-v="en">English</button>
+    <button data-v="bilingual" class="active">中英双语</button>
+   </div>
+   <button id="exportPdfBtn" type="button" class="export-btn">导出PDF</button>
   </div>
  </div>
 
@@ -248,10 +253,16 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
   </div>
   <div class="desc" style="margin:8px 0 10px">当前地点决定退休前的 living / housing / travel / 家人支持等费用；退休地点决定退休后的长期生活成本。 / The current city drives pre-retirement spending, while the retirement city drives post-retirement living costs.</div>
   <div class="control">
-   <div class="head"><label id="bayBaseSpendLabel">当前地点家庭基础生活费（不含房贷 / housing）</label><span class="pill" id="bayBaseSpendV">$30k</span></div>
+   <div class="head"><label id="bayBaseSpendLabel">有孩子前家庭基础生活费（不含房贷 / housing）</label><span class="pill" id="bayBaseSpendV">$30k</span></div>
     <input id="bayBaseSpend" type="range" min="15000" max="150000" step="1000" value="30000">
     <div class="desc" id="bayBaseSpendDesc" style="margin-top:6px">这是当前地点的家庭总生活费（不含房贷）。默认值会从你去年的 spending snapshot + 当前家庭口径校准出来；你可以直接拖总额，也可以展开下面的 detail 逐项调 food / goods / insurance / medical / misc。food 和 goods 会随家庭人数变化，insurance 和 medical 主要随成人数变化，travel 仍然单独作为顶层支出。这里的 insurance 主要指房屋、车、寿险和 umbrella 这类保费，不再单独写“邮费”。</div>
   </div>
+  <div class="control">
+   <div class="head"><label id="bayBaseSpendAfterLabel">有孩子后家庭基础生活费（不含房贷 / housing）</label><span class="pill" id="bayBaseSpendAfterV">$30k</span></div>
+    <input id="bayBaseSpendAfter" type="range" min="15000" max="150000" step="1000" value="30000">
+    <div class="desc" id="bayBaseSpendAfterDesc" style="margin-top:6px">这个数会在第一个孩子出生年龄之后生效。你可以理解为“有孩子后”的当前地点家庭基础生活费；模型会在该年龄点自动切换到这里。 / This stage becomes active after the first child birth age.</div>
+  </div>
+  <div class="desc" id="livingStageHint" style="margin-top:8px"></div>
   <details class="info" id="livingEditorWrap" open>
    <summary id="livingEditorSummary">ⓘ 调整支出明细 / Adjust spending detail</summary>
    <div class="info-body" id="livingEditorInfo"></div>
@@ -405,7 +416,7 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
    <input id="incomeGrowth" type="range" min="0" max=".15" step=".005" value=".05">
    <div class="desc" id="incomeGrowthDesc" style="margin-top:6px">默认按每年 5% 的收入增长来推演；这里会影响当前路径和达标路径里未来每年的税前年收入。</div>
   </div>
-  <div class="control"><div class="head"><label id="retReturnLabel">长期实际投资回报</label><span class="pill" id="retV"></span></div><input id="ret" type="range" min="0" max=".07" step=".005" value=".035"></div>
+  <div class="control"><div class="head"><label id="retReturnLabel">长期实际投资回报</label><span class="pill" id="retV"></span></div><input id="ret" type="range" min="0" max=".20" step=".005" value=".035"></div>
   <details class="info"><summary id="retReturnSummary">ⓘ 长期实际投资回报 Assumption</summary><div class="info-body" id="retInfo"></div></details>
   <div class="control">
    <div class="head"><label id="taxStateLabel">报税所在州</label><span class="pill" id="taxStateV">California</span></div>
@@ -495,14 +506,14 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
   <div class="legend" id="wealthLegend"><span><i class="dot" style="background:#58719f"></i>可投资资产</span><span><i class="dot" style="background:#4f806b"></i>房屋净值</span><span><i class="dot" style="background:#b75b61"></i>房贷余额（负债）</span><span><i class="dot" style="background:#aa8344"></i>总财富</span></div>
  </div>
 
-<div class="card wealth-card outcome-card tab-panel" data-tab="outcome">
-  <div class="chart-head" style="margin-top:2px;align-items:flex-start">
+ <div class="card wealth-card outcome-card tab-panel" data-tab="outcome">
+   <div class="chart-head" style="margin-top:2px;align-items:flex-start">
    <details class="annual-toggle" open>
-    <summary id="annualSummary">7. 年度明细（至80岁）</summary>
-    <div class="scroll" style="margin-top:12px"><table><thead><tr><th>年龄</th><th>劳动收入</th><th>被动收入</th><th>支出</th><th>年度净现金流</th><th>投资收益</th><th>可投资资产</th><th>房屋净值</th><th>总财富</th></tr></thead><tbody id="rows"></tbody></table></div>
+   <summary id="annualSummary">7. 年度明细（至80岁）</summary>
+   <div class="scroll" style="margin-top:12px"><table><thead><tr><th>年龄</th><th>劳动收入</th><th>被动收入</th><th>支出</th><th>年度净现金流</th><th>投资收益</th><th>可投资资产</th><th>房屋净值</th><th>总财富</th></tr></thead><tbody id="rows"></tbody></table></div>
    </details>
    <button id="downloadAnnualCsvBtn" type="button" class="export-btn">下载CSV</button>
- </div>
+  </div>
 
  <div class="card faq neutral-card outcome-card tab-panel" data-tab="outcome">
   <h2>8. FAQ</h2>

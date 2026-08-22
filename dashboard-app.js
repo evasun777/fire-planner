@@ -1,5 +1,5 @@
 (function(){
-const S={scope:'family',kids:2,childBirthAge:32,childBirthAgeManual:true,childcare:'mixed',usSchool:'public',cnSchool:'intl',currentCity:'bay',city:'bay',housing:'buy',homePurchaseAge:45,homePurchaseAgeManual:false,homePriceManual:false,lifestyle:'base',chartMode:'detail',projectionMode:'current',relocationPath:'stayUS',taxState:'CA',taxMode:'auto',lang:'bilingual',tab:'cost',incomeGrowth:0.05,autoFood:true,livingPartsAuto:true,livingParts:{food:0,goods:0,insurance:0,medical:0,misc:0}};
+const S={scope:'family',kids:2,childBirthAge:32,childBirthAgeManual:true,childcare:'mixed',usSchool:'public',cnSchool:'intl',currentCity:'bay',city:'bay',housing:'buy',homePurchaseAge:45,homePurchaseAgeManual:false,homePriceManual:false,lifestyle:'base',chartMode:'detail',projectionMode:'current',relocationPath:'stayUS',taxState:'CA',taxMode:'auto',lang:'bilingual',tab:'cost',incomeGrowth:0.05,autoFood:{pre:true,post:true},livingPartsAuto:{pre:true,post:true},livingParts:{pre:{food:0,goods:0,insurance:0,medical:0,misc:0},post:{food:0,goods:0,insurance:0,medical:0,misc:0}}};
  let currentPathFireAge=null;
  let currentPathFireIndex=-1;
  const CITY={
@@ -376,8 +376,8 @@ function stateText(v){
    if(S.lang==='en') return en;
    return `${zh} / ${en}`;
  }
- function bayBaseSpend(){return livingBaseTargetTotal()}
- function livingSpendForCity(c){return Math.round(bayBaseSpend()*c.livingFactor)}
+function bayBaseSpend(stageOrAge=livingStageForAge()){return livingBaseTargetTotal(stageOrAge)}
+function livingSpendForCity(c,age=_spendAge||n('currentAge')){return Math.round(bayBaseSpend(age)*c.livingFactor)}
 function cityResource(c){
   const base=money(bayBaseSpend());
   const factor=c.livingFactor.toFixed(2);
@@ -386,10 +386,10 @@ function cityResource(c){
     ? 'Source: your Bay Area baseline input + the dashboard planning coefficients.'
     : '来源：你的湾区基准输入 + 本页面的城市规划系数。';
   return S.lang==='zh'
-     ? `资料：<a href="./assumptions/ASSUMPTIONS.md" target="_blank" rel="noopener">ASSUMPTIONS.md</a> · 当前地点基础生活费 ${base}/年 × 城市${factorText} = 该城市固定生活费。<br>${sourceText}<br>这套地点假设也会影响下面的退休住房默认值。`
+     ? `资料：<a href="./assumptions/ASSUMPTIONS.md" target="_blank" rel="noopener">ASSUMPTIONS.md</a> · 当前阶段基础生活费 ${base}/年 × 城市${factorText} = 该城市固定生活费。<br>${sourceText}<br>这套地点假设也会影响下面的退休住房默认值。`
      : S.lang==='en'
-       ? `Resource: <a href="./assumptions/ASSUMPTIONS.md" target="_blank" rel="noopener">ASSUMPTIONS.md</a> · Current city baseline living cost ${base}/yr × city ${factorText} = this city's fixed living cost.<br>${sourceText}<br>This location assumption also feeds the retirement housing defaults below.`
-       : `资料：<a href="./assumptions/ASSUMPTIONS.md" target="_blank" rel="noopener">ASSUMPTIONS.md</a> · 当前地点基础生活费 ${base}/年 × 城市系数 ${factorText} = 该城市固定生活费。<br>${sourceText}<br>这套地点假设也会影响下面的退休住房默认值。`;
+       ? `Resource: <a href="./assumptions/ASSUMPTIONS.md" target="_blank" rel="noopener">ASSUMPTIONS.md</a> · Current-stage baseline living cost ${base}/yr × city ${factorText} = this city's fixed living cost.<br>${sourceText}<br>This location assumption also feeds the retirement housing defaults below.`
+       : `资料：<a href="./assumptions/ASSUMPTIONS.md" target="_blank" rel="noopener">ASSUMPTIONS.md</a> · 当前阶段基础生活费 ${base}/年 × 城市系数 ${factorText} = 该城市固定生活费。<br>${sourceText}<br>这套地点假设也会影响下面的退休住房默认值。`;
 }
 function cityFoodResource(c){
   const row=cityFoodSample(c);
@@ -404,6 +404,7 @@ function updateSpendingSummaryMeters(){
   const currentAge=n('currentAge');
   const fiAge=n('fiAge');
   const currentSpend=spend(currentAge);
+  const currentLivingStage=livingStageForAge(currentAge);
   const currentHousingSpend=Math.max(0,currentSpend.breakdown?.housing||0);
   const currentLivingSpend=Math.max(0,currentSpend.breakdown?.living||0);
   let cumulativeHousing=0;
@@ -435,7 +436,11 @@ function updateSpendingSummaryMeters(){
       : `当前年度住房支出：${money(currentHousingSpend)}/年 · 到退休前累计：${money(cumulativeHousing)}/年`
   );
   setMeter('livingSpend',
-    S.lang==='en'?'Current city living spending':(S.lang==='bilingual'?'当前地点家庭生活费 / Current city living spending':'当前地点家庭生活费'),
+    S.lang==='en'
+      ? `Current-stage living spending (${livingStageLabel(currentLivingStage)})`
+      : (S.lang==='bilingual'
+        ? `当前阶段家庭生活费（${livingStageLabel(currentLivingStage)}） / Current-stage living spending`
+        : `当前阶段家庭生活费（${livingStageLabel(currentLivingStage)}）`),
     money(currentLivingSpend)+(S.lang==='en'?'/yr':'/年'),
     totalAnnual?currentLivingSpend/totalAnnual*100:0,
     S.lang==='en'
@@ -443,7 +448,7 @@ function updateSpendingSummaryMeters(){
       : `当前年度生活费：${money(currentLivingSpend)}/年 · 到退休前累计：${money(cumulativeLiving)}/年`
   );
 }
- function renderLanguage(){
+function renderLanguage(){
   document.documentElement.lang=S.lang==='en'?'en':'zh-CN';
   document.title=L('hero');
   const heroTitle=document.querySelector('.hero h1');
@@ -486,6 +491,10 @@ function updateSpendingSummaryMeters(){
   if(downloadAnnualCsvBtn) downloadAnnualCsvBtn.textContent=S.lang==='en'
     ? 'Download CSV'
     : (S.lang==='bilingual' ? '下载CSV / Download CSV' : '下载CSV');
+  const exportPdfBtn=$('exportPdfBtn');
+  if(exportPdfBtn) exportPdfBtn.textContent=S.lang==='en'
+    ? 'Export PDF'
+    : (S.lang==='bilingual' ? '导出PDF / Export PDF' : '导出PDF');
   const kpiLabs=$$('.kpi .lab');
   if(kpiLabs[0]) kpiLabs[0].textContent=S.lang==='en'
     ? `Total wealth needed at age ${n('fiAge')}`
@@ -617,9 +626,35 @@ function updateSpendingSummaryMeters(){
   const incomeGrowthV=$('incomeGrowthV');
   if(incomeGrowthV) incomeGrowthV.textContent=(n('incomeGrowth')*100).toFixed(1).replace(/\.0$/,'')+'%';
   const bayBaseSpendLabel=$('bayBaseSpendLabel');
-  if(bayBaseSpendLabel) bayBaseSpendLabel.textContent=S.lang==='en'?'Current city household living cost (excluding housing)':(S.lang==='bilingual'?'当前地点家庭生活费（不含房贷） / Current city household living cost (excluding housing)':'当前地点家庭生活费（不含房贷）');
-  const bayBaseLabel=$('bayBaseSpendLabel');
-  if(bayBaseLabel) bayBaseLabel.textContent=S.lang==='en'?'Current city household living cost (excluding housing)':(S.lang==='bilingual'?'当前地点家庭生活费（不含房贷） / Current city household living cost (excluding housing)':'当前地点家庭生活费（不含房贷）');
+  if(bayBaseSpendLabel) bayBaseSpendLabel.textContent=S.lang==='en'
+    ? 'Before-kids household living cost (excluding housing)'
+    : (S.lang==='bilingual'
+      ? '有孩子前家庭基础生活费（不含房贷） / Before-kids household living cost (excluding housing)'
+      : '有孩子前家庭基础生活费（不含房贷）');
+  const bayBaseSpendAfterLabel=$('bayBaseSpendAfterLabel');
+  if(bayBaseSpendAfterLabel) bayBaseSpendAfterLabel.textContent=S.lang==='en'
+    ? 'After-kids household living cost (excluding housing)'
+    : (S.lang==='bilingual'
+      ? '有孩子后家庭基础生活费（不含房贷） / After-kids household living cost (excluding housing)'
+      : '有孩子后家庭基础生活费（不含房贷）');
+  const bayBaseSpendDesc=$('bayBaseSpendDesc');
+  if(bayBaseSpendDesc) bayBaseSpendDesc.textContent=S.lang==='en'
+    ? `This is the ${livingStageLabel('pre')} stage baseline living cost before housing. You can drag the total directly, or expand the detail below to adjust food / goods / insurance / medical / misc. Food and goods scale with household size in that stage, insurance and medical primarily scale with adults, and travel remains a separate top-level spending item. Insurance here mainly means home, auto, life, and umbrella premiums.`
+    : (S.lang==='bilingual'
+      ? `这是 ${livingStageLabel('pre')} 阶段的房贷前家庭总生活费。你可以直接拖总额，也可以展开下面的 detail 逐项调 food / goods / insurance / medical / misc。food 和 goods 会随该阶段的家庭人数变化，insurance 和 medical 主要随成人数变化，travel 仍然单独作为顶层支出。这里的 insurance 主要指房屋、车、寿险和 umbrella 这类保费。 / This is the ${livingStageLabel('pre')} stage baseline living cost before housing. You can drag the total directly, or expand the detail below to adjust food / goods / insurance / medical / misc. Food and goods scale with household size in that stage, insurance and medical primarily scale with adults, and travel remains a separate top-level spending item. Insurance here mainly means home, auto, life, and umbrella premiums.`
+      : `这是 ${livingStageLabel('pre')} 阶段的房贷前家庭总生活费。你可以直接拖总额，也可以展开下面的 detail 逐项调 food / goods / insurance / medical / misc。food 和 goods 会随该阶段的家庭人数变化，insurance 和 medical 主要随成人数变化，travel 仍然单独作为顶层支出。这里的 insurance 主要指房屋、车、寿险和 umbrella 这类保费。`);
+  const bayBaseSpendAfterDesc=$('bayBaseSpendAfterDesc');
+  if(bayBaseSpendAfterDesc) bayBaseSpendAfterDesc.textContent=S.lang==='en'
+    ? 'This stage becomes active after the first child birth age. You can think of it as the current-city household baseline after kids arrive.'
+    : (S.lang==='bilingual'
+      ? '这个数会在第一个孩子出生年龄之后生效。你可以理解为“有孩子后”的当前地点家庭基础生活费。 / This stage becomes active after the first child birth age. You can think of it as the current-city household baseline after kids arrive.'
+      : '这个数会在第一个孩子出生年龄之后生效。你可以理解为“有孩子后”的当前地点家庭基础生活费。');
+  const livingStageHint=$('livingStageHint');
+  if(livingStageHint) livingStageHint.textContent=S.lang==='en'
+    ? 'The detailed editor below follows the stage that matches your current age.'
+    : (S.lang==='bilingual'
+      ? '下面的明细编辑器会跟随你当前年龄所在的阶段。 / The detailed editor below follows the stage that matches your current age.'
+      : '下面的明细编辑器会跟随你当前年龄所在的阶段。');
   const retInfo=$('retInfo');
   if(retInfo) retInfo.innerHTML=S.lang==='en'
     ? 'This is the <b>long-term real return</b> assumption used to grow current assets and future investment gains. Default is <b>3.5%</b>, but you can drag the slider to use 3%, 4%, or any value in between.'
@@ -716,9 +751,10 @@ States with no personal income tax (TX / WA / FL) are treated as 0 state income 
     : (S.lang==='bilingual' ? 'ⓘ 调整支出明细 / Edit living breakdown' : 'ⓘ 调整支出明细');
   const livingEditorInfo=$('livingEditorInfo');
   if(livingEditorInfo){
-    syncFoodIfAuto();
-    const p=livingParts();
-    const total=livingPartsTotal();
+    const stage=livingStageForAge(n('currentAge'));
+    syncFoodIfAuto(stage);
+    const p=livingParts(stage);
+    const total=livingPartsTotal(stage);
     const rows=LIVING_PARTS.map(([k,label])=>`
       <div class="control">
         <div class="head"><label>${S.lang==='en'?label.en:label.zh}</label><span class="pill" data-living-pill="${k}">${money(p[k])}${S.lang==='en'?'/yr':'/年'}</span></div>
@@ -726,10 +762,10 @@ States with no personal income tax (TX / WA / FL) are treated as 0 state income 
       </div>`).join('');
     livingEditorInfo.innerHTML=`
       <div class="desc" style="margin-bottom:8px">${S.lang==='en'
-        ? 'Drag any item below to adjust the Bay Area baseline living-cost mix. The total baseline updates automatically, and the city living-cost projections follow that total. This default mix is calibrated from your last-year spending snapshot.'
-        : '你可以直接拖下面任意一项来调整湾区基准生活费的结构。总生活费会自动更新，城市生活费也会跟着这个总额变化。这个默认结构是根据你去年的 spending snapshot 做过校准的。'
+        ? `Drag any item below to adjust the ${livingStageLabel(stage)} Bay Area baseline living-cost mix. The total baseline updates automatically, and the city living-cost projections follow that total. This default mix is calibrated from your last-year spending snapshot.`
+        : `你可以直接拖下面任意一项来调整 ${livingStageLabel(stage)} 阶段的湾区基准生活费结构。总生活费会自动更新，城市生活费也会跟着这个总额变化。这个默认结构是根据你去年的 spending snapshot 做过校准的。`
       }</div>
-      <div class="desc" style="margin-bottom:10px">${foodAssumptionNote()}</div>
+      <div class="desc" style="margin-bottom:10px">${foodAssumptionNote(stage)}</div>
       <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">${rows}</div>
     <div class="desc" style="margin-top:8px">${S.lang==='en'
         ? `Current baseline total: <span id="livingBaseTotalV">${money(total)}/yr</span>`
@@ -1141,7 +1177,7 @@ function bind(id,key,cast){document.querySelectorAll('#'+id+' button').forEach(b
 })}
 function syncRelocationPathFromCity(){S.relocationPath=(selectedHomeCity().country==='CN'?'returnChina':'stayUS')}
 function bindSelect(id,key,cast){const el=$(id);if(!el) return;el.addEventListener('change',()=>{S[key]=cast?cast(el.value):el.value;if(key==='city') syncRelocationPathFromCity();scheduleUpdate()})}
-function bindRange(id,key,cast){const el=$(id);if(!el) return;el.addEventListener('input',()=>{S[key]=cast?cast(el.value):el.value;if(key==='kids'){S.livingPartsAuto=true;S.autoFood=true;updateLivingTotalsView();}scheduleUpdate()})}
+function bindRange(id,key,cast){const el=$(id);if(!el) return;el.addEventListener('input',()=>{S[key]=cast?cast(el.value):el.value;if(key==='kids'){S.livingPartsAuto.pre=true;S.livingPartsAuto.post=true;S.autoFood.pre=true;S.autoFood.post=true;updateLivingTotalsView();}scheduleUpdate()})}
  function adults(){return S.scope==='family'?2:1}
  function bedrooms(){return Math.max(1,adults()+S.kids)}
  function housingByBedrooms(c,mode){
@@ -1238,10 +1274,11 @@ function medicalSpend(c=selectedHomeCity(),age=_spendAge||n('currentAge')){
   }
   return ((c.health1||0)+(a===2?(c.health2||0):0))*m;
  }
- function livingBreakdown(coreLiving,medical,secondAdult=0){
+ function livingBreakdown(coreLiving,medical,secondAdult=0,age=_spendAge||n('currentAge')){
+  const stage=livingStageForAge(age);
   const totalBase=Math.max(0,coreLiving+secondAdult);
-  const p=livingParts();
-  const baseTotal=Math.max(1,livingPartsTotal());
+  const p=livingParts(stage);
+  const baseTotal=Math.max(1,livingPartsTotal(stage));
   const scale=totalBase/baseTotal;
   const parts={
    coreLiving:totalBase,
@@ -1267,7 +1304,7 @@ function medicalSpend(c=selectedHomeCity(),age=_spendAge||n('currentAge')){
     </div>`;
   }).join('');
  }
-function cityAdultSpend(c=selectedHomeCity(),age=_spendAge||n('currentAge')){
+ function cityAdultSpend(c=selectedHomeCity(),age=_spendAge||n('currentAge')){
   let m=lifestyleMultiplierAtAge(age),a=adults();
   const purchaseAge=homePurchaseAge();
   let housing;
@@ -1278,11 +1315,11 @@ function cityAdultSpend(c=selectedHomeCity(),age=_spendAge||n('currentAge')){
     housing=mortgageSnapshotForCity(c,age,purchaseAge).annualPayment+ownershipCarry(c)+downPayment;
   }
   let medical=medicalSpend(c,age);
-  let coreLiving=livingSpendForCity(c)*m;
+  let coreLiving=livingSpendForCity(c,age)*m;
   let secondAdult=(a===2?c.secondAdult*m:0);
   let living=coreLiving+secondAdult+medical;
   let parents=parentSupport(age,m);
-  return {housing,living,health:0,medical,livingDetail:livingBreakdown(coreLiving,medical,secondAdult),travel:c.travel*m,parents,total:housing+living+c.travel*m+parents};
+  return {housing,living,health:0,medical,livingDetail:livingBreakdown(coreLiving,medical,secondAdult,age),travel:c.travel*m,parents,total:housing+living+c.travel*m+parents};
  }
 function usAdultSpend(c=CITY.bay,age=_spendAge||n('currentAge')){
   let a=adults(),m=lifestyleMultiplierAtAge(age);
@@ -1295,11 +1332,11 @@ function usAdultSpend(c=CITY.bay,age=_spendAge||n('currentAge')){
     housing=mortgageSnapshotForCity(c,age,purchaseAge).annualPayment+ownershipCarry(c)+downPayment;
   }
   const medical=medicalSpend(c,age);
-  let coreLiving=livingSpendForCity(c)*m;
+  let coreLiving=livingSpendForCity(c,age)*m;
   let secondAdult=(a===2?c.secondAdult*m:0);
   let living=coreLiving+secondAdult+medical;
   let travel=15000*m,parents=parentSupport(age,m);
-  return {housing,living,health:0,medical,livingDetail:livingBreakdown(coreLiving,medical,secondAdult),travel,parents,total:housing+living+travel+parents};
+  return {housing,living,health:0,medical,livingDetail:livingBreakdown(coreLiving,medical,secondAdult,age),travel,parents,total:housing+living+travel+parents};
  }
  function retirementLocationCity(age){
    if(age<n('fiAge')) return currentHomeCity();
@@ -1964,6 +2001,434 @@ function downloadAnnualCsv(){
   if(!lastAnnualRows.length) return;
   triggerDownload(annualCsvFilename(), annualRowsToCsv(lastAnnualRows));
 }
+function escapeHtml(value){
+  return String(value ?? '').replace(/[&<>"']/g,ch=>({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[ch]));
+}
+function wrapLines(text, maxChars=78){
+  const words=String(text||'').split(/\s+/).filter(Boolean);
+  const lines=[];
+  let line='';
+  words.forEach(word=>{
+    const next=line ? `${line} ${word}` : word;
+    if(next.length>maxChars && line){
+      lines.push(line);
+      line=word;
+    }else{
+      line=next;
+    }
+  });
+  if(line) lines.push(line);
+  return lines;
+}
+function annualSnapshot(){
+  const currentAge=n('currentAge');
+  const fiAge=n('fiAge');
+  const endAge=Math.max(80, fiAge);
+  const currentData=deterministic(null,0,endAge);
+  const currentFireIndex=currentData.findIndex(x=>x.totalWealth>=totalTargetAtAge(x.age));
+  const currentFireAge=currentFireIndex>=0 ? currentData[currentFireIndex].age : null;
+  const currentFiPoint=currentData.find(x=>x.age===fiAge) || currentData[currentData.length-1];
+  const goal=totalTarget();
+  const liquidGoal=liquidTarget();
+  const propertyGoal=houseReserve();
+  const req=solveIncome(goal);
+  const cut=solveCut(goal);
+  const projectedTotal=currentFiPoint?.totalWealth ?? 0;
+  const projectedAssets=currentFiPoint?.assets ?? 0;
+  const gap=projectedTotal-goal;
+  const avgIncome=currentData.length
+    ? currentData.reduce((sum,x)=>sum+(x.incomeSelf+x.incomePartner+x.portfolioDraw+x.inv),0)/currentData.length
+    : 0;
+  const avgSpend=currentData.length
+    ? currentData.reduce((sum,x)=>sum+x.spend,0)/currentData.length
+    : 0;
+  return {
+    currentAge,
+    fiAge,
+    endAge,
+    currentData,
+    currentFireAge,
+    currentFiPoint,
+    goal,
+    liquidGoal,
+    propertyGoal,
+    req,
+    cut,
+    projectedTotal,
+    projectedAssets,
+    gap,
+    avgIncome,
+    avgSpend
+  };
+}
+function buildShareLines(snapshot){
+  const currentCityName=cityName(currentHomeCity());
+  const retireCityName=cityName(selectedHomeCity());
+  const scopeText=S.scope==='family'
+    ? (S.lang==='en' ? 'Dual-adult household' : (S.lang==='bilingual' ? '双成人家庭 / Dual-adult household' : '双成人家庭'))
+    : (S.lang==='en' ? 'Individual' : (S.lang==='bilingual' ? '个人口径 / Individual' : '个人口径'));
+  const lifestyleText=S.lang==='en'
+    ? (S.lifestyle==='lean'?'Lean':S.lifestyle==='comfort'?'Comfort':'Base')
+    : (S.lifestyle==='lean'?'节制':S.lifestyle==='comfort'?'宽裕':'舒适');
+  const kidsText=S.lang==='en'
+    ? `${S.kids} kid${S.kids===1?'':'s'}`
+    : `${S.kids}个孩子`;
+  const growthText=(n('incomeGrowth')*100).toFixed(1).replace(/\.0$/,'')+'%';
+  const returnText=(n('ret')*100).toFixed(1).replace(/\.0$/,'')+'%';
+  const fireAgeText=snapshot.currentFireAge===null
+    ? (S.lang==='en' ? 'Not reached by age 80' : '80岁前未达到')
+    : (S.lang==='en' ? `${snapshot.currentFireAge} years old` : `${snapshot.currentFireAge}岁`);
+  const fireDef=S.lang==='en'
+    ? 'FIRE = passive income > spending'
+    : '财富自由 = 被动收入大于总支出';
+  return {
+    headline:S.lang==='en' ? `Age ${snapshot.fiAge} retirement snapshot` : `${snapshot.fiAge}岁退休快照`,
+    subline:S.lang==='en'
+      ? `Current path · current age ${snapshot.currentAge} → retirement age ${snapshot.fiAge}`
+      : `当前路径 · 当前年龄 ${snapshot.currentAge} → 退休年龄 ${snapshot.fiAge}`,
+    bodyLines:[
+      S.lang==='en'
+        ? `Household: ${scopeText} · Kids: ${kidsText} · Lifestyle: ${lifestyleText}`
+        : `家庭口径：${scopeText} · 孩子：${kidsText} · 生活方式：${lifestyleText}`,
+      S.relocationPath==='returnChina'
+        ? (S.lang==='en'
+          ? `City path: ${currentCityName} before ${snapshot.fiAge}, then ${retireCityName} after ${snapshot.fiAge}`
+          : `城市路径：${snapshot.fiAge} 岁前按 ${currentCityName}，之后按 ${retireCityName}`)
+        : (S.lang==='en'
+          ? `City path: stay in ${currentCityName} through age 80`
+          : `城市路径：一直按 ${currentCityName} 计算到 80 岁`),
+      S.lang==='en'
+        ? `Income growth: ${growthText} · Real return: ${returnText} · Tax state: ${stateText(S.taxState)}`
+        : `年收入增长：${growthText} · 实际回报：${returnText} · 报税州：${stateText(S.taxState)}`,
+      S.lang==='en'
+        ? `Current-path FIRE age: ${fireAgeText} · ${fireDef}`
+        : `当前路径财富自由年龄：${fireAgeText} · ${fireDef}`
+    ],
+    footnote:S.lang==='en'
+      ? `Projected current-path wealth at age ${snapshot.fiAge}: ${compact(snapshot.projectedTotal)} · Required wealth: ${compact(snapshot.goal)} · Gap: ${(snapshot.gap>=0?'+':'−')+compact(Math.abs(snapshot.gap))}`
+      : `${snapshot.fiAge}岁当前路径预计总财富：${compact(snapshot.projectedTotal)} · 所需总财富：${compact(snapshot.goal)} · Gap：${(snapshot.gap>=0?'+':'−')+compact(Math.abs(snapshot.gap))}`
+  };
+}
+function renderShareCanvas(snapshot){
+  const canvas=document.createElement('canvas');
+  canvas.width=1080;
+  canvas.height=1440;
+  const ctx=canvas.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  ctx.scale(1,1);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  const W=canvas.width;
+  const H=canvas.height;
+  const bg=ctx.createLinearGradient(0,0,0,H);
+  bg.addColorStop(0,'#f6f2ec');
+  bg.addColorStop(1,'#fbf8f4');
+  ctx.fillStyle=bg;
+  ctx.fillRect(0,0,W,H);
+
+  const shadow=(x,y,w,h,r)=>{
+    ctx.save();
+    ctx.shadowColor='rgba(45,38,34,.10)';
+    ctx.shadowBlur=24;
+    ctx.shadowOffsetY=10;
+    roundRect(x,y,w,h,r);
+    ctx.fill();
+    ctx.restore();
+  };
+  const roundRect=(x,y,w,h,r)=>{
+    const rr=Array.isArray(r)?r:[r,r,r,r];
+    ctx.beginPath();
+    ctx.moveTo(x+rr[0],y);
+    ctx.lineTo(x+w-rr[1],y);
+    ctx.quadraticCurveTo(x+w,y,x+w,y+rr[1]);
+    ctx.lineTo(x+w,y+h-rr[2]);
+    ctx.quadraticCurveTo(x+w,y+h,x+w-rr[2],y+h);
+    ctx.lineTo(x+rr[3],y+h);
+    ctx.quadraticCurveTo(x,y+h,x,y+h-rr[3]);
+    ctx.lineTo(x,y+rr[0]);
+    ctx.quadraticCurveTo(x,y,x+rr[0],y);
+    ctx.closePath();
+  };
+  const drawCard=(x,y,w,h,fill,accent)=>{
+    ctx.save();
+    shadow(x,y,w,h,28);
+    const grad=ctx.createLinearGradient(0,y,0,y+h);
+    grad.addColorStop(0,fill[0]);
+    grad.addColorStop(1,fill[1]);
+    ctx.fillStyle=grad;
+    roundRect(x,y,w,h,28);
+    ctx.fill();
+    ctx.fillStyle=accent;
+    ctx.fillRect(x,y,8,h);
+    ctx.restore();
+  };
+  const drawText=(text,x,y,opts={})=>{
+    const {
+      font='40px -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif',
+      color='#292521',
+      maxWidth=960,
+      lineHeight=46,
+      weight='700',
+      align='left'
+    }=opts;
+    ctx.save();
+    ctx.fillStyle=color;
+    ctx.font=`${weight} ${font}`;
+    ctx.textAlign=align;
+    const lines=String(text||'').split('\n');
+    let cursorY=y;
+    lines.forEach(part=>{
+      const wrapped=wrapLines(part, Math.max(18, Math.floor(maxWidth/16)));
+      wrapped.forEach(line=>{
+        ctx.fillText(line,x,cursorY);
+        cursorY+=lineHeight;
+      });
+    });
+    ctx.restore();
+    return cursorY;
+  };
+  const moneyText=v=>compact(v).replace('−','-');
+  const pctText=v=>`${(Number(v)*100).toFixed(1).replace(/\.0$/,'')}%`;
+  const share=buildShareLines(snapshot);
+  ctx.fillStyle='#c56c52';
+  ctx.font='800 26px -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.fillText('LIFE MAP',40,54);
+  ctx.fillStyle='#292521';
+  ctx.font='900 64px -apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif';
+  const titleLines=wrapLines(S.lang==='en'?'FIRE Financial Freedom Planner':'FIRE 财富自由规划器',18);
+  let titleY=108;
+  titleLines.forEach(line=>{
+    ctx.fillText(line,40,titleY);
+    titleY+=72;
+  });
+  ctx.font='700 24px -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.fillStyle='#766f68';
+  ctx.fillText(share.subline,40,titleY+10);
+
+  const metrics=[
+    {
+      label:S.lang==='en'?`Total wealth needed at age ${snapshot.fiAge}`:`${snapshot.fiAge}岁需要的总财富`,
+      value:compact(snapshot.goal),
+      sub:S.lang==='en'
+        ? `Retirement spending PV ${compact(snapshot.liquidGoal)} + home equity ${compact(snapshot.propertyGoal)}`
+        : `退休期支出现值 ${compact(snapshot.liquidGoal)} + 房屋净值 ${compact(snapshot.propertyGoal)}`,
+      fill:['#2f2a27','#2f2a27'],
+      accent:'#c56c52',
+      text:'#fff'
+    },
+    {
+      label:S.lang==='en'?`Projected wealth at age ${snapshot.fiAge}`:`${snapshot.fiAge}岁预计总财富`,
+      value:compact(snapshot.projectedTotal),
+      sub:S.lang==='en'
+        ? `Investable assets ${compact(snapshot.projectedAssets)} · ${snapshot.fiAge} years old`
+        : `可投资资产 ${compact(snapshot.projectedAssets)} · ${snapshot.fiAge} 岁`,
+      fill:['#ffffff','#f8f8f6'],
+      accent:'#58719f',
+      text:'#292521'
+    },
+    {
+      label:S.lang==='en'?'Wealth gap':'财富 Gap',
+      value:`${snapshot.gap>=0?'+':'-'}${compact(Math.abs(snapshot.gap))}`,
+      sub:snapshot.gap>=0
+        ? (S.lang==='en'?'Ahead of the target':'已超过目标')
+        : (S.lang==='en'?'Still below target':'仍低于目标'),
+      fill:['#ffffff','#f8f8f6'],
+      accent:snapshot.gap>=0 ? '#4f806b' : '#b75b61',
+      text:snapshot.gap>=0 ? '#4f806b' : '#b75b61'
+    },
+    {
+      label:S.lang==='en'?'Required gross income':'需要的税前年收入',
+      value:moneyText(snapshot.req)+(S.lang==='en'?'/yr':'/年'),
+      sub:S.lang==='en'
+        ? `About ${(snapshot.req-n('income'))>0?moneyText(snapshot.req-n('income'))+' above current income':'same as current income'}`
+        : `比当前收入${(snapshot.req-n('income'))>0?`高 ${moneyText(snapshot.req-n('income'))}`:'基本相同'}`,
+      fill:['#ffffff','#f8f8f6'],
+      accent:'#aa8344',
+      text:'#292521'
+    }
+  ];
+  let x=40;
+  let y=240;
+  const w=490;
+  const h=180;
+  metrics.forEach((m,i)=>{
+    const cx=i%2;
+    const cy=Math.floor(i/2);
+    const px=x+cx*(w+20);
+    const py=y+cy*(h+18);
+    drawCard(px,py,w,h,m.fill,m.accent);
+    ctx.fillStyle=m.text;
+    ctx.font='700 24px -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif';
+    ctx.fillText(m.label,px+26,py+38);
+    ctx.font='900 52px -apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif';
+    ctx.fillText(m.value,px+26,py+94);
+    ctx.font='700 19px -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif';
+    ctx.fillStyle='#7b726a';
+    const subLines=wrapLines(m.sub,38);
+    let subY=py+128;
+    subLines.slice(0,2).forEach(line=>{
+      ctx.fillText(line,px+26,subY);
+      subY+=24;
+    });
+  });
+
+  // summary panel
+  drawCard(40,610,1000,375,['#ffffff','#f9f5f1'],'#b85e43');
+  ctx.fillStyle='#292521';
+  ctx.font='900 34px -apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.fillText(S.lang==='en'?'Planning snapshot':'规划快照',68,662);
+  ctx.font='700 22px -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.fillStyle='#766f68';
+  ctx.fillText(share.headline,68,702);
+  ctx.fillStyle='#5a534d';
+  ctx.font='700 24px -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif';
+  let lineY=746;
+  share.bodyLines.forEach(line=>{
+    ctx.fillText(line,68,lineY);
+    lineY+=38;
+  });
+  ctx.fillStyle='#7b726a';
+  ctx.font='700 20px -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif';
+  const footLines=wrapLines(share.footnote,48);
+  let footY=888;
+  footLines.forEach(line=>{
+    ctx.fillText(line,68,footY);
+    footY+=28;
+  });
+
+  // bottom section
+  drawCard(40,1010,1000,340,['#eef4fb','#f8fbff'],'#58719f');
+  ctx.fillStyle='#445f85';
+  ctx.font='900 28px -apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.fillText(S.lang==='en'?'Key assumptions':'关键假设',68,1060);
+  ctx.fillStyle='#5a534d';
+  ctx.font='700 22px -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif';
+  const assumptionLines=[
+    S.lang==='en'
+      ? `Current age ${snapshot.currentAge} · retirement age ${snapshot.fiAge} · annual income growth ${pctText(n('incomeGrowth'))} · real return ${pctText(n('ret'))}`
+      : `当前年龄 ${snapshot.currentAge} 岁 · 退休年龄 ${snapshot.fiAge} 岁 · 年收入增长 ${pctText(n('incomeGrowth'))} · 实际回报 ${pctText(n('ret'))}`,
+    S.lang==='en'
+      ? `Current city ${currentCityName} → retirement city ${retireCityName} · household mode ${scopeText} · kids ${kidsText} · lifestyle ${lifestyleText}`
+      : `当前城市 ${currentCityName} → 退休城市 ${retireCityName} · 家庭口径 ${scopeText} · 孩子 ${kidsText} · 生活方式 ${lifestyleText}`,
+    S.lang==='en'
+      ? `Tax state ${stateText(S.taxState)} · current investable assets ${compact(n('assets'))} · current gross income ${money(n('income'))}/yr`
+      : `报税州 ${stateText(S.taxState)} · 当前可投资资产 ${compact(n('assets'))} · 当前税前收入 ${money(n('income'))}/年`,
+    S.lang==='en'
+      ? `FIRE age ${snapshot.currentFireAge===null?'not reached by age 80':snapshot.currentFireAge} · definition: passive income > spending`
+      : `财富自由年龄 ${snapshot.currentFireAge===null?'80岁前未达到':snapshot.currentFireAge+'岁'} · 定义：被动收入大于总支出`
+  ];
+  let aY=1102;
+  assumptionLines.forEach(line=>{
+    const lines=wrapLines(line,54);
+    lines.forEach(l=>{
+      ctx.fillText(l,68,aY);
+      aY+=30;
+    });
+    aY+=10;
+  });
+
+  ctx.fillStyle='#968a81';
+  ctx.font='700 18px -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.fillText('Generated by FIRE planner',40,1390);
+  return canvas;
+}
+function openPrintableReport(){
+  const snapshot=annualSnapshot();
+  const title=S.lang==='en' ? 'FIRE Planner Report' : 'FIRE 财富自由报告';
+  const summaryHtml=summaryText(snapshot.currentData,snapshot.currentFireAge,'current');
+  const html=`<!doctype html>
+  <html>
+  <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width,initial-scale=1">
+   <title>${escapeHtml(title)}</title>
+   <style>
+    @page{size:A4;margin:14mm}
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif;background:#f5f2ed;color:#292521}
+    .page{max-width:980px;margin:0 auto;padding:0}
+    .hero{padding:0 0 14px;border-bottom:1px solid #e7dfd5;margin-bottom:14px}
+    .eyebrow{font-size:12px;color:#b85e43;font-weight:800;letter-spacing:.08em}
+    h1{margin:6px 0 6px;font-size:32px;line-height:1.15}
+    .sub{font-size:12px;color:#766f68;line-height:1.5}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .kpi{border:1px solid #e7dfd5;border-radius:14px;padding:12px 14px;background:#fff}
+    .kpi.primary{background:#2d2926;color:#fff;border-color:#2d2926}
+    .kpi .lab{font-size:11px;color:inherit;opacity:.72;font-weight:700}
+    .kpi .num{font-size:28px;font-weight:900;margin-top:4px}
+    .kpi .small{font-size:11px;line-height:1.45;color:inherit;opacity:.78;margin-top:4px}
+    .card{border:1px solid #e7dfd5;border-radius:16px;background:#fff;padding:14px 16px;margin-top:12px;page-break-inside:avoid}
+    .card h2{margin:0 0 8px;font-size:18px}
+    .note{font-size:11px;line-height:1.6;color:#5b554f}
+    .summary{font-size:12px;line-height:1.7;color:#5b554f}
+    .summary b{color:#292521}
+    table{width:100%;border-collapse:collapse;font-size:11px;margin-top:8px}
+    th,td{border-bottom:1px solid #eee7df;padding:7px 6px;text-align:left;vertical-align:top}
+    th{color:#7d756d;font-size:10px}
+    .tag{display:inline-block;background:#f2eee8;border-radius:999px;padding:5px 9px;font-size:10px;font-weight:800;color:#6b625b;margin-right:6px}
+    .footer{font-size:10px;color:#8b827a;margin-top:12px}
+   </style>
+  </head>
+  <body>
+   <div class="page">
+    <div class="hero">
+      <div class="eyebrow">LIFE MAP</div>
+      <h1>${escapeHtml(title)}</h1>
+      <div class="sub">${escapeHtml(snapshot.fiAge)}岁退休快照 · ${escapeHtml(cityName(currentHomeCity()))} → ${escapeHtml(cityName(selectedHomeCity()))} · ${escapeHtml(stateText(S.taxState))}</div>
+    </div>
+    <div class="grid">
+      <div class="kpi primary"><div class="lab">${escapeHtml(S.lang==='en'?`Total wealth needed at age ${snapshot.fiAge}`:`${snapshot.fiAge}岁需要的总财富`)}</div><div class="num">${escapeHtml(compact(snapshot.goal))}</div><div class="small">${escapeHtml(S.lang==='en'?`Retirement spending PV ${compact(snapshot.liquidGoal)} + home equity ${compact(snapshot.propertyGoal)}`:`退休期支出现值 ${compact(snapshot.liquidGoal)} + 房屋净值 ${compact(snapshot.propertyGoal)}`)}</div></div>
+      <div class="kpi"><div class="lab">${escapeHtml(S.lang==='en'?`Projected wealth at age ${snapshot.fiAge}`:`${snapshot.fiAge}岁预计总财富`)}</div><div class="num">${escapeHtml(compact(snapshot.projectedTotal))}</div><div class="small">${escapeHtml(S.lang==='en'?`Projected investable assets ${compact(snapshot.projectedAssets)}`:`预计可投资资产 ${compact(snapshot.projectedAssets)}`)}</div></div>
+      <div class="kpi"><div class="lab">${escapeHtml(S.lang==='en'?'Wealth gap':'财富 Gap')}</div><div class="num">${escapeHtml((snapshot.gap>=0?'+':'−')+compact(Math.abs(snapshot.gap)))}</div><div class="small">${escapeHtml(snapshot.gap>=0?(S.lang==='en'?'Ahead of the target':'已超过目标'):(S.lang==='en'?'Still below the target':'仍低于目标'))}</div></div>
+      <div class="kpi"><div class="lab">${escapeHtml(S.lang==='en'?'Required gross income':'需要的税前年收入')}</div><div class="num">${escapeHtml(money(snapshot.req)+(S.lang==='en'?'/yr':'/年'))}</div><div class="small">${escapeHtml(S.lang==='en'?`Current gross income ${money(n('income'))}/yr`:`当前税前收入 ${money(n('income'))}/年`)}</div></div>
+    </div>
+    <div class="card">
+      <h2>${escapeHtml(S.lang==='en'?'Planning summary':'规划摘要')}</h2>
+      <div class="summary">${summaryHtml}</div>
+    </div>
+    <div class="card">
+      <h2>${escapeHtml(S.lang==='en'?'Key assumptions':'关键假设')}</h2>
+      <div class="note">
+        <span class="tag">${escapeHtml(S.lang==='en'?'Household mode':'家庭口径')}</span>${escapeHtml(S.scope==='family'?(S.lang==='en'?'Dual-adult household':'双成人家庭'):(S.lang==='en'?'Individual':'个人口径'))}<br>
+        <span class="tag">${escapeHtml(S.lang==='en'?'Kids':'孩子')}</span>${escapeHtml(S.kids + (S.lang==='en' ? (S.kids===1?' kid':' kids') : '个孩子'))}<br>
+        <span class="tag">${escapeHtml(S.lang==='en'?'Lifestyle':'生活方式')}</span>${escapeHtml(S.lifestyle==='lean'?(S.lang==='en'?'Lean':'节制'):S.lifestyle==='comfort'?(S.lang==='en'?'Comfort':'宽裕'):(S.lang==='en'?'Base':'舒适'))}<br>
+        <span class="tag">${escapeHtml(S.lang==='en'?'Income growth':'年收入增长')}</span>${escapeHtml((n('incomeGrowth')*100).toFixed(1).replace(/\.0$/,'')+'%')}<br>
+        <span class="tag">${escapeHtml(S.lang==='en'?'Real return':'实际回报')}</span>${escapeHtml((n('ret')*100).toFixed(1).replace(/\.0$/,'')+'%')}<br>
+        <span class="tag">${escapeHtml(S.lang==='en'?'FIRE age':'财富自由年龄')}</span>${escapeHtml(snapshot.currentFireAge===null ? (S.lang==='en'?'Not reached by age 80':'80岁前未达到') : `${snapshot.currentFireAge}${S.lang==='en'?' years old':'岁'}`)}<br>
+        <span class="tag">${escapeHtml(S.lang==='en'?'Definition':'定义')}</span>${escapeHtml(S.lang==='en'?'Passive income > total spending':'被动收入大于总支出')}
+      </div>
+    </div>
+    <div class="card">
+      <h2>${escapeHtml(S.lang==='en'?'Current path annual averages':'当前路径年均值')}</h2>
+      <table>
+        <thead><tr><th>Item</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>${escapeHtml(S.lang==='en'?'Average annual income':'平均年度收入')}</td><td>${escapeHtml(money(snapshot.avgIncome)+(S.lang==='en'?'/yr':'/年'))}</td></tr>
+          <tr><td>${escapeHtml(S.lang==='en'?'Average annual spending':'平均年度支出')}</td><td>${escapeHtml(money(snapshot.avgSpend)+(S.lang==='en'?'/yr':'/年'))}</td></tr>
+          <tr><td>${escapeHtml(S.lang==='en'?'Average annual net cash flow':'平均年度净现金流')}</td><td>${escapeHtml(money(snapshot.avgIncome-snapshot.avgSpend)+(S.lang==='en'?'/yr':'/年'))}</td></tr>
+          <tr><td>${escapeHtml(S.lang==='en'?'Current age / FI age':'当前年龄 / 退休年龄')}</td><td>${escapeHtml(`${snapshot.currentAge} / ${snapshot.fiAge}${S.lang==='en'?' yrs':'岁'}`)}</td></tr>
+          <tr><td>${escapeHtml(S.lang==='en'?'Current city / retirement city':'当前城市 / 退休城市')}</td><td>${escapeHtml(`${cityName(currentHomeCity())} → ${cityName(selectedHomeCity())}`)}</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="footer">${escapeHtml(S.lang==='en'?'Generated by FIRE planner. Save/Print this page as PDF from your browser print dialog.':'由 FIRE planner 生成。可在浏览器打印对话框中另存为 PDF。')}</div>
+   </div>
+   <script>window.onload=()=>setTimeout(()=>window.print(),250);</script>
+  </body>
+  </html>`;
+  const win=window.open('','_blank','width=1100,height=1400');
+  if(!win){
+    alert(S.lang==='en'?'Popup blocked. Please allow popups to export the PDF report.':'弹窗被拦截了，请允许弹窗后再导出 PDF 报告。');
+    return;
+  }
+  win.document.open();
+  win.document.write(html);
+  win.document.close();
+}
 let lastRenderedLang=null;
 let updateScheduled=false;
 let lastAnnualRows=[];
@@ -2084,8 +2549,8 @@ function update(){
     const labelRetCity=S.lang==='en'?'Retirement city assumption used':'退休地点假设';
     const labelSwitch=S.lang==='en'?'Switch age':'切换年龄';
     const labelFactor=S.lang==='en'?'Living factor used':'生活系数';
-    const labelLivingNow=S.lang==='en'?'Current city household living cost':'当前城市家庭生活费';
-    const labelLivingRet=S.lang==='en'?'Retirement city household living cost':'退休城市家庭生活费';
+    const labelLivingNow=S.lang==='en'?'Current city living cost at current age':'当前年龄的当前城市生活费';
+    const labelLivingRet=S.lang==='en'?'Retirement city living cost at retirement age':'退休年龄的退休城市生活费';
     const labelHomePrice=S.lang==='en'?'Current model home price':'当前模型采用房价';
     const labelRent=S.lang==='en'?'Current model rent':'当前模型采用租金';
     $('cityInfo').innerHTML=`<div class="info-grid">
@@ -2093,8 +2558,8 @@ function update(){
       <div class="icell"><div class="ik">${labelRetCity}</div><div class="iv">${cityName(c)}</div></div>
       <div class="icell"><div class="ik">${labelSwitch}</div><div class="iv">${S.relocationPath==='returnChina'?n('fiAge')+(S.lang==='en'?' yrs':'岁'):(S.lang==='en'?'Not used':'不切换')}</div></div>
       <div class="icell"><div class="ik">${labelFactor}</div><div class="iv">${c.livingFactor.toFixed(2)}x</div></div>
-      <div class="icell"><div class="ik">${labelLivingNow}</div><div class="iv">${money(livingSpendForCity(currentHomeCity()))}${S.lang==='en'?'/yr':'/年'}</div></div>
-      <div class="icell"><div class="ik">${labelLivingRet}</div><div class="iv">${money(livingSpendForCity(c))}${S.lang==='en'?'/yr':'/年'}</div></div>
+      <div class="icell"><div class="ik">${labelLivingNow}</div><div class="iv">${money(livingSpendForCity(currentHomeCity(),n('currentAge')))}${S.lang==='en'?'/yr':'/年'}</div></div>
+      <div class="icell"><div class="ik">${labelLivingRet}</div><div class="iv">${money(livingSpendForCity(c,n('fiAge')))}${S.lang==='en'?'/yr':'/年'}</div></div>
       <div class="icell"><div class="ik">${labelHomePrice}</div><div class="iv">${S.housing==='buy'?compact(selectedBuy):'$0'}</div></div>
       <div class="icell"><div class="ik">${labelRent}</div><div class="iv">${S.housing==='rent'?money(selectedRent/12)+(S.lang==='en'?'/mo':'/月'):'$0'}</div></div>
     </div>
@@ -2136,8 +2601,8 @@ function update(){
     const taxRatePct=(tx.effective*100).toFixed(1)+'%';
     const lifestyleMult=LIFE[S.lifestyle].toFixed(2)+'x';
     const fiSpend=spend(n('fiAge'));
-    const preLiving=money(livingSpendForCity(preRetCity))+(S.lang==='en'?'/yr':'/年');
-    const postLiving=money(livingSpendForCity(postRetCity))+(S.lang==='en'?'/yr':'/年');
+    const preLiving=money(livingSpendForCity(preRetCity,n('currentAge')))+(S.lang==='en'?'/yr':'/年');
+    const postLiving=money(livingSpendForCity(postRetCity,n('fiAge')))+(S.lang==='en'?'/yr':'/年');
     const currentRetSpend=money(fiSpend.total)+(S.lang==='en'?'/yr':'/年');
     const mortgageNote=S.housing==='buy'
       ? `${money(mortgageSnapshot(n('fiAge')).annualPayment)}${S.lang==='en'?'/yr':'/年'}`
@@ -2165,8 +2630,8 @@ function update(){
             : `不切换回国城市，直到 80 岁都按 ${postRetCity.nameZh} 计算。`)}</div></div>
     </div>
     <div class="desc" style="margin-top:8px">${S.lang==='en'
-      ? `Main inputs used here: real return ${investRate}, effective tax ${taxRatePct}, income growth ${(n('incomeGrowth')*100).toFixed(1).replace(/\.0$/,'')}%, retirement lifestyle ${lifestyleMult}, Bay Area baseline ${money(bayBaseSpend())}/yr, selected city factor ${c.livingFactor.toFixed(2)}x, and retirement age ${n('fiAge')}.`
-      : `这里主要用到的输入：实际回报 ${investRate}、有效税率 ${taxRatePct}、年收入增长率 ${(n('incomeGrowth')*100).toFixed(1).replace(/\.0$/,'')}%、退休后生活方式倍率 ${lifestyleMult}、湾区基准生活费 ${money(bayBaseSpend())}/年、所选城市系数 ${c.livingFactor.toFixed(2)}x、退休年龄 ${n('fiAge')} 岁。`
+      ? `Main inputs used here: real return ${investRate}, effective tax ${taxRatePct}, income growth ${(n('incomeGrowth')*100).toFixed(1).replace(/\.0$/,'')}%, retirement lifestyle ${lifestyleMult}, current-stage Bay Area baseline ${money(bayBaseSpend())}/yr, selected city factor ${c.livingFactor.toFixed(2)}x, and retirement age ${n('fiAge')}.`
+      : `这里主要用到的输入：实际回报 ${investRate}、有效税率 ${taxRatePct}、年收入增长率 ${(n('incomeGrowth')*100).toFixed(1).replace(/\.0$/,'')}%、退休后生活方式倍率 ${lifestyleMult}、当前阶段湾区基准生活费 ${money(bayBaseSpend())}/年、所选城市系数 ${c.livingFactor.toFixed(2)}x、退休年龄 ${n('fiAge')} 岁。`
     }</div>
     <div class="desc" style="margin-top:8px">${S.lang==='en'
       ? `<b>FIRE definition:</b> at the retirement age, passive income (withdrawals + portfolio returns) plus any retained labor income should be enough to cover that year’s spending; separately, the total asset base should stay strong enough through age 80.`
@@ -2271,9 +2736,11 @@ function update(){
  }
 const downloadAnnualCsvBtn=$('downloadAnnualCsvBtn');
 if(downloadAnnualCsvBtn) downloadAnnualCsvBtn.addEventListener('click',downloadAnnualCsv);
+const exportPdfBtn=$('exportPdfBtn');
+if(exportPdfBtn) exportPdfBtn.addEventListener('click',openPrintableReport);
 bind('langMode','lang');bind('mainTabs','tab');bind('scope','scope');bind('relocationPath','relocationPath');bind('taxMode','taxMode');bind('childcare','childcare');bind('usSchool','usSchool');bind('cnSchool','cnSchool');bindSelect('currentCity','currentCity');bindSelect('city','city');bind('housing','housing');bind('lifestyle','lifestyle');
 bindRange('kids','kids',Number);
-document.querySelectorAll('#scope button').forEach(btn=>btn.addEventListener('click',()=>{S.livingPartsAuto=true;S.autoFood=true;updateLivingTotalsView();}));
+document.querySelectorAll('#scope button').forEach(btn=>btn.addEventListener('click',()=>{S.livingPartsAuto.pre=true;S.livingPartsAuto.post=true;S.autoFood.pre=true;S.autoFood.post=true;updateLivingTotalsView();}));
 document.querySelectorAll('#lifestyle button').forEach(btn=>btn.addEventListener('click',()=>{scheduleUpdate();}));
 ['currentAge','fiAge','postRetireIncome','assets','income','partnerIncome','ret','homePrice','downPay','mortgageRate','mortgageYears','homeCarry','manualTax','childBirthAge'].forEach(id=>$(id).addEventListener('input',()=>{if(id==='childBirthAge')S.childBirthAgeManual=true;scheduleUpdate()}));
 const incomeGrowthEl=$('incomeGrowth');
@@ -2282,15 +2749,18 @@ const homePurchaseAgeEl=$('homePurchaseAge');
   if(homePurchaseAgeEl) homePurchaseAgeEl.addEventListener('input',()=>{S.homePurchaseAgeManual=true;scheduleUpdate()});
 const homePriceEl=$('homePrice');
   if(homePriceEl) homePriceEl.addEventListener('input',()=>{S.homePriceManual=true;scheduleUpdate()});
- $('bayBaseSpend').addEventListener('input',e=>{syncLivingPartsFromTotal(Number(e.target.value)||0);updateLivingTotalsView();scheduleUpdate()});
+ $('bayBaseSpend').addEventListener('input',e=>{syncLivingPartsFromTotal(Number(e.target.value)||0,'pre');updateLivingTotalsView();scheduleUpdate()});
+ const bayBaseSpendAfterEl=$('bayBaseSpendAfter');
+ if(bayBaseSpendAfterEl) bayBaseSpendAfterEl.addEventListener('input',e=>{syncLivingPartsFromTotal(Number(e.target.value)||0,'post');updateLivingTotalsView();scheduleUpdate()});
  document.addEventListener('input',e=>{
    const t=e.target;
    if(!t || !t.matches) return;
    if(t.matches('[data-living-key]')){
      const key=t.dataset.livingKey;
      if(key){
-       if(key==='food') S.autoFood=false;
-       setLivingPart(key,Number(t.value)||0);
+       const stage=livingStageForAge(n('currentAge'));
+       if(key==='food') S.autoFood[stage]=false;
+       setLivingPart(key,Number(t.value)||0,stage);
        updateLivingTotalsView();
        scheduleUpdate();
      }
@@ -2321,9 +2791,23 @@ const homePriceEl=$('homePrice');
   ['medical', {zh:'医疗', en:'Medical'}],
   ['misc', {zh:'其他', en:'Misc'}]
  ];
-function defaultLivingPartsForHousehold(){
+function livingStageForAge(age=n('currentAge')){
+  return (S.kids>0 && age>=n('childBirthAge')) ? 'post' : 'pre';
+}
+function livingStageLabel(stage){
+  return stage==='post'
+    ? (S.lang==='en' ? 'after-kids' : (S.lang==='bilingual' ? '有孩子后 / after-kids' : '有孩子后'))
+    : (S.lang==='en' ? 'before-kids' : (S.lang==='bilingual' ? '有孩子前 / before-kids' : '有孩子前'));
+}
+function livingStageSlug(stage){
+  return stage==='post' ? 'post' : 'pre';
+}
+function livingStagePartsKey(stage){
+  return livingStageSlug(stage)==='post' ? 'post' : 'pre';
+}
+function defaultLivingPartsForHousehold(stage='pre'){
   const a=adults();
-  const k=S.kids;
+  const k=stage==='post' ? S.kids : 0;
   const people=a+k;
   return {
     food: Math.round(people * 30 * 365),
@@ -2333,59 +2817,69 @@ function defaultLivingPartsForHousehold(){
     misc: Math.round(people * 2000)
   };
  }
- function livingParts(){
-  if(!S.livingParts || S.livingPartsAuto){
-    S.livingParts=defaultLivingPartsForHousehold();
-    S.livingPartsAuto=true;
+ function livingParts(stageOrAge=livingStageForAge()){
+  const stage=typeof stageOrAge==='string'
+    ? livingStageSlug(stageOrAge)
+    : livingStageForAge(Number(stageOrAge));
+  if(!S.livingParts[stage] || S.livingPartsAuto[stage]){
+    S.livingParts[stage]=defaultLivingPartsForHousehold(stage);
+    S.livingPartsAuto[stage]=true;
   }
-  return S.livingParts;
+  return S.livingParts[stage];
  }
- function livingPartsTotal(){
-  return Object.values(livingParts()).reduce((a,b)=>a+b,0);
+ function livingPartsTotal(stageOrAge=livingStageForAge()){
+  return Object.values(livingParts(stageOrAge)).reduce((a,b)=>a+b,0);
  }
-function foodAssumptionAnnual(){
+function foodAssumptionAnnual(stage='pre'){
   const a=adults();
-  const k=S.kids;
+  const k=stage==='post' ? S.kids : 0;
   const people=a+k;
   return Math.round(people * 30 * 365);
  }
- function foodAssumptionNote(){
+function foodAssumptionNote(stage=livingStageForAge()){
+  const amount=foodAssumptionAnnual(stage);
   if(S.lang==='en'){
-    return `Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. We now use a roughly $30/day-per-person floor, so the current-household food baseline scales directly with household size.`;
+    return `Calibrated from your spend snapshot: about ${money(amount)}/yr for the ${livingStageLabel(stage)} stage. We now use a roughly $30/day-per-person floor, so the food baseline scales directly with the household size for that stage.`;
   }
   if(S.lang==='bilingual'){
-    return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。现在按大约每人每天 $30 的底线来算，所以当前家庭的 food 基准会直接按 household 人头放大。 / Calibrated from your spend snapshot: about ${money(foodAssumptionAnnual())}/yr for the current household. We now use a roughly $30/day-per-person floor, so the current-household food baseline scales directly with household size.`;
+    return `吃饭口径按你去年的支出做了校准：${livingStageLabel(stage)}阶段大约 ${money(amount)}/年。现在按大约每人每天 $30 的底线来算，所以 food 基准会直接按该阶段的 household 人头放大。 / Calibrated from your spend snapshot: about ${money(amount)}/yr for the ${livingStageLabel(stage)} stage. We now use a roughly $30/day-per-person floor, so the food baseline scales directly with the household size for that stage.`;
   }
-  return `吃饭口径按你去年的支出做了校准：当前家庭大约 ${money(foodAssumptionAnnual())}/年。现在按大约每人每天 $30 的底线来算，所以当前家庭的 food 基准会直接按 household 人头放大。`;
+  return `吃饭口径按你去年的支出做了校准：${livingStageLabel(stage)}阶段大约 ${money(amount)}/年。现在按大约每人每天 $30 的底线来算，所以 food 基准会直接按该阶段的 household 人头放大。`;
  }
 function livingBaseSpendDescText(){
   if(S.lang==='en'){
-    return 'This is the household baseline living cost before housing. It is split into food / goods / insurance / medical / misc, and you can expand the detail below to edit those parts one by one. Food and goods scale by household size, insurance and medical primarily scale by adults, and travel remains a separate top-level spending item. Insurance here mainly means home, auto, life, and umbrella premiums.';
+    return 'This is the current-city household living cost before housing. We split it into two stage-specific baselines: before kids and after kids. The model switches between them at the first child birth age, and the detail below edits the stage that matches your current age. Food and goods scale by household size within that stage, insurance and medical primarily scale by adults, and travel remains a separate top-level spending item. Insurance here mainly means home, auto, life, and umbrella premiums.';
   }
   if(S.lang==='bilingual'){
-    return '当前地点基础生活费是房贷前的家庭总生活费。它会拆成 food / goods / insurance / medical / misc，你可以展开下面的明细逐项调整。food 和 goods 按家庭人数，insurance 和 medical 主要按成人数，travel 仍然单独作为顶层支出。这里的 insurance 主要指房屋、车、寿险和 umbrella 这类保费，不再单独写“邮费”。 / This is the household baseline living cost before housing. It is split into food / goods / insurance / medical / misc, and you can expand the detail below to edit those parts one by one. Food and goods scale by household size, insurance and medical primarily scale by adults, and travel remains a separate top-level spending item. Insurance here mainly means home, auto, life, and umbrella premiums.';
+    return '这是当前地点房贷前的家庭总生活费。我们把它拆成两段：有孩子前和有孩子后。模型会在第一个孩子出生年龄处自动切换，下面的明细默认编辑你当前年龄对应的那一段。food 和 goods 会按该阶段的家庭人数变化，insurance 和 medical 主要按成人数变化，travel 仍然单独作为顶层支出。这里的 insurance 主要指房屋、车、寿险和 umbrella 这类保费。 / This is the current-city household living cost before housing. We split it into two stage-specific baselines: before kids and after kids. The model switches between them at the first child birth age, and the detail below edits the stage that matches your current age. Food and goods scale by household size within that stage, insurance and medical primarily scale by adults, and travel remains a separate top-level spending item. Insurance here mainly means home, auto, life, and umbrella premiums.';
   }
-  return '当前地点基础生活费是房贷前的家庭总生活费。它会拆成 food / goods / insurance / medical / misc，你可以展开下面的明细逐项调整。food 和 goods 按家庭人数，insurance 和 medical 主要按成人数，travel 仍然单独作为顶层支出。这里的 insurance 主要指房屋、车、寿险和 umbrella 这类保费，不再单独写“邮费”。';
+  return '这是当前地点房贷前的家庭总生活费。我们把它拆成两段：有孩子前和有孩子后。模型会在第一个孩子出生年龄处自动切换，下面的明细默认编辑你当前年龄对应的那一段。food 和 goods 会按该阶段的家庭人数变化，insurance 和 medical 主要按成人数变化，travel 仍然单独作为顶层支出。这里的 insurance 主要指房屋、车、寿险和 umbrella 这类保费。';
  }
- function syncFoodIfAuto(){
-  if(!S.autoFood) return;
-  S.livingParts.food=foodAssumptionAnnual();
+ function syncFoodIfAuto(stage=livingStageForAge()){
+  const key=livingStageSlug(stage);
+  if(!S.autoFood[key]) return;
+  S.livingParts[key].food=foodAssumptionAnnual(key);
  }
- function recalibrateLivingPartsIfAuto(){
-  if(!S.livingPartsAuto) return;
-  S.livingParts=defaultLivingPartsForHousehold();
-  syncFoodIfAuto();
+ function recalibrateLivingPartsIfAuto(stage=livingStageForAge()){
+  const key=livingStageSlug(stage);
+  if(!S.livingPartsAuto[key]) return;
+  S.livingParts[key]=defaultLivingPartsForHousehold(key);
+  syncFoodIfAuto(key);
  }
- function livingBaseTargetTotal(){
-  recalibrateLivingPartsIfAuto();
-  syncFoodIfAuto();
-  return livingPartsTotal();
+ function livingBaseTargetTotal(stageOrAge=livingStageForAge()){
+  const stage=typeof stageOrAge==='string'
+    ? livingStageSlug(stageOrAge)
+    : livingStageForAge(Number(stageOrAge));
+  recalibrateLivingPartsIfAuto(stage);
+  syncFoodIfAuto(stage);
+  return livingPartsTotal(stage);
  }
  function refreshLivingEditorDisplay(){
   const livingEditorInfo=$('livingEditorInfo');
   if(!livingEditorInfo) return;
-  const p=livingParts();
-  const total=livingPartsTotal();
+  const stage=livingStageForAge(n('currentAge'));
+  const p=livingParts(stage);
+  const total=livingPartsTotal(stage);
   livingEditorInfo.querySelectorAll('[data-living-pill]').forEach(el=>{
     const key=el.dataset.livingPill;
     if(!key || !(key in p)) return;
@@ -2401,32 +2895,52 @@ function livingBaseSpendDescText(){
   if(livingBaseTotalV) livingBaseTotalV.innerHTML=`${money(total)}${S.lang==='en'?'/yr':'/年'}`;
  }
  function updateLivingTotalsView(){
-  const livingTotal=bayBaseSpend();
+  const preTotal=livingBaseTargetTotal('pre');
+  const postTotal=livingBaseTargetTotal('post');
+  const stage=livingStageForAge(n('currentAge'));
+  const activeTotal=stage==='post'?postTotal:preTotal;
   const bayBaseSpendEl=$('bayBaseSpend');
   const bayBaseSpendV=$('bayBaseSpendV');
+  const bayBaseSpendAfterEl=$('bayBaseSpendAfter');
+  const bayBaseSpendAfterV=$('bayBaseSpendAfterV');
   const livingBaseTotalV=$('livingBaseTotalV');
-  if(bayBaseSpendEl) bayBaseSpendEl.value=livingTotal;
-  if(bayBaseSpendV) bayBaseSpendV.textContent=money(livingTotal)+'/yr';
-  if(livingBaseTotalV) livingBaseTotalV.innerHTML=`${money(livingTotal)}${S.lang==='en'?'/yr':'/年'}`;
+  const livingStageHint=$('livingStageHint');
+  if(bayBaseSpendEl) bayBaseSpendEl.value=preTotal;
+  if(bayBaseSpendV) bayBaseSpendV.textContent=money(preTotal)+'/yr';
+  if(bayBaseSpendAfterEl) bayBaseSpendAfterEl.value=postTotal;
+  if(bayBaseSpendAfterV) bayBaseSpendAfterV.textContent=money(postTotal)+'/yr';
+  if(livingBaseTotalV) livingBaseTotalV.innerHTML=`${money(activeTotal)}${S.lang==='en'?'/yr':'/年'}`;
+  if(livingStageHint) livingStageHint.innerHTML=S.lang==='en'
+    ? `The model uses <b>${livingStageLabel(stage)}</b> living costs for the current age. You can still edit both stage totals above; the detailed editor below follows the stage that matches your current age.`
+    : (S.lang==='bilingual'
+      ? `模型在当前年龄使用 <b>${livingStageLabel(stage)}</b> 阶段的生活费。你可以在上面分别编辑两段总额；下面的明细编辑器会跟随你当前年龄所在的阶段。 / The model uses <b>${livingStageLabel(stage)}</b> living costs for the current age. You can still edit both stage totals above; the detailed editor below follows the stage that matches your current age.`
+      : `模型在当前年龄使用 <b>${livingStageLabel(stage)}</b> 阶段的生活费。你可以在上面分别编辑两段总额；下面的明细编辑器会跟随你当前年龄所在的阶段。`);
+  refreshLivingEditorDisplay();
  }
- function syncLivingPartsFromTotal(total){
-  const p=livingParts();
-  S.livingPartsAuto=false;
-  const current=livingPartsTotal();
+ function syncLivingPartsFromTotal(total,stageOrAge=livingStageForAge()){
+  const stage=typeof stageOrAge==='string'
+    ? livingStageSlug(stageOrAge)
+    : livingStageForAge(Number(stageOrAge));
+  const p=livingParts(stage);
+  S.livingPartsAuto[stage]=false;
+  const current=livingPartsTotal(stage);
   if(current<=0){
     const base={food:.3333,goods:.1806,insurance:.1528,medical:.125,misc:.2083};
     Object.keys(base).forEach(k=>{p[k]=Math.max(0,Math.round(total*base[k]));});
   }else{
     const ratio=total/current;
     Object.keys(p).forEach(k=>{p[k]=Math.max(0,Math.round(p[k]*ratio));});
-    const diff=total-livingPartsTotal();
+    const diff=total-livingPartsTotal(stage);
     p.misc=Math.max(0,p.misc+diff);
   }
   refreshLivingEditorDisplay();
  }
- function setLivingPart(key,value){
-  const p=livingParts();
-  S.livingPartsAuto=false;
+ function setLivingPart(key,value,stageOrAge=livingStageForAge()){
+  const stage=typeof stageOrAge==='string'
+    ? livingStageSlug(stageOrAge)
+    : livingStageForAge(Number(stageOrAge));
+  const p=livingParts(stage);
+  S.livingPartsAuto[stage]=false;
   p[key]=Math.max(0,Math.round(value));
   refreshLivingEditorDisplay();
  }

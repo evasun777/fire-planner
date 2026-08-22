@@ -292,11 +292,11 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
        <div class="control"><div class="head"><label id="mortgageYearsLabel">房贷年限</label><span class="pill" id="mortgageYearsV">30年</span></div><input id="mortgageYears" type="range" min="10" max="30" step="5" value="30"></div>
        <div class="control"><div class="head"><label id="homeCarryLabel">房产税+保险+维护</label><span class="pill" id="homeCarryV">1.8%</span></div><input id="homeCarry" type="range" min="0" max=".035" step=".001" value=".018"></div>
       </div>
-      <div class="desc" style="margin-top:8px">这份 <b>city_housing_model.csv</b> 就是模型最终采用的住房假设；租房和买房都会按这里的城市成本口径来算，下面可以直接查看对应的 rent / buy 假设。</div>
+      <div class="desc" style="margin-top:8px">这份 <b>assumptions/city_housing_model.csv</b> 就是模型最终采用的住房假设；租房和买房都会按这里的城市成本口径来算，下面可以直接查看对应的 rent / buy 假设。</div>
       <details class="info sample-panel" id="housingSampleCard" style="margin-top:10px">
        <summary><span class="sample-title">ⓘ 城市住房成本假设 / Housing expense per city assumption</span><span class="pill" id="housingSampleStatus">Loading housing CSV…</span></summary>
        <div class="desc" style="margin-top:0">
-        这张表直接从 <code>city_housing_model.csv</code> 读取，里面放的是模型最终使用的城市住房假设，包括租金、买房预算、相对湾区系数和 source note。
+        这张表直接从 <code>assumptions/city_housing_model.csv</code> 读取，里面放的是模型最终使用的城市住房假设，包括租金、买房预算、相对湾区系数和 source note。
        </div>
        <div class="scroll">
         <table>
@@ -359,7 +359,7 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
   <details class="info sample-panel" id="kidsEduSampleCard" style="margin-top:12px">
    <summary><span class="sample-title">ⓘ 孩子托育与教育假设 / Kids, childcare & education assumptions</span><span class="pill" id="kidsEduSampleStatus">Loading kids & education CSV…</span></summary>
    <div class="desc" style="margin-top:0">
-    这张表直接从 <code>kids_education_model.csv</code> 读取，里面放的是 0-5 岁托育、美国阶段学校、回国后学校和大学的默认规划假设。这里算的是孩子托育 + 学校 + 大学的总成本，方便你以后单独校准。
+    这张表直接从 <code>assumptions/kids_education_model.csv</code> 读取，里面放的是 0-5 岁托育、美国阶段学校、回国后学校和大学的默认规划假设。这里算的是孩子托育 + 学校 + 大学的总成本，方便你以后单独校准。
    </div>
    <div class="scroll">
     <table>
@@ -613,11 +613,11 @@ canvas{width:100%;height:285px;background:#fff;border-radius:10px}.legend{displa
    <div class="answer">
     这个项目的 GitHub 仓库在这里：<a href="https://github.com/evasun777/fire-planner/tree/main" target="_blank" rel="noopener">github.com/evasun777/fire-planner</a><br><br>
     主要的假设文件都放在仓库根目录：<br>
-    <b>ASSUMPTIONS.md</b>：主假设说明和口径总表<br>
-    <b>tax_assumptions.json</b>：税率估算的结构化数据<br>
-    <b>city_food_spend_model.csv</b>：城市吃饭成本样本<br>
-    <b>city_housing_model.csv</b>：城市住房成本假设<br>
-    <b>kids_education_model.csv</b>：孩子与教育假设
+    <b>assumptions/ASSUMPTIONS.md</b>：主假设说明和口径总表<br>
+    <b>assumptions/tax_assumptions.json</b>：税率估算的结构化数据<br>
+    <b>assumptions/city_food_spend_model.csv</b>：城市吃饭成本样本<br>
+    <b>assumptions/city_housing_model.csv</b>：城市住房成本假设<br>
+    <b>assumptions/kids_education_model.csv</b>：孩子与教育假设
    </div>
   </details>
  </div>

@@ -36,9 +36,9 @@ const S={scope:'family',kids:2,childBirthAge:32,childBirthAgeManual:true,childca
  const $=id=>document.getElementById(id),$$=sel=>document.querySelectorAll(sel),n=id=>Number($(id).value)||0;
  const money=x=>(x<0?'−':'')+'$'+Math.round(Math.abs(x)).toLocaleString('en-US'),compact=x=>(x<0?'−':'')+'$'+(Math.abs(x)/1e6).toFixed(2)+'M';
  const CITY_ORDER=['bay','nyc','seattle','losangeles','dallas','shanghai','hangzhou','suzhou','chengdu','kunming','dali','haikou','taiyuan'];
-const FOOD_SAMPLE_URL='city_food_spend_model.csv';
-const HOUSING_SAMPLE_URL='city_housing_model.csv';
-const KIDS_EDU_SAMPLE_URL='kids_education_model.csv';
+const FOOD_SAMPLE_URL='assumptions/city_food_spend_model.csv';
+const HOUSING_SAMPLE_URL='assumptions/city_housing_model.csv';
+const KIDS_EDU_SAMPLE_URL='assumptions/kids_education_model.csv';
 let FOOD_SAMPLE_ROWS=[];
 let FOOD_SAMPLE_BY_KEY={};
 let FOOD_SAMPLE_STATUS='Loading sample CSV…';
@@ -386,10 +386,10 @@ function cityResource(c){
     ? 'Source: your Bay Area baseline input + the dashboard planning coefficients.'
     : '来源：你的湾区基准输入 + 本页面的城市规划系数。';
   return S.lang==='zh'
-     ? `资料：<a href="./ASSUMPTIONS.md" target="_blank" rel="noopener">ASSUMPTIONS.md</a> · 当前地点基础生活费 ${base}/年 × 城市${factorText} = 该城市固定生活费。<br>${sourceText}<br>这套地点假设也会影响下面的退休住房默认值。`
+     ? `资料：<a href="./assumptions/ASSUMPTIONS.md" target="_blank" rel="noopener">ASSUMPTIONS.md</a> · 当前地点基础生活费 ${base}/年 × 城市${factorText} = 该城市固定生活费。<br>${sourceText}<br>这套地点假设也会影响下面的退休住房默认值。`
      : S.lang==='en'
-       ? `Resource: <a href="./ASSUMPTIONS.md" target="_blank" rel="noopener">ASSUMPTIONS.md</a> · Current city baseline living cost ${base}/yr × city ${factorText} = this city's fixed living cost.<br>${sourceText}<br>This location assumption also feeds the retirement housing defaults below.`
-       : `资料：<a href="./ASSUMPTIONS.md" target="_blank" rel="noopener">ASSUMPTIONS.md</a> · 当前地点基础生活费 ${base}/年 × 城市系数 ${factorText} = 该城市固定生活费。<br>${sourceText}<br>这套地点假设也会影响下面的退休住房默认值。`;
+       ? `Resource: <a href="./assumptions/ASSUMPTIONS.md" target="_blank" rel="noopener">ASSUMPTIONS.md</a> · Current city baseline living cost ${base}/yr × city ${factorText} = this city's fixed living cost.<br>${sourceText}<br>This location assumption also feeds the retirement housing defaults below.`
+       : `资料：<a href="./assumptions/ASSUMPTIONS.md" target="_blank" rel="noopener">ASSUMPTIONS.md</a> · 当前地点基础生活费 ${base}/年 × 城市系数 ${factorText} = 该城市固定生活费。<br>${sourceText}<br>这套地点假设也会影响下面的退休住房默认值。`;
 }
 function cityFoodResource(c){
   const row=cityFoodSample(c);
@@ -661,10 +661,10 @@ function updateSpendingSummaryMeters(){
   const taxAssumptionInfo=$('taxAssumptionInfo');
   if(taxAssumptionInfo) taxAssumptionInfo.innerHTML=S.lang==='en'
     ? `Auto mode: federal and payroll taxes use the current planning brackets; California uses a bracketed estimate. Other states use a planning-level state-income-tax approximation, not a full state filing engine. If you already know your real effective tax rate, switch to “manual effective tax rate”.<br><br>
-Structured reference: <a href="./tax_assumptions.json" target="_blank" rel="noopener">tax_assumptions.json</a><br><br>
+Structured reference: <a href="./assumptions/tax_assumptions.json" target="_blank" rel="noopener">tax_assumptions.json</a><br><br>
 States with no personal income tax (TX / WA / FL) are treated as 0 state income tax. This does not include 401(k), HSA, itemized deductions, AMT, NIIT, capital-gains timing, RSUs, or other personalized items.`
     : `自动模式：Federal 与 payroll tax 使用现有规划税档；California 使用分档估算。其他州目前使用规划级的州所得税近似，并不是逐州报税引擎。若你知道自己的实际 effective tax rate，建议切换“手动有效税率”。<br><br>
-    结构化数据：<a href="./tax_assumptions.json" target="_blank" rel="noopener">tax_assumptions.json</a><br><br>
+    结构化数据：<a href="./assumptions/tax_assumptions.json" target="_blank" rel="noopener">tax_assumptions.json</a><br><br>
     无州个人所得税州（TX / WA / FL）按州所得税 0 处理。未计入 401(k)、HSA、itemized deductions、AMT、NIIT、capital gains、RSU timing 等个性化项目。`;
   const bayBaseDesc=$('bayBaseSpendDesc');
   if(bayBaseDesc) bayBaseDesc.textContent=livingBaseSpendDescText();
@@ -915,7 +915,7 @@ States with no personal income tax (TX / WA / FL) are treated as 0 state income 
     faqCards[4].querySelector('summary').textContent='Where does the medical assumption come from?';
     faqCards[4].querySelector('.answer').innerHTML='For adults who are working and covered by employer insurance, we now use a more realistic cash-spending estimate: <a href="https://www.kff.org/health-costs/health-policy-101-employer-sponsored-health-insurance/" target="_blank" rel="noopener">KFF 2025 employer-sponsored insurance benchmark</a> shows average employee premium contributions of about $1,440/year; <a href="https://www.kff.org/health-costs/how-much-do-people-with-employer-plans-spend-out-of-pocket-on-cost-sharing/" target="_blank" rel="noopener">KFF 2025 cost-sharing analysis</a> shows average out-of-pocket cost sharing of about $869/year. Together, a working-age adult with normal employer insurance can be planned at roughly <b>$2.3k/year</b>.<br><br>So we now model U.S. working-age medical spending more conservatively but not wildly high: about $2.3k/year for one adult and $4.6k/year for two adults. If there is no employer coverage and you switch to ACA / self-pay, the number can be much higher.';
     faqCards[5].querySelector('summary').textContent='Where are the project files and assumptions?';
-    faqCards[5].querySelector('.answer').innerHTML='The GitHub repo is here: <a href="https://github.com/evasun777/fire-planner/tree/main" target="_blank" rel="noopener">github.com/evasun777/fire-planner</a><br><br>Key files in the repo root:<br><b>ASSUMPTIONS.md</b> - main assumptions and model notes<br><b>tax_assumptions.json</b> - structured tax estimate reference data<br><b>city_food_spend_model.csv</b> - city food-cost samples<br><b>city_housing_model.csv</b> - city housing-cost assumptions<br><b>kids_education_model.csv</b> - kids and education assumptions';
+    faqCards[5].querySelector('.answer').innerHTML='The GitHub repo is here: <a href="https://github.com/evasun777/fire-planner/tree/main" target="_blank" rel="noopener">github.com/evasun777/fire-planner</a><br><br>Key files in the repo:<br><b>assumptions/ASSUMPTIONS.md</b> - main assumptions and model notes<br><b>assumptions/tax_assumptions.json</b> - structured tax estimate reference data<br><b>assumptions/city_food_spend_model.csv</b> - city food-cost samples<br><b>assumptions/city_housing_model.csv</b> - city housing-cost assumptions<br><b>assumptions/kids_education_model.csv</b> - kids and education assumptions';
   }
   const pathAssumptionSummary=$('pathAssumptionSummary');
   if(pathAssumptionSummary) pathAssumptionSummary.textContent=S.lang==='en'
@@ -1117,8 +1117,8 @@ Percentage Difference = (所需税前年收入 − 当前税前年收入) ÷ 当
       ? 'Where are the project files and assumptions?'
       : '项目资源和假设文件在哪？';
     faqDetails[5].querySelector('.answer').innerHTML=S.lang==='en'
-      ? 'The GitHub repo is here: <a href="https://github.com/evasun777/fire-planner/tree/main" target="_blank" rel="noopener">github.com/evasun777/fire-planner</a><br><br>Key files in the repo root:<br><b>ASSUMPTIONS.md</b> - main assumptions and model notes<br><b>tax_assumptions.json</b> - structured tax estimate reference data<br><b>city_food_spend_model.csv</b> - city food-cost samples<br><b>city_housing_model.csv</b> - city housing-cost assumptions<br><b>kids_education_model.csv</b> - kids and education assumptions'
-      : 'GitHub 仓库在这里：<a href="https://github.com/evasun777/fire-planner/tree/main" target="_blank" rel="noopener">github.com/evasun777/fire-planner</a><br><br>仓库根目录里的主要文件：<br><b>ASSUMPTIONS.md</b> - 主假设说明和模型备注<br><b>tax_assumptions.json</b> - 税率估算的结构化参考数据<br><b>city_food_spend_model.csv</b> - 城市吃饭成本样本<br><b>city_housing_model.csv</b> - 城市住房成本假设<br><b>kids_education_model.csv</b> - 孩子与教育假设';
+      ? 'The GitHub repo is here: <a href="https://github.com/evasun777/fire-planner/tree/main" target="_blank" rel="noopener">github.com/evasun777/fire-planner</a><br><br>Key files in the repo:<br><b>assumptions/ASSUMPTIONS.md</b> - main assumptions and model notes<br><b>assumptions/tax_assumptions.json</b> - structured tax estimate reference data<br><b>assumptions/city_food_spend_model.csv</b> - city food-cost samples<br><b>assumptions/city_housing_model.csv</b> - city housing-cost assumptions<br><b>assumptions/kids_education_model.csv</b> - kids and education assumptions'
+      : 'GitHub 仓库在这里：<a href="https://github.com/evasun777/fire-planner/tree/main" target="_blank" rel="noopener">github.com/evasun777/fire-planner</a><br><br>仓库里主要的假设文件都放在 assumptions/ 文件夹：<br><b>assumptions/ASSUMPTIONS.md</b> - 主假设说明和模型备注<br><b>assumptions/tax_assumptions.json</b> - 税率估算的结构化参考数据<br><b>assumptions/city_food_spend_model.csv</b> - 城市吃饭成本样本<br><b>assumptions/city_housing_model.csv</b> - 城市住房成本假设<br><b>assumptions/kids_education_model.csv</b> - 孩子与教育假设';
   }
  }
 function bind(id,key,cast){document.querySelectorAll('#'+id+' button').forEach(b=>b.onclick=()=>{

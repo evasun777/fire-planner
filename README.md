@@ -57,7 +57,7 @@
 
 ## 核心假设摘要
 
-下面是当前版本最重要的规划口径，详细版都汇总在 [`ASSUMPTIONS.md`](./ASSUMPTIONS.md)：
+下面是当前版本最重要的规划口径，详细版都汇总在 [`assumptions/ASSUMPTIONS.md`](./assumptions/ASSUMPTIONS.md)：
 
 ### 1. Household 口径
 
@@ -156,7 +156,7 @@
   - `继续留美`
 - 如果孩子数量是 0，相关学校与育儿选项会隐藏
 - 孩子支出只在对应年龄段计入，不会全程按最高档重复计算
-- `kids_education_model.csv` 作为孩子与教育的结构化参考文件
+- `assumptions/kids_education_model.csv` 作为孩子与教育的结构化参考文件
 
 ### 7. 住房与房贷
 
@@ -232,12 +232,12 @@
 - 当前湾区基础生活费默认约：
   - `$30,000/年`
   - 这套默认拆分来自去年 spending snapshot 的规划型校准
-- `city_food_spend_model.csv`
+- `assumptions/city_food_spend_model.csv`
   - 作为按人头展示的单人 food 样本表
   - 口径和页面里的 `$30/day/person` floor 对齐
-- `city_housing_model.csv`
+- `assumptions/city_housing_model.csv`
   - 作为城市住房成本假设表
-- `ASSUMPTIONS.md`
+- `assumptions/ASSUMPTIONS.md`
   - 作为主假设总说明
 
 ## 怎么本地打开
@@ -276,11 +276,11 @@ python3 -m http.server 8000
 - [`questionnaire.js`](./questionnaire.js): 问答页交互逻辑
 - [`questionnaire.css`](./questionnaire.css): 问答页样式
 - [`thumson.md`](./thumson.md): 架构备忘录和分层说明
-- [`ASSUMPTIONS.md`](./ASSUMPTIONS.md): 当前模型假设和城市资源说明
-- [`city_food_spend_model.csv`](./city_food_spend_model.csv): 城市吃饭成本样本
-- [`city_housing_model.csv`](./city_housing_model.csv): 城市住房成本假设
-- [`kids_education_model.csv`](./kids_education_model.csv): 孩子与教育的结构化规划假设
-- [`tax_assumptions.json`](./tax_assumptions.json): 税率估算的结构化参考数据
+- [`assumptions/ASSUMPTIONS.md`](./assumptions/ASSUMPTIONS.md): 当前模型假设和城市资源说明
+- [`assumptions/city_food_spend_model.csv`](./assumptions/city_food_spend_model.csv): 城市吃饭成本样本
+- [`assumptions/city_housing_model.csv`](./assumptions/city_housing_model.csv): 城市住房成本假设
+- [`assumptions/kids_education_model.csv`](./assumptions/kids_education_model.csv): 孩子与教育的结构化规划假设
+- [`assumptions/tax_assumptions.json`](./assumptions/tax_assumptions.json): 税率估算的结构化参考数据
 
 ## 免责声明
 
@@ -291,5 +291,5 @@ python3 -m http.server 8000
 
 ## 备注
 
-- 如果你改了页面逻辑，最好同步更新 [`ASSUMPTIONS.md`](./ASSUMPTIONS.md)，这样 tooltip、README 和文档会保持一致。
+- 如果你改了页面逻辑，最好同步更新 [`assumptions/ASSUMPTIONS.md`](./assumptions/ASSUMPTIONS.md)，这样 tooltip、README 和文档会保持一致。
 - 如果你想把这个项目进一步做成更适合手机的问答版，可以优先参考 [`questionnaire.html`](./questionnaire.html)。

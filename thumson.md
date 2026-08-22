@@ -83,8 +83,8 @@ HTML 只保留：
 - `dashboard-app.js`：主 dashboard 的渲染和交互脚本
 - `fire-model.js`：问答版共享的轻量模型和计算层
 - `questionnaire.html` / `questionnaire.js` / `questionnaire.css`：手机问答版
-- `ASSUMPTIONS.md`：人能读的主假设说明
-- `city_food_spend_model.csv` / `city_housing_model.csv` / `kids_education_model.csv` / `tax_assumptions.json`：结构化数据源
+- `assumptions/ASSUMPTIONS.md`：人能读的主假设说明
+- `assumptions/city_food_spend_model.csv` / `assumptions/city_housing_model.csv` / `assumptions/kids_education_model.csv` / `assumptions/tax_assumptions.json`：结构化数据源
 
 ## 稳定性原则
 

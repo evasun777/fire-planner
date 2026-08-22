@@ -745,6 +745,30 @@ States with no personal income tax (TX / WA / FL) are treated as 0 state income 
     : (S.lang==='bilingual'
       ? '如果收入不变，从现在到退休平均需要减少的年度支出。 / If income stays unchanged, this is the average annual spending reduction needed from now until retirement.'
       : '如果收入不变，从现在到退休平均需要减少的年度支出。');
+  const consultTitle=$('consultTitle');
+  if(consultTitle) consultTitle.textContent=S.lang==='en'
+    ? 'Wealth management consulting'
+    : (S.lang==='bilingual'
+      ? '财富管理咨询 / Wealth management consulting'
+      : '财富管理咨询');
+  const consultHeadline=$('consultHeadline');
+  if(consultHeadline) consultHeadline.textContent=S.lang==='en'
+    ? 'Want a clearer, faster path to FIRE?'
+    : (S.lang==='bilingual'
+      ? '想更高效地走到财富自由？ / Want a clearer, faster path to FIRE?'
+      : '想更高效地走到财富自由？');
+  const consultDesc=$('consultDesc');
+  if(consultDesc) consultDesc.textContent=S.lang==='en'
+    ? 'If you want help turning income, spending, assets, and timing into a concrete plan, reach out to wealth management consulting for a cleaner roadmap.'
+    : (S.lang==='bilingual'
+      ? '如果你希望把收入、支出、资产和时间线梳理得更清楚，可以联系财富管理咨询，帮助你制定更高效、更明确的财富自由路径。 / If you want help turning income, spending, assets, and timing into a concrete plan, reach out to wealth management consulting for a cleaner roadmap.'
+      : '如果你希望把收入、支出、资产和时间线梳理得更清楚，可以联系财富管理咨询，帮助你制定更高效、更明确的财富自由路径。');
+  const consultPill=$('consultPill');
+  if(consultPill) consultPill.textContent=S.lang==='en'
+    ? 'Contact wealth management consulting'
+    : (S.lang==='bilingual'
+      ? '联系财富管理咨询 / Contact wealth management consulting'
+      : '联系财富管理咨询');
   const livingEditorSummary=$('livingEditorSummary');
   if(livingEditorSummary) livingEditorSummary.textContent=S.lang==='en'
     ? 'ⓘ Adjust spending detail / Edit living breakdown'
